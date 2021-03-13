@@ -11,6 +11,8 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import Page from "src/components/Page";
+import { useAuth } from "src/context/AuthContext";
+import { useAlert } from "src/context/AlertContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +25,13 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginView = () => {
   const classes = useStyles();
+  const { state } = useLocation();
+  const { loading, signed, login, error } = useAuth();
+  const alert = useAlert();
+
+  if (!loading && signed) {
+    return <Redirect to={state ? state.from : "/dashboard"} />;
+  }
 
   return (
     <Page className={classes.root} title="Login">
@@ -45,8 +54,11 @@ const LoginView = () => {
                 .required("Email is required"),
               password: Yup.string().max(255).required("Password is required"),
             })}
-            onSubmit={() => {
-              window.alert("submitted!");
+            onSubmit={async (user) => {
+              const err = await login(user.email, user.password);
+              if (err) {
+                alert("error", "Ocorreu um erro na sua solicitação.");
+              }
             }}
           >
             {({

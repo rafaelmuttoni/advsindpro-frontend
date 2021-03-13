@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import * as auth from 'src/services/auth';
-import api from 'src/services/api';
+import React, { createContext, useContext, useEffect, useState } from "react";
+import * as auth from "src/services/auth";
+import api from "src/services/api";
 
 const AuthContext = createContext();
 
@@ -22,21 +22,21 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       try {
         const { data } = await auth.verifyToken(token);
-        api.defaults.headers['Authorization'] = `Bearer ${data.token}`;
-        localStorage.setItem('userToken', data.refreshToken);
+        api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
+        localStorage.setItem("userToken", data.refreshToken);
         // set user in state
-        const response = await api.get('/users');
+        const response = await api.get("/users");
         setUser(response.data);
         setLoading(false);
       } catch (err) {
         setError(err);
         setLoading(false);
-        localStorage.removeItem('userToken');
+        localStorage.removeItem("userToken");
         return;
       }
     };
 
-    const refreshToken = localStorage.getItem('userToken');
+    const refreshToken = localStorage.getItem("userToken");
     if (refreshToken) {
       loadStorageData(refreshToken);
     }
@@ -50,10 +50,10 @@ export const AuthProvider = ({ children }) => {
     try {
       const { data } = await auth.login(identifier, password);
       // add token to api requests and to localstorage
-      api.defaults.headers['Authorization'] = `Bearer ${data.token}`;
-      localStorage.setItem('userToken', data.refreshToken);
+      api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
+      localStorage.setItem("userToken", data.refreshToken);
       // set user in state
-      const response = await api.get('/users');
+      const response = await api.get("/users");
       setUser(response.data);
       setLoading(false);
     } catch (err) {
@@ -65,8 +65,8 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('userToken');
-    delete api.defaults.headers['Authorization'];
+    localStorage.removeItem("userToken");
+    delete api.defaults.headers["Authorization"];
   };
 
   const register = async (username, email, password) => {
@@ -77,8 +77,8 @@ export const AuthProvider = ({ children }) => {
       // set user in state and add to localstorage
       setUser(data.user);
       // add token to api requests and to localstorage
-      api.defaults.headers['Authorization'] = `Bearer ${data.token}`;
-      localStorage.setItem('userToken', data.refreshToken);
+      api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
+      localStorage.setItem("userToken", data.refreshToken);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -95,7 +95,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         register,
         loading,
-        error
+        error,
       }}
     >
       {children}
