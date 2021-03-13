@@ -2,12 +2,10 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
 import DashboardLayout from "src/layouts/DashboardLayout";
-// import { useAuth } from 'src/context/AuthContext';
+import { useAuth } from "src/context/AuthContext";
 
 const ProtectedRoute = ({ children, ...rest }) => {
-  // const { signed } = useAuth();
-
-  const signed = true;
+  const { signed } = useAuth();
 
   return (
     <Route

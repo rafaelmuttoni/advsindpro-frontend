@@ -1,23 +1,32 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 
-import ProtectedRoute from './ProtectedRoute';
-import OpenRoute from './OpenRoute';
+import ProtectedRoute from "./ProtectedRoute";
+import OpenRoute from "./OpenRoute";
 
-import LoginView from 'src/views/auth/LoginView';
+import LoginView from "src/views/auth/LoginView";
 
-import DashboardView from 'src/views/reports/DashboardView';
-import ProductListView from 'src/views/product/ProductListView';
-import CustomerListView from 'src/views/customer/CustomerListView';
-import AccountView from 'src/views/account/AccountView';
-import SettingsView from 'src/views/settings/SettingsView';
+import DashboardView from "src/views/reports/DashboardView";
+import ProductListView from "src/views/product/ProductListView";
+import CustomerListView from "src/views/customer/CustomerListView";
+import AccountView from "src/views/account/AccountView";
+import SettingsView from "src/views/settings/SettingsView";
 
-import NotFoundView from 'src/views/errors/NotFoundView';
+import NotFoundView from "src/views/errors/NotFoundView";
 
 export default function Routes() {
   return (
     <Router>
       <Switch>
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
+
         <OpenRoute path="/login">
           <LoginView />
         </OpenRoute>
