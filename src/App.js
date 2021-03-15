@@ -6,6 +6,7 @@ import theme from "src/theme";
 import Routes from "src/routes/index";
 import { AuthProvider } from "./context/AuthContext";
 import { AlertProvider } from "./context/AlertContext";
+import { DataProvider } from "./context/DataContext";
 
 const App = () => {
   return (
@@ -13,7 +14,9 @@ const App = () => {
       <AuthProvider>
         <GlobalStyles />
         <AlertProvider>
-          <Routes />
+          <DataProvider>
+            <Routes />
+          </DataProvider>
         </AlertProvider>
       </AuthProvider>
     </ThemeProvider>
