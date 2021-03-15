@@ -26,7 +26,8 @@ interface DataProps {
 type UpdateDataFn = (method: string, payload: any) => void;
 
 interface DataContextData {
-  data: DataProps;
+  condo: string;
+  data: DataProps | null;
   updateData: UpdateDataFn;
   loading: boolean;
 }
@@ -43,7 +44,8 @@ export const DataProvider = ({ children }: DataProviderProps) => {
   const { user, loading } = useAuth();
   const { alert } = useAlert();
 
-  const [data, setData] = useState({} as DataProps);
+  const [data, setData] = useState<DataProps | null>(null);
+  const [condo, setCondo] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,8 +65,10 @@ export const DataProvider = ({ children }: DataProviderProps) => {
   return (
     <DataContext.Provider
       value={{
+        condo,
         data,
         updateData,
+
         loading,
       }}
     >
