@@ -1,8 +1,37 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
 import * as auth from "src/services/auth";
 import api from "src/services/api";
 
-const AuthContext = createContext();
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+interface UserProps {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+  is_admin: boolean;
+}
+
+type LoginFn = (identifier: string, password: string) => void;
+
+interface AuthContextData {
+  user: UserProps | null;
+  signed: boolean;
+  login: LoginFn;
+  logout: () => void;
+  loading: boolean;
+  error: string | boolean;
+}
+
+const AuthContext = createContext({} as AuthContextData);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -10,15 +39,15 @@ export const useAuth = () => {
   return context;
 };
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+export const AuthProvider = ({ children }: AuthProviderProps) => {
+  const [user, setUser] = useState<UserProps | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const signed = !!user;
 
   useEffect(() => {
-    const loadStorageData = async (token) => {
+    const loadStorageData = async (token: string) => {
       setLoading(true);
       try {
         const { data } = await auth.verifyToken(token);
@@ -42,10 +71,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const later = (delay, value) =>
-    new Promise((resolve) => setTimeout(resolve, delay, value));
-
-  const login = async (identifier, password) => {
+  const login: LoginFn = async (identifier, password) => {
     setLoading(true);
     try {
       const { data } = await auth.login(identifier, password);
@@ -59,7 +85,6 @@ export const AuthProvider = ({ children }) => {
     } catch (err) {
       setLoading(false);
       setError(err);
-      return err;
     }
   };
 
@@ -69,23 +94,6 @@ export const AuthProvider = ({ children }) => {
     delete api.defaults.headers["Authorization"];
   };
 
-  const register = async (username, email, password) => {
-    setLoading(true);
-    try {
-      await later(1000);
-      const { data } = await auth.register(username, email, password);
-      // set user in state and add to localstorage
-      setUser(data.user);
-      // add token to api requests and to localstorage
-      api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
-      localStorage.setItem("userToken", data.refreshToken);
-      setLoading(false);
-    } catch (err) {
-      setLoading(false);
-      setError(err);
-    }
-  };
-
   return (
     <AuthContext.Provider
       value={{
@@ -93,7 +101,6 @@ export const AuthProvider = ({ children }) => {
         signed,
         login,
         logout,
-        register,
         loading,
         error,
       }}
