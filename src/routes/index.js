@@ -11,7 +11,7 @@ import OpenRoute from "./OpenRoute";
 
 import LoginView from "src/views/auth/LoginView";
 
-import ProductListView from "src/views/product/ProductListView";
+import HomeView from "src/views/home";
 import CustomerListView from "src/views/customer/CustomerListView";
 import SettingsView from "src/views/settings/SettingsView";
 
@@ -26,7 +26,7 @@ export default function Routes() {
         </OpenRoute>
 
         <ProtectedRoute exact path="/">
-          <ProductListView />
+          <HomeView />
         </ProtectedRoute>
         <ProtectedRoute path="/calendar">
           <CustomerListView />

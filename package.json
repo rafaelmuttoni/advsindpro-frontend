@@ -26,9 +26,11 @@
     ]
   },
   "dependencies": {
+    "@date-io/moment": "1.x",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
+    "@material-ui/pickers": "^3.3.10",
     "@material-ui/styles": "^4.10.0",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.34",
@@ -37,7 +39,7 @@
     "axios": "^0.21.1",
     "chart.js": "^2.9.4",
     "clsx": "^1.1.1",
-    "formik": "^2.1.5",
+    "formik": "^2.2.6",
     "history": "^5.0.0",
     "lodash": "^4.17.19",
     "moment": "^2.27.0",
