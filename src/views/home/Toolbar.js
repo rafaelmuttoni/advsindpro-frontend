@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import clsx from "clsx";
 import {
   Box,
   Button,
@@ -25,12 +23,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Toolbar = ({ className, ...rest }) => {
+const Toolbar = ({ filter, setFilter }) => {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={clsx(classes.root, className)} {...rest}>
+    <>
       <Box display="flex" justifyContent="flex-start">
         <Button
           color="primary"
@@ -57,18 +55,16 @@ const Toolbar = ({ className, ...rest }) => {
                 }}
                 placeholder="Procurar condomínio"
                 variant="outlined"
+                value={filter}
+                onChange={({ target }) => setFilter(target.value)}
               />
             </Box>
           </CardContent>
         </Card>
       </Box>
       <CondoModal open={isOpen} close={() => setIsOpen(false)} />
-    </div>
+    </>
   );
-};
-
-Toolbar.propTypes = {
-  className: PropTypes.string,
 };
 
 export default Toolbar;
