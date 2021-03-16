@@ -13,13 +13,14 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import {
-  AlertCircle as AlertCircleIcon,
-  BarChart as BarChartIcon,
-  Lock as LockIcon,
+  Calendar as CalendarIcon,
+  DollarSign as DollarIcon,
+  DollarSign,
+  Home as HomeIcon,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
+  Tag as TagIcon,
   User as UserIcon,
-  UserPlus as UserPlusIcon,
   Users as UsersIcon,
 } from "react-feather";
 import NavItem from "./NavItem";
@@ -32,44 +33,34 @@ const user = {
 
 const items = [
   {
-    href: "/dashboard",
-    icon: BarChartIcon,
-    title: "Dashboard",
+    href: "/",
+    icon: HomeIcon,
+    title: "Início",
   },
   {
-    href: "/customers",
+    href: "/calendar",
+    icon: CalendarIcon,
+    title: "Agenda",
+  },
+  {
+    href: "/residents",
     icon: UsersIcon,
-    title: "Customers",
+    title: "Condôminos",
   },
   {
-    href: "/products",
-    icon: ShoppingBagIcon,
-    title: "Products",
+    href: "/providers",
+    icon: TagIcon,
+    title: "Prestadores",
   },
   {
-    href: "/account",
-    icon: UserIcon,
-    title: "Account",
+    href: "/debts",
+    icon: DollarSign,
+    title: "Previdências",
   },
   {
     href: "/settings",
     icon: SettingsIcon,
-    title: "Settings",
-  },
-  {
-    href: "/login",
-    icon: LockIcon,
-    title: "Login",
-  },
-  {
-    href: "/register",
-    icon: UserPlusIcon,
-    title: "Register",
-  },
-  {
-    href: "/404",
-    icon: AlertCircleIcon,
-    title: "Error",
+    title: "Configurações",
   },
 ];
 
