@@ -32,17 +32,19 @@ const Results = ({ residents }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Name</TableCell>
+                <TableCell>Nome</TableCell>
+                <TableCell>Condomínio</TableCell>
+                <TableCell>Telefone</TableCell>
                 <TableCell>Email</TableCell>
-                <TableCell>Location</TableCell>
-                <TableCell>Phone</TableCell>
-                <TableCell>Registration date</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {residents.slice(0, limit).map((resident) => (
-                <ResidentRow key={resident.id} resident={resident} />
-              ))}
+              {residents
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .slice(limit * page, limit * (page + 1))
+                .map((resident) => (
+                  <ResidentRow key={resident.id} resident={resident} />
+                ))}
             </TableBody>
           </Table>
         </Box>
@@ -55,6 +57,10 @@ const Results = ({ residents }) => {
         page={page}
         rowsPerPage={limit}
         rowsPerPageOptions={[5, 10, 25]}
+        labelRowsPerPage="Linhas"
+        labelDisplayedRows={({ from, to, count }) =>
+          `${from} a ${to} de ${count}`
+        }
       />
     </Card>
   );

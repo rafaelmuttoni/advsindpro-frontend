@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 
 import getInitials from "src/utils/getInitials";
+import { useData } from "src/context/DataContext";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -17,26 +18,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ResidentRow = ({ customer }) => {
+const ResidentRow = ({ resident }) => {
   const classes = useStyles();
+  const { data } = useData();
+
+  const { name: condoName } = data.condos.find(
+    (condo) => condo.id === resident.condo_id
+  );
+
   return (
-    <TableRow hover key={customer.id}>
+    <TableRow hover key={resident.id}>
       <TableCell>
         <Box alignItems="center" display="flex">
-          <Avatar className={classes.avatar} src={customer.avatarUrl}>
-            {getInitials(customer.name)}
+          <Avatar className={classes.avatar}>
+            {getInitials(resident.name)}
           </Avatar>
           <Typography color="textPrimary" variant="body1">
-            {customer.name}
+            {resident.name}
           </Typography>
         </Box>
       </TableCell>
-      <TableCell>{customer.email}</TableCell>
+      <TableCell>{condoName}</TableCell>
       <TableCell>
-        {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+        {resident.phone ? resident.phone : <i>Não informado</i>}
       </TableCell>
-      <TableCell>{customer.phone}</TableCell>
-      <TableCell>{moment(customer.createdAt).format("DD/MM/YYYY")}</TableCell>
+      <TableCell>
+        {resident.email ? resident.email : <i>Não informado</i>}
+      </TableCell>
     </TableRow>
   );
 };

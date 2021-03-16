@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Box, Container, makeStyles } from "@material-ui/core";
 
 import Page from "src/components/Page";
-import Results from "./Results";
 import Toolbar from "src/components/Toolbar";
-
 import { useData } from "src/context/DataContext";
+
+import Results from "./Results";
+import ResidentModal from "./ResidentModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +21,9 @@ const ResidentsView = () => {
   const classes = useStyles();
   const { data } = useData();
 
+  const [editingResident, setEditingResident] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [filter, setFilter] = useState("");
 
   const filteredResidents = data
@@ -29,6 +33,11 @@ const ResidentsView = () => {
       })
     : [];
 
+  const closeModal = () => {
+    setEditingResident(false);
+    setIsModalOpen(false);
+  };
+
   return (
     <Page className={classes.root} title="Condôminos">
       <Container maxWidth={false}>
@@ -36,12 +45,17 @@ const ResidentsView = () => {
           name="Condômino"
           filter={filter}
           setFilter={setFilter}
-          openModal={() => window.alert("ok")}
+          openModal={setIsModalOpen}
         />
         <Box mt={3}>
           <Results residents={filteredResidents} />
         </Box>
       </Container>
+      <ResidentModal
+        open={isModalOpen}
+        close={closeModal}
+        editingResident={editingResident}
+      />
     </Page>
   );
 };
