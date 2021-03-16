@@ -1,38 +1,9 @@
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  createContext,
-  ReactNode,
-} from "react";
+import React, { useState, useEffect, useContext, createContext } from "react";
 import api from "src/services/api";
 import { useAlert } from "./AlertContext";
 import { useAuth } from "./AuthContext";
 
-interface DataProviderProps {
-  children: ReactNode;
-}
-
-interface DataProps {
-  condos: [];
-  indices: [];
-  providers: [];
-  services: [];
-  events: [];
-  residents: [];
-  debts: [];
-}
-
-type UpdateDataFn = (method: string, payload: any) => void;
-
-interface DataContextData {
-  condo: string;
-  data: DataProps | null;
-  updateData: UpdateDataFn;
-  loading: boolean;
-}
-
-const DataContext = createContext({} as DataContextData);
+const DataContext = createContext();
 
 export const useData = () => {
   const context = useContext(DataContext);
@@ -40,11 +11,11 @@ export const useData = () => {
   return context;
 };
 
-export const DataProvider = ({ children }: DataProviderProps) => {
+export const DataProvider = ({ children }) => {
   const { user, loading } = useAuth();
   const { alert } = useAlert();
 
-  const [data, setData] = useState<DataProps | null>(null);
+  const [data, setData] = useState(null);
   const [condo, setCondo] = useState("");
 
   useEffect(() => {
@@ -60,7 +31,13 @@ export const DataProvider = ({ children }: DataProviderProps) => {
     user && fetchData();
   }, [user]);
 
-  const updateData: UpdateDataFn = (method, payload) => {};
+  const updateData = (method, payload) => {
+    if (method === "addCondo") {
+      const dataCopy = { ...data };
+      dataCopy.condos?.push(payload);
+      setData(dataCopy);
+    }
+  };
 
   return (
     <DataContext.Provider

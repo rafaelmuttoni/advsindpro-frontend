@@ -13,29 +13,39 @@ import moment from "moment";
 import { DatePicker } from "@material-ui/pickers";
 
 import { useAlert } from "src/context/AlertContext";
+import { useData } from "src/context/DataContext";
+import api from "src/services/api";
 
 const CondoModal = ({ open, close }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const { alert } = useAlert();
+  const { updateData } = useData();
 
-  const [form, setForm] = useState({
-    name: "",
-    code: "",
-    address: "",
-    initial_date: moment().format(),
-  });
+  const [form, setForm] = useState({ initial_date: moment().format() });
+  const [date, setDate] = useState(moment().format());
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (target) => {
+    const { name, value } = target;
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
+    const { energy, water, gas, ...rest } = form;
 
-    // 1. FOrmat Date
-    // 2. ADd water, energy and gas to extra
+    const parsedForm = {
+      ...rest,
+      extra: JSON.stringify({ energy, water, gas }),
+    };
+
+    try {
+      const { data } = await api.post("/condos", parsedForm);
+      updateData("addCondo", data);
+      alert();
+    } catch (err) {
+      alert("Ocorreu um erro na sua solicitação", "error");
+    }
   };
 
   return (
@@ -48,18 +58,19 @@ const CondoModal = ({ open, close }) => {
             label="Razão Social"
             margin="normal"
             name="name"
-            onChange={handleChange}
+            onChange={({ target }) => handleChange(target)}
             type="text"
-            value={form.name}
+            value={form.name || ""}
             variant="outlined"
+            required
           />
           <TextField
             fullWidth
             label="CNPJ"
             margin="normal"
             name="code"
-            onChange={handleChange}
-            value={form.code}
+            onChange={({ target }) => handleChange(target)}
+            value={form.code || ""}
             variant="outlined"
           />
           <TextField
@@ -67,9 +78,10 @@ const CondoModal = ({ open, close }) => {
             label="Endereço"
             margin="normal"
             name="address"
-            onChange={handleChange}
-            value={form.address}
+            onChange={({ target }) => handleChange(target)}
+            value={form.address || ""}
             variant="outlined"
+            required
           />
           <DatePicker
             fullWidth
@@ -77,17 +89,24 @@ const CondoModal = ({ open, close }) => {
             format="LL"
             margin="normal"
             name="initial_date"
-            onChange={(date) => setForm({ ...form, initial_date: date })}
-            value={form.initial_date}
+            onChange={(dateTime) => {
+              setDate(dateTime);
+              let date = {};
+              date.value = dateTime.format();
+              date.name = "initial_date";
+              handleChange(date);
+            }}
+            value={date}
             inputVariant="outlined"
+            required
           />
           <TextField
             fullWidth
             label="Número da UC (CEEE/RGE)"
             margin="normal"
             name="energy"
-            onChange={handleChange}
-            value={form.energy}
+            onChange={({ target }) => handleChange(target)}
+            value={form.energy || ""}
             variant="outlined"
           />
           <TextField
@@ -95,8 +114,8 @@ const CondoModal = ({ open, close }) => {
             label="Ramal de água (DMAE/Corsan)"
             margin="normal"
             name="water"
-            onChange={handleChange}
-            value={form.water}
+            onChange={({ target }) => handleChange(target)}
+            value={form.water || ""}
             variant="outlined"
           />
           <TextField
@@ -104,8 +123,8 @@ const CondoModal = ({ open, close }) => {
             label="Código do cliente (Cia de gás)"
             margin="normal"
             name="gas"
-            onChange={handleChange}
-            value={form.gas}
+            onChange={({ target }) => handleChange(target)}
+            value={form.gas || ""}
             variant="outlined"
           />
         </DialogContent>
