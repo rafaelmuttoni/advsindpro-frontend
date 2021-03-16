@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Button,
@@ -11,8 +11,6 @@ import {
 } from "@material-ui/core";
 import { Search as SearchIcon } from "react-feather";
 
-import CondoModal from "./CondoModal";
-
 const useStyles = makeStyles((theme) => ({
   root: {},
   importButton: {
@@ -23,18 +21,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Toolbar = ({ filter, setFilter }) => {
+const Toolbar = ({ filter, setFilter, openModal }) => {
   const classes = useStyles();
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
       <Box display="flex" justifyContent="flex-start">
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={() => setIsOpen(true)}
-        >
+        <Button color="primary" variant="contained" onClick={openModal}>
           Adicionar Condomínio
         </Button>
       </Box>
@@ -62,7 +55,6 @@ const Toolbar = ({ filter, setFilter }) => {
           </CardContent>
         </Card>
       </Box>
-      <CondoModal open={isOpen} close={() => setIsOpen(false)} />
     </>
   );
 };

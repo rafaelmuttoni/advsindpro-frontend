@@ -34,7 +34,14 @@ export const DataProvider = ({ children }) => {
   const updateData = (method, payload) => {
     if (method === "addCondo") {
       const dataCopy = { ...data };
-      dataCopy.condos?.push(payload);
+      dataCopy.condos.push(payload);
+      setData(dataCopy);
+    }
+
+    if (method === "updateCondo") {
+      const dataCopy = { ...data };
+      const condoIndex = data.condos.findIndex((c) => c.id === payload.id);
+      dataCopy.condos.splice(condoIndex, 1, payload);
       setData(dataCopy);
     }
   };

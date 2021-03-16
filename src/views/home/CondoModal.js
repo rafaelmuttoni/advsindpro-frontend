@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   TextField,
@@ -16,7 +16,7 @@ import { useAlert } from "src/context/AlertContext";
 import { useData } from "src/context/DataContext";
 import api from "src/services/api";
 
-const CondoModal = ({ open, close }) => {
+const CondoModal = ({ open, close, editingCondo }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { alert } = useAlert();
@@ -25,6 +25,15 @@ const CondoModal = ({ open, close }) => {
   const [form, setForm] = useState({ initial_date: moment().format() });
   const [date, setDate] = useState(moment().format());
 
+  const closeAndClear = () => {
+    setForm({ initial_date: moment().format() });
+    close();
+  };
+
+  useEffect(() => {
+    !!editingCondo && setForm(editingCondo);
+  }, [editingCondo]);
+
   const handleChange = (target) => {
     const { name, value } = target;
     setForm({ ...form, [name]: value });
@@ -32,26 +41,27 @@ const CondoModal = ({ open, close }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { energy, water, gas, ...rest } = form;
-
-    const parsedForm = {
-      ...rest,
-      extra: JSON.stringify({ energy, water, gas }),
-    };
 
     try {
-      const { data } = await api.post("/condos", parsedForm);
-      updateData("addCondo", data);
+      const { data } = !!editingCondo
+        ? await api.patch("/condos", form)
+        : await api.post("/condos", form);
+      !!editingCondo
+        ? updateData("updateCondo", data)
+        : updateData("addCondo", data);
       alert();
+      closeAndClear();
     } catch (err) {
       alert("Ocorreu um erro na sua solicitação", "error");
     }
   };
 
   return (
-    <Dialog open={open} onClose={close} fullScreen={fullScreen}>
+    <Dialog open={open} onClose={closeAndClear} fullScreen={fullScreen}>
       <form onSubmit={handleSubmit}>
-        <DialogTitle>Novo Condomínio</DialogTitle>
+        <DialogTitle>
+          {!!editingCondo ? "Editando" : "Novo"} Condomínio
+        </DialogTitle>
         <DialogContent>
           <TextField
             fullWidth
@@ -129,7 +139,7 @@ const CondoModal = ({ open, close }) => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={close} color="primary">
+          <Button onClick={closeAndClear} color="primary">
             Cancelar
           </Button>
           <Button type="submit" color="primary" variant="contained">
