@@ -33,7 +33,9 @@ const Results = ({ residents }) => {
             <TableHead>
               <TableRow>
                 <TableCell>Nome</TableCell>
+                <TableCell>CPF</TableCell>
                 <TableCell>Condomínio</TableCell>
+                <TableCell>Endereço</TableCell>
                 <TableCell>Telefone</TableCell>
                 <TableCell>Email</TableCell>
               </TableRow>

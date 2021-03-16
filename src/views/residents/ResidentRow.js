@@ -38,7 +38,13 @@ const ResidentRow = ({ resident }) => {
           </Typography>
         </Box>
       </TableCell>
+      <TableCell>
+        {resident.document ? resident.document : <i>Não informado</i>}
+      </TableCell>
       <TableCell>{condoName}</TableCell>
+      <TableCell>
+        {resident.address ? resident.address : <i>Não informado</i>}
+      </TableCell>
       <TableCell>
         {resident.phone ? resident.phone : <i>Não informado</i>}
       </TableCell>
