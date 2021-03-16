@@ -21,14 +21,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Toolbar = ({ filter, setFilter, openModal }) => {
+const Toolbar = ({ name, filter, setFilter, openModal }) => {
   const classes = useStyles();
 
   return (
     <>
       <Box display="flex" justifyContent="flex-start">
         <Button color="primary" variant="contained" onClick={openModal}>
-          Adicionar Condomínio
+          Adicionar {name}
         </Button>
       </Box>
       <Box mt={3}>
@@ -46,7 +46,7 @@ const Toolbar = ({ filter, setFilter, openModal }) => {
                     </InputAdornment>
                   ),
                 }}
-                placeholder="Procurar condomínio"
+                placeholder={`Procurar ${name}`}
                 variant="outlined"
                 value={filter}
                 onChange={({ target }) => setFilter(target.value)}

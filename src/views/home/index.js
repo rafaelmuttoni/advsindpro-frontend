@@ -3,7 +3,7 @@ import { Box, Container, Grid, makeStyles } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 
 import Page from "src/components/Page";
-import Toolbar from "./Toolbar";
+import Toolbar from "src/components/Toolbar";
 import CondoCard from "./CondoCard";
 import CondoModal from "./CondoModal";
 
@@ -52,6 +52,7 @@ const HomeView = () => {
     <Page className={classes.root} title="Products">
       <Container maxWidth={false}>
         <Toolbar
+          name="Condomínio"
           filter={filter}
           setFilter={setFilter}
           openModal={setIsModalOpen}
