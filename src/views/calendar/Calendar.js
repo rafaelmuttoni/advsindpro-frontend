@@ -31,6 +31,19 @@ const Calendar = () => {
     listYear: "Ano",
   };
 
+  const views = {
+    week: {
+      eventLimit: 3,
+    },
+  };
+
+  const eventTimeFormat = {
+    hour: "numeric",
+    minute: "2-digit",
+    omitZeroMinute: true,
+    meridiem: true,
+  };
+
   return (
     <FullCalendar
       ref={calendarRef}
@@ -46,6 +59,9 @@ const Calendar = () => {
       eventClick={handleEventClick}
       events={events}
       buttonText={buttonText}
+      views={views}
+      eventTimeFormat={eventTimeFormat}
+      height={800}
     />
   );
 };

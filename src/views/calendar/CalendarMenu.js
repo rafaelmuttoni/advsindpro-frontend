@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, makeStyles, Menu, MenuItem } from "@material-ui/core";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { useCalendar } from "./CalendarContext";
 
 const useStyles = makeStyles((theme) => ({
@@ -61,6 +62,7 @@ const CalendarMenu = ({ setTitle }) => {
         className={classes.button}
         variant="contained"
         color="primary"
+        endIcon={<KeyboardArrowDownIcon />}
       >
         {currentFilter}
       </Button>

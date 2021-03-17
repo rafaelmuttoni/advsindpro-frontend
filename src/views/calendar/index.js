@@ -37,21 +37,6 @@ const CalendarView = () => {
 
   const [title, setTitle] = useState("");
 
-  const eventTimeFormat = {
-    hour: "numeric",
-    minute: "2-digit",
-    omitZeroMinute: true,
-    meridiem: true,
-  };
-
-  const viewName = ["Mês", "Semana", "Dia", "Lista", "Ano"];
-
-  const views = {
-    week: {
-      eventLimit: 3,
-    },
-  };
-
   return (
     <Page className={classes.root} title="Agenda">
       <Container maxWidth={false}>
