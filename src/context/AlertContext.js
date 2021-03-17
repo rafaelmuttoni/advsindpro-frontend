@@ -2,27 +2,7 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import { Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 
-interface AlertProviderProps {
-  children: ReactNode;
-}
-
-type Severity = "success" | "info" | "warning" | "error";
-
-type AlertFunction = (msg: string, type: Severity) => void;
-
-interface AlertContextData {
-  alert: AlertFunction;
-}
-
-interface MessageProps {
-  open: boolean;
-  text: string;
-  severity: Severity;
-  time?: number;
-  action?: string;
-}
-
-const AlertContext = createContext({} as AlertContextData);
+const AlertContext = createContext();
 
 export const useAlert = () => {
   const context = useContext(AlertContext);
@@ -30,14 +10,14 @@ export const useAlert = () => {
   return context;
 };
 
-export const AlertProvider = ({ children }: AlertProviderProps) => {
+export const AlertProvider = ({ children }) => {
   const [message, setMessage] = useState({
     open: false,
     text: "Sucesso!",
     severity: "success",
-  } as MessageProps);
+  });
 
-  const alert: AlertFunction = (msg, type) => {
+  const alert = (msg, type) => {
     setMessage({
       open: true,
       text: msg ? msg : "Requisição realizada com sucesso",

@@ -8,30 +8,7 @@ import React, {
 import * as auth from "src/services/auth";
 import api from "src/services/api";
 
-interface AuthProviderProps {
-  children: ReactNode;
-}
-
-interface UserProps {
-  id: number;
-  username: string;
-  email: string;
-  password: string;
-  is_admin: boolean;
-}
-
-type LoginFn = (identifier: string, password: string) => void;
-
-interface AuthContextData {
-  user: UserProps | null;
-  signed: boolean;
-  login: LoginFn;
-  logout: () => void;
-  loading: boolean;
-  error: string | boolean;
-}
-
-const AuthContext = createContext({} as AuthContextData);
+const AuthContext = createContext();
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -39,15 +16,15 @@ export const useAuth = () => {
   return context;
 };
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<UserProps | null>(null);
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const signed = !!user;
 
   useEffect(() => {
-    const loadStorageData = async (token: string) => {
+    const loadStorageData = async (token) => {
       setLoading(true);
       try {
         const { data } = await auth.verifyToken(token);
@@ -71,7 +48,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   }, []);
 
-  const login: LoginFn = async (identifier, password) => {
+  const login = async (identifier, password) => {
     setLoading(true);
     try {
       const { data } = await auth.login(identifier, password);
