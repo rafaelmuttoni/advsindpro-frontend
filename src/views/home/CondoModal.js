@@ -47,8 +47,8 @@ const CondoModal = ({ open, close, editingCondo }) => {
         ? await api.patch("/condos", form)
         : await api.post("/condos", form);
       !!editingCondo
-        ? updateData("updateCondo", data)
-        : updateData("addCondo", data);
+        ? updateData("update", "condos", data)
+        : updateData("add", "condos", data);
       alert();
       closeAndClear();
     } catch (err) {

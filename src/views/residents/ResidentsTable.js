@@ -13,7 +13,7 @@ import {
 
 import ResidentRow from "./ResidentRow";
 
-const Results = ({ residents }) => {
+const ResidentsTable = ({ residents, editResident }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
@@ -38,6 +38,7 @@ const Results = ({ residents }) => {
                 <TableCell>Endereço</TableCell>
                 <TableCell>Telefone</TableCell>
                 <TableCell>Email</TableCell>
+                <TableCell>Editar</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -45,7 +46,11 @@ const Results = ({ residents }) => {
                 .sort((a, b) => a.name.localeCompare(b.name))
                 .slice(limit * page, limit * (page + 1))
                 .map((resident) => (
-                  <ResidentRow key={resident.id} resident={resident} />
+                  <ResidentRow
+                    key={resident.id}
+                    resident={resident}
+                    editResident={editResident}
+                  />
                 ))}
             </TableBody>
           </Table>
@@ -68,4 +73,4 @@ const Results = ({ residents }) => {
   );
 };
 
-export default Results;
+export default ResidentsTable;

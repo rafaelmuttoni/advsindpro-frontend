@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Container, makeStyles } from "@material-ui/core";
 
 import Page from "src/components/Page";
 import Toolbar from "src/components/Toolbar";
 import { useData } from "src/context/DataContext";
 
-import Results from "./Results";
+import ResidentsTable from "./ResidentsTable";
 import ResidentModal from "./ResidentModal";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +33,10 @@ const ResidentsView = () => {
       })
     : [];
 
+  useEffect(() => {
+    !!editingResident && setIsModalOpen(true);
+  }, [editingResident]);
+
   const closeModal = () => {
     setEditingResident(false);
     setIsModalOpen(false);
@@ -48,7 +52,10 @@ const ResidentsView = () => {
           openModal={setIsModalOpen}
         />
         <Box mt={3}>
-          <Results residents={filteredResidents} />
+          <ResidentsTable
+            residents={filteredResidents}
+            editResident={setEditingResident}
+          />
         </Box>
       </Container>
       <ResidentModal

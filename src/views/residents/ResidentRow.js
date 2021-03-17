@@ -1,8 +1,8 @@
 import React from "react";
-import moment from "moment";
 import {
   Avatar,
   Box,
+  Button,
   makeStyles,
   TableCell,
   TableRow,
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ResidentRow = ({ resident }) => {
+const ResidentRow = ({ resident, editResident }) => {
   const classes = useStyles();
   const { data } = useData();
 
@@ -50,6 +50,15 @@ const ResidentRow = ({ resident }) => {
       </TableCell>
       <TableCell>
         {resident.email ? resident.email : <i>Não informado</i>}
+      </TableCell>
+      <TableCell>
+        <Button
+          size="small"
+          onClick={() => editResident(resident)}
+          variant="contained"
+        >
+          Editar
+        </Button>
       </TableCell>
     </TableRow>
   );

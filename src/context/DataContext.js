@@ -31,17 +31,17 @@ export const DataProvider = ({ children }) => {
     user && fetchData();
   }, [user]);
 
-  const updateData = (method, payload) => {
-    if (method === "addCondo") {
+  const updateData = (method, category, payload) => {
+    if (method === "add") {
       const dataCopy = { ...data };
-      dataCopy.condos.push(payload);
+      dataCopy[category].push(payload);
       setData(dataCopy);
     }
 
-    if (method === "updateCondo") {
+    if (method === "update") {
       const dataCopy = { ...data };
-      const condoIndex = data.condos.findIndex((c) => c.id === payload.id);
-      dataCopy.condos.splice(condoIndex, 1, payload);
+      const itemIndex = data[category].findIndex((el) => el.id === payload.id);
+      dataCopy[category].splice(itemIndex, 1, payload);
       setData(dataCopy);
     }
   };

@@ -45,8 +45,8 @@ const ResidentModal = ({ open, close, editingResident }) => {
         ? await api.patch("/residents", form)
         : await api.post("/residents", form);
       !!editingResident
-        ? updateData("updateResident", data)
-        : updateData("addResident", data);
+        ? updateData("update", "residents", data)
+        : updateData("add", "residents", data);
       alert();
       closeAndClear();
     } catch (err) {
