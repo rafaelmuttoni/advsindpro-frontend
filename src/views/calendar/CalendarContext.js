@@ -14,6 +14,7 @@ export const CalendarProvider = ({ children }) => {
   // const { data } = useData();
 
   const [events, setEvents] = useState([]);
+  const [calendarApi, setCalendarApi] = useState({});
 
   // useEffect(() => {
   //   setEvents({ events: [] });
@@ -23,6 +24,8 @@ export const CalendarProvider = ({ children }) => {
     <CalendarContext.Provider
       value={{
         events,
+        calendarApi,
+        setCalendarApi,
       }}
     >
       {children}
