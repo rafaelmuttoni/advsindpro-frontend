@@ -12,6 +12,8 @@ import OpenRoute from "./OpenRoute";
 import LoginView from "src/views/auth/LoginView";
 
 import HomeView from "src/views/home";
+import CalendarView from "src/views/calendar";
+import { CalendarProvider } from "src/views/calendar/CalendarContext";
 import ResidentsView from "src/views/residents";
 import SettingsView from "src/views/settings/SettingsView";
 
@@ -29,7 +31,9 @@ export default function Routes() {
           <HomeView />
         </ProtectedRoute>
         <ProtectedRoute path="/calendar">
-          <ResidentsView />
+          <CalendarProvider>
+            <CalendarView />
+          </CalendarProvider>
         </ProtectedRoute>
         <ProtectedRoute path="/residents">
           <ResidentsView />

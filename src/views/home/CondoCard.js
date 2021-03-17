@@ -61,7 +61,7 @@ const CondoCard = ({ condo, editCondo }) => {
         <Box display="flex" justifyContent="center" mb={2}>
           <Avatar
             alt="Condo"
-            variant="circle"
+            variant="circular"
             className={classes.avatar}
             onMouseEnter={() => setIsEditVisible(true)}
             onMouseLeave={() => setIsEditVisible(false)}
