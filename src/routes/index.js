@@ -15,6 +15,7 @@ import HomeView from "src/views/home";
 import CalendarView from "src/views/calendar";
 import { CalendarProvider } from "src/views/calendar/CalendarContext";
 import ResidentsView from "src/views/residents";
+import ProvidersView from "src/views/providers";
 import SettingsView from "src/views/settings/SettingsView";
 
 import NotFoundView from "src/views/errors/NotFoundView";
@@ -37,6 +38,9 @@ export default function Routes() {
         </ProtectedRoute>
         <ProtectedRoute path="/residents">
           <ResidentsView />
+        </ProtectedRoute>
+        <ProtectedRoute path="/providers">
+          <ProvidersView />
         </ProtectedRoute>
         <ProtectedRoute path="/settings">
           <SettingsView />
