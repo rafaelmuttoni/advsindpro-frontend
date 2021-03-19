@@ -9,16 +9,38 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
+  makeStyles,
 } from "@material-ui/core";
 
 import CalendarIcon from "@material-ui/icons/CalendarToday";
 import DescriptionIcon from "@material-ui/icons/Subject";
+import ProviderIcon from "@material-ui/icons/Build";
+import CondoIcon from "@material-ui/icons/HomeWork";
+import PriceIcon from "@material-ui/icons/AttachMoney";
+
+import { useData } from "src/context/DataContext";
+import { parseTitle, parseToReal } from "src/utils/parsers";
+
+const useStyles = makeStyles((theme) => ({
+  title: {
+    fontSize: "1.25rem",
+  },
+  avatar: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    "& svg": {
+      width: theme.spacing(2),
+      height: theme.spacing(2),
+    },
+  },
+}));
 
 const DialogItem = ({ icon, title, value }) => {
+  const classes = useStyles();
   return (
     <ListItem>
       <ListItemAvatar>
-        <Avatar>{icon}</Avatar>
+        <Avatar className={classes.avatar}>{icon}</Avatar>
       </ListItemAvatar>
       <ListItemText primary={title} secondary={value} />
     </ListItem>
@@ -26,24 +48,62 @@ const DialogItem = ({ icon, title, value }) => {
 };
 
 export default function EventDialog({ content, close }) {
+  const classes = useStyles();
+  const { data } = useData();
   const isOpen = Boolean(content);
 
-  const { title, description, start } = content;
+  const {
+    type,
+    title,
+    description,
+    start,
+    price,
+    condo_id,
+    provider_id,
+  } = content;
+
+  const provider = data.providers.find((p) => p.id === provider_id);
+  const condo = data.condos.find((p) => p.id === condo_id);
 
   return (
     <Dialog onClose={close} open={isOpen}>
-      <List>
-        <DialogItem
-          icon={<CalendarIcon />}
-          title={"Data"}
-          value={moment(start).format("LL")}
-        />
-        <DialogItem
-          icon={<DescriptionIcon />}
-          title={"Descrição"}
-          value={description}
-        />
-      </List>
+      <DialogTitle>{title}</DialogTitle>
+      <DialogContent dividers>
+        <List>
+          {condo && (
+            <DialogItem
+              icon={<CondoIcon />}
+              title={"Condomínio"}
+              value={condo.name}
+            />
+          )}
+          <DialogItem
+            icon={<CalendarIcon />}
+            title={"Data"}
+            value={moment(start).format("LL")}
+          />
+          {type === "services" && (
+            <>
+              <DialogItem
+                icon={<ProviderIcon />}
+                title={"Provedor"}
+                value={provider.name}
+              />
+
+              <DialogItem
+                icon={<PriceIcon />}
+                title={"Preço"}
+                value={parseToReal(price)}
+              />
+            </>
+          )}
+          <DialogItem
+            icon={<DescriptionIcon />}
+            title={"Descrição"}
+            value={description}
+          />
+        </List>
+      </DialogContent>
     </Dialog>
   );
 }

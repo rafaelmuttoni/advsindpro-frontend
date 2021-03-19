@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import moment from "moment";
 
 import FullCalendar from "@fullcalendar/react";
 import ptbrLocale from "@fullcalendar/core/locales/pt-br";
@@ -22,8 +23,8 @@ const Calendar = () => {
 
   const handleEventClick = (info) => {
     const { title, start } = info.event;
-    const { description } = info.event.extendedProps;
-    setDialogContent({ title, description, start });
+    const { extendedProps } = info.event;
+    setDialogContent({ title, start, ...extendedProps });
   };
 
   const buttonText = {
@@ -49,7 +50,7 @@ const Calendar = () => {
   };
 
   const parseForCalendar = (data) => {
-    const { condos, events, debts } = data;
+    const { condos, events, services, debts } = data;
 
     // const parsedAppointments = appointments.map(e => ({
     //   id: `appointments - ${e.id}`,
@@ -62,17 +63,29 @@ const Calendar = () => {
     //   className: ['bg-soft-primary']
     // }));
 
-    // const parsedExpenses = expenses.map(e => ({
-    //   id: `expenses - ${e.id}`,
-    //   title: e.name,
-    //   start: moment(e.date).format('YYYY-MM-DD'),
-    //   description: e.description,
-    //   className: ['bg-soft-danger']
-    // }));
+    const parsedEvents = events.map((e) => ({
+      id: `event - ${e.id}`,
+      type: "events",
+      title: e.name,
+      start: moment(e.date).format("YYYY-MM-DD"),
+      description: e.description,
+      condo_id: e.condo_id,
+    }));
+
+    const parsedServices = services.map((e) => ({
+      id: `service - ${e.id}`,
+      type: "services",
+      title: e.name,
+      start: moment(e.date).format("YYYY-MM-DD"),
+      description: e.description,
+      price: e.price,
+      condo_id: e.condo_id,
+      provider_id: e.provider_id,
+    }));
 
     const birthdays = calculateNextBirthdays(condos);
 
-    return [...birthdays];
+    return [...birthdays, ...parsedServices, ...parsedEvents];
   };
 
   return (
