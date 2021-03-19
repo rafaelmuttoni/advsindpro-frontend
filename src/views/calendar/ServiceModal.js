@@ -12,7 +12,7 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import moment from "moment";
-import { DatePicker } from "@material-ui/pickers";
+import { DateTimePicker } from "@material-ui/pickers";
 
 import { useAlert } from "src/context/AlertContext";
 import { useData } from "src/context/DataContext";
@@ -112,8 +112,9 @@ const ServiceModal = ({ creatingEvent, close, editingService }) => {
             required
           />
 
-          <DatePicker
+          <DateTimePicker
             fullWidth
+            ampm={false}
             label="Data"
             format="LL"
             margin="normal"
