@@ -67,7 +67,7 @@ const Calendar = () => {
       id: `event - ${e.id}`,
       type: "events",
       title: e.name,
-      start: moment(e.date).format("YYYY-MM-DD"),
+      start: moment(e.date).format("YYYY-MM-DD HH:mm"),
       description: e.description,
       condo_id: e.condo_id,
     }));
@@ -76,7 +76,7 @@ const Calendar = () => {
       id: `service - ${e.id}`,
       type: "services",
       title: e.name,
-      start: moment(e.date).format("YYYY-MM-DD"),
+      start: moment(e.date).format("YYYY-MM-DD HH:mm"),
       description: e.description,
       price: e.price,
       condo_id: e.condo_id,

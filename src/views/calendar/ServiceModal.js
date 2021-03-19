@@ -116,7 +116,7 @@ const ServiceModal = ({ creatingEvent, close, editingService }) => {
             fullWidth
             ampm={false}
             label="Data"
-            format="LL"
+            format="LLL"
             margin="normal"
             name="date"
             onChange={(dateTime) => {

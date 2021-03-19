@@ -19,11 +19,14 @@ import CondoIcon from "@material-ui/icons/HomeWork";
 import PriceIcon from "@material-ui/icons/AttachMoney";
 
 import { useData } from "src/context/DataContext";
-import { parseTitle, parseToReal } from "src/utils/parsers";
+import { parseToReal } from "src/utils/parsers";
 
 const useStyles = makeStyles((theme) => ({
   title: {
-    fontSize: "1.25rem",
+    minWidth: "25vw",
+    "& h2": {
+      fontSize: "1rem",
+    },
   },
   avatar: {
     width: theme.spacing(4),
@@ -62,12 +65,14 @@ export default function EventDialog({ content, close }) {
     provider_id,
   } = content;
 
-  const provider = data.providers.find((p) => p.id === provider_id);
-  const condo = data.condos.find((p) => p.id === condo_id);
+  const provider = data && data.providers.find((p) => p.id === provider_id);
+  const condo = data && data.condos.find((p) => p.id === condo_id);
+
+  console.log();
 
   return (
     <Dialog onClose={close} open={isOpen}>
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle className={classes.title}>{title}</DialogTitle>
       <DialogContent dividers>
         <List>
           {condo && (
@@ -80,7 +85,9 @@ export default function EventDialog({ content, close }) {
           <DialogItem
             icon={<CalendarIcon />}
             title={"Data"}
-            value={moment(start).format("LL")}
+            value={moment(start).format(
+              type === "services" || type === "events" ? "LLL" : "LL"
+            )}
           />
           {type === "services" && (
             <>
@@ -100,7 +107,7 @@ export default function EventDialog({ content, close }) {
           <DialogItem
             icon={<DescriptionIcon />}
             title={"Descrição"}
-            value={description}
+            value={description || <i>Sem descrição</i>}
           />
         </List>
       </DialogContent>
