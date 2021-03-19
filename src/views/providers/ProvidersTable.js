@@ -32,9 +32,8 @@ const ProvidersTable = ({ providers, editProvider }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Nome</TableCell>
-                <TableCell>CPF</TableCell>
-                <TableCell>Condomínio</TableCell>
+                <TableCell>Nome || Razão Social</TableCell>
+                <TableCell>CPF || CNPJ</TableCell>
                 <TableCell>Endereço</TableCell>
                 <TableCell>Telefone</TableCell>
                 <TableCell>Email</TableCell>

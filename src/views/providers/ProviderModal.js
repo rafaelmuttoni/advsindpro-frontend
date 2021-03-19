@@ -54,8 +54,6 @@ const ProviderModal = ({ open, close, editingProvider }) => {
     }
   };
 
-  console.log(form);
-
   return (
     <Dialog open={open} onClose={closeAndClear} fullScreen={fullScreen}>
       <form onSubmit={handleSubmit}>
@@ -64,8 +62,33 @@ const ProviderModal = ({ open, close, editingProvider }) => {
         </DialogTitle>
         <DialogContent>
           <TextField
+            select
+            variant="outlined"
+            margin="normal"
+            name="type"
+            label="Tipo"
+            type="text"
             fullWidth
-            label="Nome"
+            value={form.type || ""}
+            onChange={({ target }) => handleChange(target)}
+            required
+          >
+            <MenuItem value={"cpf"}>Pessoa física (CPF)</MenuItem>
+            <MenuItem value={"cnpj"}>Pessoa física (CNPJ)</MenuItem>
+          </TextField>
+          <TextField
+            fullWidth
+            label={form.type === "cnpj" ? "CNPJ" : "CPF"}
+            margin="normal"
+            name="code"
+            onChange={({ target }) => handleChange(target)}
+            value={form.code || ""}
+            variant="outlined"
+            required
+          />
+          <TextField
+            fullWidth
+            label={form.type === "cnpj" ? "Razão Social" : "Nome Completo"}
             margin="normal"
             name="name"
             onChange={({ target }) => handleChange(target)}
@@ -73,34 +96,7 @@ const ProviderModal = ({ open, close, editingProvider }) => {
             variant="outlined"
             required
           />
-          <TextField
-            fullWidth
-            label="CPF"
-            margin="normal"
-            name="document"
-            onChange={({ target }) => handleChange(target)}
-            value={form.document || ""}
-            variant="outlined"
-          />
-          <TextField
-            select
-            variant="outlined"
-            margin="normal"
-            name="condo_id"
-            label="Condomínio"
-            type="text"
-            fullWidth
-            value={form.condo_id || ""}
-            onChange={({ target }) => handleChange(target)}
-            required
-          >
-            {data &&
-              data.condos.map((condo) => (
-                <MenuItem key={condo.id} value={condo.id}>
-                  {condo.name}
-                </MenuItem>
-              ))}
-          </TextField>
+
           <TextField
             fullWidth
             label="Endereço"
@@ -112,16 +108,6 @@ const ProviderModal = ({ open, close, editingProvider }) => {
           />
           <TextField
             fullWidth
-            label="E-mail"
-            margin="normal"
-            name="email"
-            onChange={({ target }) => handleChange(target)}
-            value={form.email || ""}
-            variant="outlined"
-            type="email"
-          />
-          <TextField
-            fullWidth
             label="Telefone"
             margin="normal"
             name="phone"
@@ -130,6 +116,17 @@ const ProviderModal = ({ open, close, editingProvider }) => {
             variant="outlined"
             type="phone"
           />
+          <TextField
+            fullWidth
+            label="E-mail"
+            margin="normal"
+            name="email"
+            onChange={({ target }) => handleChange(target)}
+            value={form.email || ""}
+            variant="outlined"
+            type="email"
+          />
+
           <TextField
             fullWidth
             label="Descrição"

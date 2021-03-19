@@ -22,10 +22,6 @@ const ProviderRow = ({ provider, editProvider }) => {
   const classes = useStyles();
   const { data } = useData();
 
-  const { name: condoName } = data.condos.find(
-    (condo) => condo.id === provider.condo_id
-  );
-
   return (
     <TableRow hover key={provider.id}>
       <TableCell>
@@ -34,14 +30,14 @@ const ProviderRow = ({ provider, editProvider }) => {
             {getInitials(provider.name)}
           </Avatar>
           <Typography color="textPrimary" variant="body1">
-            {provider.name}
+            {provider.name}{" "}
+            <strong>({provider.type === "cpf" ? "PF" : "PJ"})</strong>
           </Typography>
         </Box>
       </TableCell>
       <TableCell>
-        {provider.document ? provider.document : <i>Não informado</i>}
+        {provider.code ? provider.code : <i>Não informado</i>}
       </TableCell>
-      <TableCell>{condoName}</TableCell>
       <TableCell>
         {provider.address ? provider.address : <i>Não informado</i>}
       </TableCell>
