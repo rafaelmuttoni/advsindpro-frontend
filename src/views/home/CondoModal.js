@@ -14,13 +14,12 @@ import { DatePicker } from "@material-ui/pickers";
 
 import { useAlert } from "src/context/AlertContext";
 import { useData } from "src/context/DataContext";
-import api from "src/services/api";
 
 const CondoModal = ({ open, close, editingCondo }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { alert } = useAlert();
-  const { updateData } = useData();
+  const { submit } = useData();
 
   const [form, setForm] = useState({ initial_date: moment().format() });
   const [date, setDate] = useState(moment().format());
@@ -42,17 +41,13 @@ const CondoModal = ({ open, close, editingCondo }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const { data } = !!editingCondo
-        ? await api.patch("/condos", form)
-        : await api.post("/condos", form);
-      !!editingCondo
-        ? updateData("update", "condos", data)
-        : updateData("add", "condos", data);
+    const err = await submit("condos", form, Boolean(editingCondo));
+
+    if (err) {
+      alert("Ocorreu um erro na sua solicitação", "error");
+    } else {
       alert();
       closeAndClear();
-    } catch (err) {
-      alert("Ocorreu um erro na sua solicitação", "error");
     }
   };
 

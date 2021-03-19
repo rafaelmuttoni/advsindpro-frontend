@@ -13,13 +13,12 @@ import {
 
 import { useAlert } from "src/context/AlertContext";
 import { useData } from "src/context/DataContext";
-import api from "src/services/api";
 
 const ProviderModal = ({ open, close, editingProvider }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { alert } = useAlert();
-  const { data, updateData } = useData();
+  const { submit } = useData();
 
   const [form, setForm] = useState({});
 
@@ -40,17 +39,13 @@ const ProviderModal = ({ open, close, editingProvider }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const { data } = !!editingProvider
-        ? await api.patch("/providers", form)
-        : await api.post("/providers", form);
-      !!editingProvider
-        ? updateData("update", "providers", data)
-        : updateData("add", "providers", data);
+    const err = await submit("providers", form, Boolean(editingProvider));
+
+    if (err) {
+      alert("Ocorreu um erro na sua solicitação", "error");
+    } else {
       alert();
       closeAndClear();
-    } catch (err) {
-      alert("Ocorreu um erro na sua solicitação", "error");
     }
   };
 

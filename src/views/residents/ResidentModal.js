@@ -13,13 +13,12 @@ import {
 
 import { useAlert } from "src/context/AlertContext";
 import { useData } from "src/context/DataContext";
-import api from "src/services/api";
 
 const ResidentModal = ({ open, close, editingResident }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { alert } = useAlert();
-  const { data, updateData } = useData();
+  const { data, submit } = useData();
 
   const [form, setForm] = useState({});
 
@@ -40,17 +39,13 @@ const ResidentModal = ({ open, close, editingResident }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const { data } = !!editingResident
-        ? await api.patch("/residents", form)
-        : await api.post("/residents", form);
-      !!editingResident
-        ? updateData("update", "residents", data)
-        : updateData("add", "residents", data);
+    const err = await submit("residents", form, Boolean(editingResident));
+
+    if (err) {
+      alert("Ocorreu um erro na sua solicitação", "error");
+    } else {
       alert();
       closeAndClear();
-    } catch (err) {
-      alert("Ocorreu um erro na sua solicitação", "error");
     }
   };
 
