@@ -46,12 +46,25 @@ export const DataProvider = ({ children }) => {
     }
   };
 
+  const submit = async (category, form, isEditing) => {
+    try {
+      const { data } = isEditing
+        ? await api.patch(`/${category}`, form)
+        : await api.post(`/${category}`, form);
+      isEditing
+        ? updateData("update", category, data)
+        : updateData("add", category, data);
+    } catch (err) {
+      return err;
+    }
+  };
+
   return (
     <DataContext.Provider
       value={{
         condo,
         data,
-        updateData,
+        submit,
         loading,
       }}
     >
