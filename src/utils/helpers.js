@@ -14,6 +14,7 @@ export const calculateNextBirthdays = (condos) => {
         title: `Aniversário de Síndico`,
         start: moment(initial_date).add(i, "y").format("YYYY-MM-DD"),
         description: `Aniversário de ${i} anos no ${name}`,
+        condo_id: id,
       };
     });
 

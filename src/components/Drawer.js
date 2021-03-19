@@ -25,10 +25,10 @@ const Drawer = ({ isOpen, setIsOpen, condo, condos, setCondo }) => {
     >
       <List>
         <ListItem
-          selected={condo === ""}
+          selected={!condo}
           button
           onClick={() => {
-            setCondo("");
+            setCondo(false);
             alert(`Visualizando todos condomínios`, "info");
             close();
           }}
@@ -37,10 +37,10 @@ const Drawer = ({ isOpen, setIsOpen, condo, condos, setCondo }) => {
         </ListItem>
         {condos.map((c) => (
           <ListItem
-            selected={condo === c.name}
+            selected={condo.id === c.id}
             button
             onClick={() => {
-              setCondo(c.name);
+              setCondo(c);
               alert(`Visualizando condomínio: ${c.name}`, "info");
               close();
             }}

@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ResidentsView = () => {
   const classes = useStyles();
-  const { data } = useData();
+  const { data, condo } = useData();
 
   const [editingResident, setEditingResident] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,10 +27,15 @@ const ResidentsView = () => {
   const [filter, setFilter] = useState("");
 
   const filteredResidents = data
-    ? data.residents.filter((resident) => {
-        const name = resident.name.toLowerCase();
-        return name.includes(filter.toLowerCase());
-      })
+    ? data.residents
+        .filter((r) => {
+          if (condo) return r.condo_id === condo.id;
+          return r;
+        })
+        .filter((resident) => {
+          const name = resident.name.toLowerCase();
+          return name.includes(filter.toLowerCase());
+        })
     : [];
 
   useEffect(() => {

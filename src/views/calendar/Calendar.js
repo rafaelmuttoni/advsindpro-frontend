@@ -15,7 +15,7 @@ import { calculateNextBirthdays } from "src/utils/helpers";
 const Calendar = () => {
   const calendarRef = useRef();
   const { setCalendarApi, setDialogContent } = useCalendar();
-  const { data } = useData();
+  const { data, condo } = useData();
 
   useEffect(() => {
     setCalendarApi(calendarRef.current.getApi());
@@ -85,7 +85,10 @@ const Calendar = () => {
 
     const birthdays = calculateNextBirthdays(condos);
 
-    return [...birthdays, ...parsedServices, ...parsedEvents];
+    return [...birthdays, ...parsedServices, ...parsedEvents].filter((e) => {
+      if (condo) return e.condo_id === condo.id;
+      return e;
+    });
   };
 
   return (
