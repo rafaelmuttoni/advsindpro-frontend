@@ -10,8 +10,9 @@ export const calculateNextBirthdays = (condos) => {
     const bdays = [...Array(numberOfYears + 3)].map((x, i) => {
       return {
         id: `bday-condo${id}-year${i}`,
-        title: `Aniversário de ${i} anos no ${name}`,
+        title: `Aniversário de Síndico`,
         start: moment(initial_date).add(i, "y").format("YYYY-MM-DD"),
+        description: `Aniversário de ${i} anos no ${name}`,
       };
     });
 

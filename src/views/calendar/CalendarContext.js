@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 
-import { useData } from "src/context/DataContext";
+import EventDialog from "./EventDialog";
 
 const CalendarContext = createContext();
 
@@ -11,24 +11,22 @@ export const useCalendar = () => {
 };
 
 export const CalendarProvider = ({ children }) => {
-  // const { data } = useData();
-
-  const [events, setEvents] = useState([]);
   const [calendarApi, setCalendarApi] = useState({});
-
-  // useEffect(() => {
-  //   setEvents({ events: [] });
-  // }, [data]);
+  const [dialogContent, setDialogContent] = useState(false);
 
   return (
     <CalendarContext.Provider
       value={{
-        events,
         calendarApi,
         setCalendarApi,
+        setDialogContent,
       }}
     >
       {children}
+      <EventDialog
+        content={dialogContent}
+        close={() => setDialogContent(false)}
+      />
     </CalendarContext.Provider>
   );
 };

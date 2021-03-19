@@ -13,15 +13,17 @@ import { calculateNextBirthdays } from "src/utils/helpers";
 
 const Calendar = () => {
   const calendarRef = useRef();
-  const { setCalendarApi } = useCalendar();
+  const { setCalendarApi, setDialogContent } = useCalendar();
   const { data } = useData();
 
   useEffect(() => {
     setCalendarApi(calendarRef.current.getApi());
   }, []);
 
-  const handleEventClick = (clickInfo) => {
-    console.log(clickInfo.event.title);
+  const handleEventClick = (info) => {
+    const { title, start } = info.event;
+    const { description } = info.event.extendedProps;
+    setDialogContent({ title, description, start });
   };
 
   const buttonText = {
