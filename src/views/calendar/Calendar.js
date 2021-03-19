@@ -6,13 +6,15 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 import interactionPlugin from "@fullcalendar/interaction";
+
+import { useData } from "src/context/DataContext";
 import { useCalendar } from "./CalendarContext";
+import { calculateNextBirthdays } from "src/utils/helpers";
 
 const Calendar = () => {
   const calendarRef = useRef();
   const { setCalendarApi } = useCalendar();
-
-  const [events, setEvents] = useState([]);
+  const { data } = useData();
 
   useEffect(() => {
     setCalendarApi(calendarRef.current.getApi());
@@ -44,6 +46,33 @@ const Calendar = () => {
     meridiem: true,
   };
 
+  const parseForCalendar = (data) => {
+    const { condos, events, debts } = data;
+
+    // const parsedAppointments = appointments.map(e => ({
+    //   id: `appointments - ${e.id}`,
+    //   title: e.name,
+    //   start: moment(e.date).format('YYYY-MM-DD HH:mm'),
+    //   end: moment(e.date)
+    //     .add(e.duration, 'm')
+    //     .format('YYYY-MM-DD HH:mm'),
+    //   description: e.description,
+    //   className: ['bg-soft-primary']
+    // }));
+
+    // const parsedExpenses = expenses.map(e => ({
+    //   id: `expenses - ${e.id}`,
+    //   title: e.name,
+    //   start: moment(e.date).format('YYYY-MM-DD'),
+    //   description: e.description,
+    //   className: ['bg-soft-danger']
+    // }));
+
+    const birthdays = calculateNextBirthdays(condos);
+
+    return [...birthdays];
+  };
+
   return (
     <FullCalendar
       ref={calendarRef}
@@ -57,7 +86,7 @@ const Calendar = () => {
       selectMirror
       dayMaxEvents={true}
       eventClick={handleEventClick}
-      events={events}
+      events={data ? parseForCalendar(data) : []}
       buttonText={buttonText}
       views={views}
       eventTimeFormat={eventTimeFormat}

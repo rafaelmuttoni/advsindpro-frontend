@@ -52,7 +52,6 @@ export const DataProvider = ({ children }) => {
         condo,
         data,
         updateData,
-
         loading,
       }}
     >
