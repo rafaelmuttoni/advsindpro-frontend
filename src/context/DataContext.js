@@ -3,6 +3,8 @@ import api from "src/services/api";
 import { useAlert } from "./AlertContext";
 import { useAuth } from "./AuthContext";
 
+import Drawer from "src/components/Drawer";
+
 const DataContext = createContext();
 
 export const useData = () => {
@@ -17,6 +19,7 @@ export const DataProvider = ({ children }) => {
 
   const [data, setData] = useState(null);
   const [condo, setCondo] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,9 +69,17 @@ export const DataProvider = ({ children }) => {
         data,
         submit,
         loading,
+        openDrawer: () => setIsOpen(true),
       }}
     >
       {children}
+      <Drawer
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        condo={condo}
+        condos={data ? data.condos : []}
+        setCondo={setCondo}
+      />
     </DataContext.Provider>
   );
 };
