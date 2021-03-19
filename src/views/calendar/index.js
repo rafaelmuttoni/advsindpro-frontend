@@ -18,6 +18,7 @@ import Page from "src/components/Page";
 import Calendar from "./Calendar";
 import { useCalendar } from "./CalendarContext";
 import CalendarMenu from "./CalendarMenu";
+import EventMenu from "./EventMenu";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +43,7 @@ const CalendarView = () => {
       <Container maxWidth={false}>
         <AppBar position="static" color="transparent">
           <Toolbar>
+            <EventMenu />
             <IconButton
               color="primary"
               onClick={() => {
