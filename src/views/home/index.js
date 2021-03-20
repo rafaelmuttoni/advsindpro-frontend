@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Container, Grid, makeStyles } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 import Page from "src/components/Page";
 import Toolbar from "src/components/Toolbar";
@@ -8,6 +9,7 @@ import CondoCard from "./CondoCard";
 import CondoModal from "./CondoModal";
 
 import { useData } from "src/context/DataContext";
+import Letter from "src/pdf/Letter";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,6 +71,15 @@ const HomeView = () => {
               ))}
           </Grid>
         </Box>
+        <PDFDownloadLink
+          document={<Letter />}
+          fileName="letter.pdf"
+          style={{
+            color: "red",
+          }}
+        >
+          Baixar PDF
+        </PDFDownloadLink>
         <Box mt={3} display="flex" justifyContent="center">
           <Pagination
             color="primary"
