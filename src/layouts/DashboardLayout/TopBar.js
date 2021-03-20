@@ -11,10 +11,9 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
 import InputIcon from "@material-ui/icons/Input";
 import Logo from "src/components/Logo";
-import { useData } from "src/context/DataContext";
+import { useAuth } from "src/context/AuthContext";
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -26,7 +25,7 @@ const useStyles = makeStyles(() => ({
 
 const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
   const classes = useStyles();
-  const { openDrawer } = useData();
+  const { logout } = useAuth();
 
   return (
     <AppBar className={clsx(classes.root, className)} elevation={0} {...rest}>
@@ -36,11 +35,8 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
         </RouterLink>
         <Box flexGrow={1} />
         <Hidden mdDown>
-          <IconButton color="inherit" onClick={openDrawer}>
-            <NotificationsIcon />
-          </IconButton>
           <IconButton color="inherit">
-            <InputIcon />
+            <InputIcon onClick={logout} />
           </IconButton>
         </Hidden>
         <Hidden lgUp>

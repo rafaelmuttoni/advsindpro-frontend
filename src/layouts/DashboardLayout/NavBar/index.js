@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
   Avatar,
@@ -20,12 +20,8 @@ import {
   Users as UsersIcon,
 } from "react-feather";
 import NavItem from "./NavItem";
-
-const user = {
-  avatar: "/static/images/avatars/avatar_6.png",
-  jobTitle: "Senior Developer",
-  name: "Katarina Smith",
-};
+import { useData } from "src/context/DataContext";
+import getInitials from "src/utils/getInitials";
 
 const items = [
   {
@@ -60,7 +56,7 @@ const items = [
   },
 ];
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   mobileDrawer: {
     width: 256,
   },
@@ -73,12 +69,22 @@ const useStyles = makeStyles(() => ({
     cursor: "pointer",
     width: 64,
     height: 64,
+    marginBottom: theme.spacing(1),
+  },
+  name: {
+    textOverflow: "ellipsis",
+    maxWidth: "100%",
+    overflow: "hidden",
+    display: "-webkit-box",
+    "-webkit-line-clamp": "2",
+    "-webkit-box-orient": "vertical",
   },
 }));
 
 const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles();
   const location = useLocation();
+  const { condo, openDrawer } = useData();
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -90,17 +96,17 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   const content = (
     <Box height="100%" display="flex" flexDirection="column">
       <Box alignItems="center" display="flex" flexDirection="column" p={2}>
-        <Avatar
-          className={classes.avatar}
-          component={RouterLink}
-          src={user.avatar}
-          to="/app/account"
-        />
-        <Typography className={classes.name} color="textPrimary" variant="h5">
-          {user.name}
-        </Typography>
-        <Typography color="textSecondary" variant="body2">
-          {user.jobTitle}
+        <Avatar className={classes.avatar} onClick={openDrawer}>
+          {condo ? getInitials(condo.name) : "TDS"}
+        </Avatar>
+
+        <Typography
+          className={classes.name}
+          color="textPrimary"
+          variant="h5"
+          align="center"
+        >
+          {condo ? condo.name : "Todos Condomínios"}
         </Typography>
       </Box>
       <Divider />

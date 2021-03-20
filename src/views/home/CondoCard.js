@@ -33,7 +33,14 @@ const useStyles = makeStyles((theme) => ({
       filter: "brightness(0.9)",
     },
   },
-
+  name: {
+    textOverflow: "ellipsis",
+    maxWidth: "100%",
+    overflow: "hidden",
+    display: "-webkit-box",
+    "-webkit-line-clamp": "2",
+    "-webkit-box-orient": "vertical",
+  },
   divider: {
     marginBottom: theme.spacing(2),
   },
@@ -77,6 +84,7 @@ const CondoCard = ({ condo, editCondo }) => {
           color="textPrimary"
           gutterBottom
           variant="h4"
+          className={classes.name}
         >
           {condo.name}
         </Typography>
