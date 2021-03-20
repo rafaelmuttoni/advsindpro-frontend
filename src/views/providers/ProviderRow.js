@@ -10,7 +10,6 @@ import {
 } from "@material-ui/core";
 
 import getInitials from "src/utils/getInitials";
-import { useData } from "src/context/DataContext";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -20,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ProviderRow = ({ provider, editProvider }) => {
   const classes = useStyles();
-  const { data } = useData();
 
   return (
     <TableRow hover key={provider.id}>

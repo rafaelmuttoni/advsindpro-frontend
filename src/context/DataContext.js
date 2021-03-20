@@ -32,6 +32,7 @@ export const DataProvider = ({ children }) => {
     };
 
     user && fetchData();
+    // eslint-disable-next-line
   }, [user]);
 
   const updateData = (method, category, payload) => {

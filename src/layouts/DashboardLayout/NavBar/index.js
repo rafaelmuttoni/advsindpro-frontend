@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import {
   Avatar,
   Box,
-  Button,
   Divider,
   Drawer,
   Hidden,
@@ -15,12 +14,9 @@ import {
 import {
   Calendar as CalendarIcon,
   DollarSign as DollarIcon,
-  DollarSign,
   Home as HomeIcon,
   Settings as SettingsIcon,
-  ShoppingBag as ShoppingBagIcon,
   Tag as TagIcon,
-  User as UserIcon,
   Users as UsersIcon,
 } from "react-feather";
 import NavItem from "./NavItem";
@@ -54,7 +50,7 @@ const items = [
   },
   {
     href: "/debts",
-    icon: DollarSign,
+    icon: DollarIcon,
     title: "Previdências",
   },
   {

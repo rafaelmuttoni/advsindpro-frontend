@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, createContext } from "react";
+import React, { useState, useContext, createContext } from "react";
 
 import EventDialog from "./EventDialog";
 import EventModal from "./EventModal";

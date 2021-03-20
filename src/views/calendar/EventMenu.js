@@ -13,7 +13,6 @@ const EventMenu = ({ setTitle }) => {
   const classes = useStyles();
   const { setCreatingEvent } = useCalendar();
 
-  const [currentFilter, setCurrentFilter] = useState("Mês");
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);

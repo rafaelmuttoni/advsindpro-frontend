@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 const LoginView = () => {
   const classes = useStyles();
   const { state } = useLocation();
-  const { loading, signed, login, error } = useAuth();
+  const { loading, signed, login } = useAuth();
   const alert = useAlert();
 
   if (!loading && signed) {

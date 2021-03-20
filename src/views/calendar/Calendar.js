@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import moment from "moment";
 
 import FullCalendar from "@fullcalendar/react";
@@ -19,6 +19,7 @@ const Calendar = () => {
 
   useEffect(() => {
     setCalendarApi(calendarRef.current.getApi());
+    // eslint-disable-next-line
   }, []);
 
   const handleEventClick = (info) => {
