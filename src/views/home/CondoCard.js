@@ -19,6 +19,9 @@ import GasIcon from "@material-ui/icons/Whatshot";
 
 import getInitials from "src/utils/getInitials";
 
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import Letter from "src/pdf/Letter";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -101,6 +104,15 @@ const CondoCard = ({ condo, editCondo }) => {
         <Typography align="center" color="textPrimary" variant="body1">
           {condo.address}
         </Typography>
+        <PDFDownloadLink
+          document={<Letter />}
+          fileName="letter.pdf"
+          style={{
+            color: "red",
+          }}
+        >
+          Baixar PDF
+        </PDFDownloadLink>
       </CardContent>
       <Box flexGrow={1} />
       <Divider className={classes.divider} />
