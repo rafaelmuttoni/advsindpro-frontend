@@ -23,3 +23,5 @@ export const calculateNextBirthdays = (condos) => {
 
   return birthdays.flat();
 };
+
+export const debtCalculator = () => {};
