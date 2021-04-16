@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 import {
   Button,
   TextField,
@@ -9,53 +9,54 @@ import {
   DialogContent,
   DialogActions,
   MenuItem,
-} from "@material-ui/core";
+} from '@material-ui/core'
 
-import { useAlert } from "src/context/AlertContext";
-import { useData } from "src/context/DataContext";
+import { useAlert } from 'src/context/AlertContext'
+import { useData } from 'src/context/DataContext'
+import InputMask from 'react-input-mask'
 
 const ResidentModal = ({ open, close, editingResident }) => {
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const { alert } = useAlert();
-  const { data, submit } = useData();
+  const theme = useTheme()
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const { alert } = useAlert()
+  const { data, submit } = useData()
 
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({})
 
   const closeAndClear = () => {
-    setForm({});
-    close();
-  };
+    setForm({})
+    close()
+  }
 
   useEffect(() => {
-    !!editingResident && setForm(editingResident);
-  }, [editingResident]);
+    !!editingResident && setForm(editingResident)
+  }, [editingResident])
 
   const handleChange = (target) => {
-    const { name, value } = target;
-    setForm({ ...form, [name]: value });
-  };
+    const { name, value } = target
+    setForm({ ...form, [name]: value })
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const err = await submit("residents", form, Boolean(editingResident));
+    const err = await submit('residents', form, Boolean(editingResident))
 
     if (err) {
-      alert("Ocorreu um erro na sua solicitação", "error");
+      alert('Ocorreu um erro na sua solicitação', 'error')
     } else {
-      alert();
-      closeAndClear();
+      alert()
+      closeAndClear()
     }
-  };
+  }
 
-  console.log(form);
+  console.log(form)
 
   return (
     <Dialog open={open} onClose={closeAndClear} fullScreen={fullScreen}>
       <form onSubmit={handleSubmit}>
         <DialogTitle>
-          {!!editingResident ? "Editando" : "Novo"} Condômino
+          {!!editingResident ? 'Editando' : 'Novo'} Condômino
         </DialogTitle>
         <DialogContent>
           <TextField
@@ -64,19 +65,28 @@ const ResidentModal = ({ open, close, editingResident }) => {
             margin="normal"
             name="name"
             onChange={({ target }) => handleChange(target)}
-            value={form.name || ""}
+            value={form.name || ''}
             variant="outlined"
             required
           />
-          <TextField
-            fullWidth
-            label="CPF"
-            margin="normal"
+
+          <InputMask
             name="document"
             onChange={({ target }) => handleChange(target)}
-            value={form.document || ""}
-            variant="outlined"
-          />
+            value={form.document || ''}
+            mask="999.999.999-99"
+            maskChar="_"
+          >
+            {(inputProps) => (
+              <TextField
+                {...inputProps}
+                fullWidth
+                label="CPF"
+                margin="normal"
+                variant="outlined"
+              />
+            )}
+          </InputMask>
           <TextField
             select
             variant="outlined"
@@ -85,7 +95,7 @@ const ResidentModal = ({ open, close, editingResident }) => {
             label="Condomínio"
             type="text"
             fullWidth
-            value={form.condo_id || ""}
+            value={form.condo_id || ''}
             onChange={({ target }) => handleChange(target)}
             required
           >
@@ -102,7 +112,7 @@ const ResidentModal = ({ open, close, editingResident }) => {
             margin="normal"
             name="address"
             onChange={({ target }) => handleChange(target)}
-            value={form.address || ""}
+            value={form.address || ''}
             variant="outlined"
           />
           <TextField
@@ -111,27 +121,36 @@ const ResidentModal = ({ open, close, editingResident }) => {
             margin="normal"
             name="email"
             onChange={({ target }) => handleChange(target)}
-            value={form.email || ""}
+            value={form.email || ''}
             variant="outlined"
             type="email"
           />
-          <TextField
-            fullWidth
-            label="Telefone"
-            margin="normal"
+          <InputMask
+            type="phone"
             name="phone"
             onChange={({ target }) => handleChange(target)}
-            value={form.phone || ""}
-            variant="outlined"
-            type="phone"
-          />
+            value={form.phone || ''}
+            mask="(99)99999-9999"
+            maskChar="_"
+          >
+            {(inputProps) => (
+              <TextField
+                {...inputProps}
+                fullWidth
+                label="Telefone"
+                margin="normal"
+                variant="outlined"
+              />
+            )}
+          </InputMask>
+
           <TextField
             fullWidth
             label="Descrição"
             margin="normal"
             name="description"
             onChange={({ target }) => handleChange(target)}
-            value={form.description || ""}
+            value={form.description || ''}
             variant="outlined"
             multiline
             rows={4}
@@ -147,7 +166,7 @@ const ResidentModal = ({ open, close, editingResident }) => {
         </DialogActions>
       </form>
     </Dialog>
-  );
-};
+  )
+}
 
-export default ResidentModal;
+export default ResidentModal

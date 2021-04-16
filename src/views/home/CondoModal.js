@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 import {
   Button,
   TextField,
@@ -8,54 +8,55 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-} from "@material-ui/core";
-import moment from "moment";
-import { DatePicker } from "@material-ui/pickers";
+} from '@material-ui/core'
+import InputMask from 'react-input-mask'
+import moment from 'moment'
+import { DatePicker } from '@material-ui/pickers'
 
-import { useAlert } from "src/context/AlertContext";
-import { useData } from "src/context/DataContext";
+import { useAlert } from 'src/context/AlertContext'
+import { useData } from 'src/context/DataContext'
 
 const CondoModal = ({ open, close, editingCondo }) => {
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const { alert } = useAlert();
-  const { submit } = useData();
+  const theme = useTheme()
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const { alert } = useAlert()
+  const { submit } = useData()
 
-  const [form, setForm] = useState({ initial_date: moment().format() });
-  const [date, setDate] = useState(moment().format());
+  const [form, setForm] = useState({ initial_date: moment().format() })
+  const [date, setDate] = useState(moment().format())
 
   const closeAndClear = () => {
-    setForm({ initial_date: moment().format() });
-    close();
-  };
+    setForm({ initial_date: moment().format() })
+    close()
+  }
 
   useEffect(() => {
-    !!editingCondo && setForm(editingCondo);
-  }, [editingCondo]);
+    !!editingCondo && setForm(editingCondo)
+  }, [editingCondo])
 
   const handleChange = (target) => {
-    const { name, value } = target;
-    setForm({ ...form, [name]: value });
-  };
+    const { name, value } = target
+    setForm({ ...form, [name]: value })
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const err = await submit("condos", form, Boolean(editingCondo));
+    const err = await submit('condos', form, Boolean(editingCondo))
 
     if (err) {
-      alert("Ocorreu um erro na sua solicitação", "error");
+      alert('Ocorreu um erro na sua solicitação', 'error')
     } else {
-      alert();
-      closeAndClear();
+      alert()
+      closeAndClear()
     }
-  };
+  }
 
   return (
     <Dialog open={open} onClose={closeAndClear} fullScreen={fullScreen}>
       <form onSubmit={handleSubmit}>
         <DialogTitle>
-          {!!editingCondo ? "Editando" : "Novo"} Condomínio
+          {!!editingCondo ? 'Editando' : 'Novo'} Condomínio
         </DialogTitle>
         <DialogContent>
           <TextField
@@ -65,26 +66,35 @@ const CondoModal = ({ open, close, editingCondo }) => {
             name="name"
             onChange={({ target }) => handleChange(target)}
             type="text"
-            value={form.name || ""}
+            value={form.name || ''}
             variant="outlined"
             required
           />
-          <TextField
-            fullWidth
-            label="CNPJ"
-            margin="normal"
+          <InputMask
             name="code"
             onChange={({ target }) => handleChange(target)}
-            value={form.code || ""}
-            variant="outlined"
-          />
+            value={form.code || ''}
+            mask="99.999.999/9999-99"
+            maskChar="_"
+          >
+            {(inputProps) => (
+              <TextField
+                {...inputProps}
+                fullWidth
+                label="CNPJ"
+                margin="normal"
+                variant="outlined"
+              />
+            )}
+          </InputMask>
+
           <TextField
             fullWidth
             label="Endereço"
             margin="normal"
             name="address"
             onChange={({ target }) => handleChange(target)}
-            value={form.address || ""}
+            value={form.address || ''}
             variant="outlined"
             required
           />
@@ -95,11 +105,11 @@ const CondoModal = ({ open, close, editingCondo }) => {
             margin="normal"
             name="initial_date"
             onChange={(dateTime) => {
-              setDate(dateTime);
-              let date = {};
-              date.value = dateTime.format();
-              date.name = "initial_date";
-              handleChange(date);
+              setDate(dateTime)
+              let date = {}
+              date.value = dateTime.format()
+              date.name = 'initial_date'
+              handleChange(date)
             }}
             value={date}
             inputVariant="outlined"
@@ -111,7 +121,7 @@ const CondoModal = ({ open, close, editingCondo }) => {
             margin="normal"
             name="energy"
             onChange={({ target }) => handleChange(target)}
-            value={form.energy || ""}
+            value={form.energy || ''}
             variant="outlined"
           />
           <TextField
@@ -120,7 +130,7 @@ const CondoModal = ({ open, close, editingCondo }) => {
             margin="normal"
             name="water"
             onChange={({ target }) => handleChange(target)}
-            value={form.water || ""}
+            value={form.water || ''}
             variant="outlined"
           />
           <TextField
@@ -129,7 +139,7 @@ const CondoModal = ({ open, close, editingCondo }) => {
             margin="normal"
             name="gas"
             onChange={({ target }) => handleChange(target)}
-            value={form.gas || ""}
+            value={form.gas || ''}
             variant="outlined"
           />
         </DialogContent>
@@ -143,7 +153,7 @@ const CondoModal = ({ open, close, editingCondo }) => {
         </DialogActions>
       </form>
     </Dialog>
-  );
-};
+  )
+}
 
-export default CondoModal;
+export default CondoModal

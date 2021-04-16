@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 import {
   Button,
   TextField,
@@ -9,51 +9,53 @@ import {
   DialogContent,
   DialogActions,
   MenuItem,
-} from "@material-ui/core";
+} from '@material-ui/core'
 
-import { useAlert } from "src/context/AlertContext";
-import { useData } from "src/context/DataContext";
+import { useAlert } from 'src/context/AlertContext'
+import { useData } from 'src/context/DataContext'
+
+import InputMask from 'react-input-mask'
 
 const ProviderModal = ({ open, close, editingProvider }) => {
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const { alert } = useAlert();
-  const { submit } = useData();
+  const theme = useTheme()
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const { alert } = useAlert()
+  const { submit } = useData()
 
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({})
 
   const closeAndClear = () => {
-    setForm({});
-    close();
-  };
+    setForm({})
+    close()
+  }
 
   useEffect(() => {
-    !!editingProvider && setForm(editingProvider);
-  }, [editingProvider]);
+    !!editingProvider && setForm(editingProvider)
+  }, [editingProvider])
 
   const handleChange = (target) => {
-    const { name, value } = target;
-    setForm({ ...form, [name]: value });
-  };
+    const { name, value } = target
+    setForm({ ...form, [name]: value })
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const err = await submit("providers", form, Boolean(editingProvider));
+    const err = await submit('providers', form, Boolean(editingProvider))
 
     if (err) {
-      alert("Ocorreu um erro na sua solicitação", "error");
+      alert('Ocorreu um erro na sua solicitação', 'error')
     } else {
-      alert();
-      closeAndClear();
+      alert()
+      closeAndClear()
     }
-  };
+  }
 
   return (
     <Dialog open={open} onClose={closeAndClear} fullScreen={fullScreen}>
       <form onSubmit={handleSubmit}>
         <DialogTitle>
-          {!!editingProvider ? "Editando" : "Novo"} Prestador
+          {!!editingProvider ? 'Editando' : 'Novo'} Prestador
         </DialogTitle>
         <DialogContent>
           <TextField
@@ -64,30 +66,41 @@ const ProviderModal = ({ open, close, editingProvider }) => {
             label="Tipo"
             type="text"
             fullWidth
-            value={form.type || ""}
+            value={form.type || ''}
             onChange={({ target }) => handleChange(target)}
             required
           >
-            <MenuItem value={"cpf"}>Pessoa física (CPF)</MenuItem>
-            <MenuItem value={"cnpj"}>Pessoa física (CNPJ)</MenuItem>
+            <MenuItem value={'cpf'}>Pessoa física (CPF)</MenuItem>
+            <MenuItem value={'cnpj'}>Pessoa física (CNPJ)</MenuItem>
           </TextField>
-          <TextField
-            fullWidth
-            label={form.type === "cnpj" ? "CNPJ" : "CPF"}
-            margin="normal"
+          <InputMask
             name="code"
             onChange={({ target }) => handleChange(target)}
-            value={form.code || ""}
-            variant="outlined"
+            value={form.code || ''}
             required
-          />
+            mask={
+              form.type === 'cnpj' ? '99.999.999/9999-99' : '999.999.999-99'
+            }
+            maskChar="_"
+          >
+            {(inputProps) => (
+              <TextField
+                {...inputProps}
+                fullWidth
+                label={form.type === 'cnpj' ? 'CNPJ' : 'CPF'}
+                margin="normal"
+                variant="outlined"
+              />
+            )}
+          </InputMask>
+
           <TextField
             fullWidth
-            label={form.type === "cnpj" ? "Razão Social" : "Nome Completo"}
+            label={form.type === 'cnpj' ? 'Razão Social' : 'Nome Completo'}
             margin="normal"
             name="name"
             onChange={({ target }) => handleChange(target)}
-            value={form.name || ""}
+            value={form.name || ''}
             variant="outlined"
             required
           />
@@ -98,26 +111,35 @@ const ProviderModal = ({ open, close, editingProvider }) => {
             margin="normal"
             name="address"
             onChange={({ target }) => handleChange(target)}
-            value={form.address || ""}
+            value={form.address || ''}
             variant="outlined"
           />
-          <TextField
-            fullWidth
-            label="Telefone"
-            margin="normal"
+          <InputMask
+            type="phone"
             name="phone"
             onChange={({ target }) => handleChange(target)}
-            value={form.phone || ""}
-            variant="outlined"
-            type="phone"
-          />
+            value={form.phone || ''}
+            mask="(99)99999-9999"
+            maskChar="_"
+          >
+            {(inputProps) => (
+              <TextField
+                {...inputProps}
+                fullWidth
+                label="Telefone"
+                margin="normal"
+                variant="outlined"
+              />
+            )}
+          </InputMask>
+
           <TextField
             fullWidth
             label="E-mail"
             margin="normal"
             name="email"
             onChange={({ target }) => handleChange(target)}
-            value={form.email || ""}
+            value={form.email || ''}
             variant="outlined"
             type="email"
           />
@@ -128,7 +150,7 @@ const ProviderModal = ({ open, close, editingProvider }) => {
             margin="normal"
             name="description"
             onChange={({ target }) => handleChange(target)}
-            value={form.description || ""}
+            value={form.description || ''}
             variant="outlined"
             multiline
             rows={4}
@@ -144,7 +166,7 @@ const ProviderModal = ({ open, close, editingProvider }) => {
         </DialogActions>
       </form>
     </Dialog>
-  );
-};
+  )
+}
 
-export default ProviderModal;
+export default ProviderModal
