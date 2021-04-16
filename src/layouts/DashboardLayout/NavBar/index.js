@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import PropTypes from "prop-types";
+import React, { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import {
   Avatar,
   Box,
@@ -10,7 +10,7 @@ import {
   List,
   Typography,
   makeStyles,
-} from "@material-ui/core";
+} from '@material-ui/core'
 import {
   Calendar as CalendarIcon,
   DollarSign as DollarIcon,
@@ -18,43 +18,43 @@ import {
   Settings as SettingsIcon,
   Tag as TagIcon,
   Users as UsersIcon,
-} from "react-feather";
-import NavItem from "./NavItem";
-import { useData } from "src/context/DataContext";
-import getInitials from "src/utils/getInitials";
+} from 'react-feather'
+import NavItem from './NavItem'
+import { useData } from 'src/context/DataContext'
+import getInitials from 'src/utils/getInitials'
 
 const items = [
   {
-    href: "/",
+    href: '/',
     icon: HomeIcon,
-    title: "Início",
+    title: 'Início',
   },
   {
-    href: "/calendar",
+    href: '/calendar',
     icon: CalendarIcon,
-    title: "Agenda",
+    title: 'Agenda',
   },
   {
-    href: "/residents",
+    href: '/residents',
     icon: UsersIcon,
-    title: "Condôminos",
+    title: 'Condôminos',
   },
   {
-    href: "/providers",
+    href: '/providers',
     icon: TagIcon,
-    title: "Prestadores",
+    title: 'Prestadores',
   },
   {
-    href: "/debts",
+    href: '/debts',
     icon: DollarIcon,
-    title: "Previdências",
+    title: 'Inadimplências',
   },
   {
-    href: "/settings",
+    href: '/settings',
     icon: SettingsIcon,
-    title: "Configurações",
+    title: 'Configurações',
   },
-];
+]
 
 const useStyles = makeStyles((theme) => ({
   mobileDrawer: {
@@ -63,41 +63,41 @@ const useStyles = makeStyles((theme) => ({
   desktopDrawer: {
     width: 256,
     top: 64,
-    height: "calc(100% - 64px)",
+    height: 'calc(100% - 64px)',
   },
   avatar: {
-    cursor: "pointer",
+    cursor: 'pointer',
     width: 64,
     height: 64,
     marginBottom: theme.spacing(1),
   },
   name: {
-    textOverflow: "ellipsis",
-    maxWidth: "100%",
-    overflow: "hidden",
-    display: "-webkit-box",
-    "-webkit-line-clamp": "2",
-    "-webkit-box-orient": "vertical",
+    textOverflow: 'ellipsis',
+    maxWidth: '100%',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    '-webkit-line-clamp': '2',
+    '-webkit-box-orient': 'vertical',
   },
-}));
+}))
 
 const NavBar = ({ onMobileClose, openMobile }) => {
-  const classes = useStyles();
-  const location = useLocation();
-  const { condo, openDrawer } = useData();
+  const classes = useStyles()
+  const location = useLocation()
+  const { condo, openDrawer } = useData()
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
-      onMobileClose();
+      onMobileClose()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname]);
+  }, [location.pathname])
 
   const content = (
     <Box height="100%" display="flex" flexDirection="column">
       <Box alignItems="center" display="flex" flexDirection="column" p={2}>
         <Avatar className={classes.avatar} onClick={openDrawer}>
-          {condo ? getInitials(condo.name) : "TDS"}
+          {condo ? getInitials(condo.name) : 'TDS'}
         </Avatar>
 
         <Typography
@@ -106,7 +106,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           variant="h5"
           align="center"
         >
-          {condo ? condo.name : "Todos Condomínios"}
+          {condo ? condo.name : 'Todos Condomínios'}
         </Typography>
       </Box>
       <Divider />
@@ -123,7 +123,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         </List>
       </Box>
     </Box>
-  );
+  )
 
   return (
     <>
@@ -149,17 +149,17 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         </Drawer>
       </Hidden>
     </>
-  );
-};
+  )
+}
 
 NavBar.propTypes = {
   onMobileClose: PropTypes.func,
   openMobile: PropTypes.bool,
-};
+}
 
 NavBar.defaultProps = {
   onMobileClose: () => {},
   openMobile: false,
-};
+}
 
-export default NavBar;
+export default NavBar

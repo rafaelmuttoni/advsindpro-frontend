@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 import {
   Button,
   TextField,
@@ -12,54 +12,54 @@ import {
   FormControlLabel,
   Checkbox,
   InputAdornment,
-} from "@material-ui/core";
-import moment from "moment";
-import { DatePicker } from "@material-ui/pickers";
+} from '@material-ui/core'
+import moment from 'moment'
+import { DatePicker } from '@material-ui/pickers'
 
-import { useAlert } from "src/context/AlertContext";
-import { useData } from "src/context/DataContext";
+import { useAlert } from 'src/context/AlertContext'
+import { useData } from 'src/context/DataContext'
 
 const DebtModal = ({ open, close, editingDebt }) => {
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const { alert } = useAlert();
-  const { data, submit } = useData();
+  const theme = useTheme()
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const { alert } = useAlert()
+  const { data, submit } = useData()
 
-  const [form, setForm] = useState({ date: moment().format() });
-  const [date, setDate] = useState(moment().format());
+  const [form, setForm] = useState({ date: moment().format() })
+  const [date, setDate] = useState(moment().format())
 
   const closeAndClear = () => {
-    setForm({ date: moment().format() });
-    close();
-  };
+    setForm({ date: moment().format() })
+    close()
+  }
 
   useEffect(() => {
-    !!editingDebt && setForm(editingDebt);
-  }, [editingDebt]);
+    !!editingDebt && setForm(editingDebt)
+  }, [editingDebt])
 
   const handleChange = (target) => {
-    const { name, value } = target;
-    setForm({ ...form, [name]: value });
-  };
+    const { name, value } = target
+    setForm({ ...form, [name]: value })
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const err = await submit("debts", form, Boolean(editingDebt));
+    const err = await submit('debts', form, Boolean(editingDebt))
 
     if (err) {
-      alert("Ocorreu um erro na sua solicitação", "error");
+      alert('Ocorreu um erro na sua solicitação', 'error')
     } else {
-      alert();
-      closeAndClear();
+      alert()
+      closeAndClear()
     }
-  };
+  }
 
   return (
     <Dialog open={open} onClose={closeAndClear} fullScreen={fullScreen}>
       <form onSubmit={handleSubmit}>
         <DialogTitle>
-          {!!editingDebt ? "Editando" : "Novo"} Prestador
+          {!!editingDebt ? 'Editando' : 'Nova'} Inadimplência
         </DialogTitle>
         <DialogContent>
           <TextField
@@ -68,7 +68,7 @@ const DebtModal = ({ open, close, editingDebt }) => {
             margin="normal"
             name="title"
             onChange={({ target }) => handleChange(target)}
-            value={form.title || ""}
+            value={form.title || ''}
             variant="outlined"
             required
           />
@@ -80,7 +80,7 @@ const DebtModal = ({ open, close, editingDebt }) => {
             label="Condômino"
             type="text"
             fullWidth
-            value={form.resident_id || ""}
+            value={form.resident_id || ''}
             onChange={({ target }) => handleChange(target)}
             required
           >
@@ -99,11 +99,11 @@ const DebtModal = ({ open, close, editingDebt }) => {
             margin="normal"
             name="date"
             onChange={(dateTime) => {
-              setDate(dateTime);
-              let date = {};
-              date.value = dateTime.format();
-              date.name = "date";
-              handleChange(date);
+              setDate(dateTime)
+              let date = {}
+              date.value = dateTime.format()
+              date.name = 'date'
+              handleChange(date)
             }}
             value={date}
             inputVariant="outlined"
@@ -116,7 +116,7 @@ const DebtModal = ({ open, close, editingDebt }) => {
             name="price"
             type="number"
             onChange={({ target }) => handleChange(target)}
-            value={form.price || ""}
+            value={form.price || ''}
             variant="outlined"
             InputProps={{
               startAdornment: (
@@ -146,7 +146,7 @@ const DebtModal = ({ open, close, editingDebt }) => {
             margin="normal"
             name="description"
             onChange={({ target }) => handleChange(target)}
-            value={form.description || ""}
+            value={form.description || ''}
             variant="outlined"
             multiline
             rows={4}
@@ -162,7 +162,7 @@ const DebtModal = ({ open, close, editingDebt }) => {
         </DialogActions>
       </form>
     </Dialog>
-  );
-};
+  )
+}
 
-export default DebtModal;
+export default DebtModal
