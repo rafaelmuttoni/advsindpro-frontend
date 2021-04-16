@@ -1,45 +1,50 @@
-import React from "react";
-import moment from "moment";
+import React, { useState } from 'react'
+import moment from 'moment'
 import {
   Avatar,
+  Button,
   Dialog,
+  DialogActions,
   DialogContent,
   DialogTitle,
+  TextField,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
   makeStyles,
-} from "@material-ui/core";
+  Typography,
+} from '@material-ui/core'
 
-import CalendarIcon from "@material-ui/icons/CalendarToday";
-import DescriptionIcon from "@material-ui/icons/Subject";
-import ProviderIcon from "@material-ui/icons/Build";
-import CondoIcon from "@material-ui/icons/HomeWork";
-import PriceIcon from "@material-ui/icons/AttachMoney";
+import CalendarIcon from '@material-ui/icons/CalendarToday'
+import DescriptionIcon from '@material-ui/icons/Subject'
+import ProviderIcon from '@material-ui/icons/Build'
+import CondoIcon from '@material-ui/icons/HomeWork'
+import PriceIcon from '@material-ui/icons/AttachMoney'
 
-import { useData } from "src/context/DataContext";
-import { parseToReal } from "src/utils/parsers";
+import { useAlert } from 'src/context/AlertContext'
+import { useData } from 'src/context/DataContext'
+import { parseToReal } from 'src/utils/parsers'
 
 const useStyles = makeStyles((theme) => ({
   title: {
-    minWidth: "25vw",
-    "& h2": {
-      fontSize: "1rem",
+    minWidth: '25vw',
+    '& h2': {
+      fontSize: '1rem',
     },
   },
   avatar: {
     width: theme.spacing(4),
     height: theme.spacing(4),
-    "& svg": {
+    '& svg': {
       width: theme.spacing(2),
       height: theme.spacing(2),
     },
   },
-}));
+}))
 
 const DialogItem = ({ icon, title, value }) => {
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <ListItem>
       <ListItemAvatar>
@@ -47,13 +52,16 @@ const DialogItem = ({ icon, title, value }) => {
       </ListItemAvatar>
       <ListItemText primary={title} secondary={value} />
     </ListItem>
-  );
-};
+  )
+}
 
 export default function EventDialog({ content, close }) {
-  const classes = useStyles();
-  const { data } = useData();
-  const isOpen = Boolean(content);
+  const classes = useStyles()
+  const { alert } = useAlert()
+  const { data, submit } = useData()
+  const isOpen = Boolean(content)
+
+  const [month, setMonth] = useState(0)
 
   const {
     type,
@@ -63,12 +71,34 @@ export default function EventDialog({ content, close }) {
     price,
     condo_id,
     provider_id,
-  } = content;
+  } = content
 
-  const provider = data && data.providers.find((p) => p.id === provider_id);
-  const condo = data && data.condos.find((p) => p.id === condo_id);
+  const provider = data && data.providers.find((p) => p.id === provider_id)
+  const condo = data && data.condos.find((p) => p.id === condo_id)
 
-  console.log();
+  const handleReschedule = async () => {
+    if (month < 1) {
+      return alert('O mês mínimo para reagendar é 1', 'info')
+    }
+
+    const { type, title, description, start, ...rest } = content
+
+    const err = await submit(type, {
+      ...rest,
+      name: title,
+      date: moment(start).add(month, 'month').format(),
+    })
+
+    if (err) {
+      alert('Ocorreu um erro na sua solicitação', 'error')
+    } else {
+      alert(
+        `Reagendado para ${moment(start)
+          .add(month, 'month')
+          .format('DD/MM/YYYY')} com sucesso.`,
+      )
+    }
+  }
 
   return (
     <Dialog onClose={close} open={isOpen}>
@@ -78,39 +108,62 @@ export default function EventDialog({ content, close }) {
           {condo && (
             <DialogItem
               icon={<CondoIcon />}
-              title={"Condomínio"}
+              title={'Condomínio'}
               value={condo.name}
             />
           )}
           <DialogItem
             icon={<CalendarIcon />}
-            title={"Data"}
+            title={'Data'}
             value={moment(start).format(
-              type === "services" || type === "events" ? "LLL" : "LL"
+              type === 'services' || type === 'events' ? 'LLL' : 'LL',
             )}
           />
-          {type === "services" && (
+          {type === 'services' && (
             <>
               <DialogItem
                 icon={<ProviderIcon />}
-                title={"Provedor"}
+                title={'Provedor'}
                 value={provider.name}
               />
 
               <DialogItem
                 icon={<PriceIcon />}
-                title={"Preço"}
+                title={'Preço'}
                 value={parseToReal(price)}
               />
             </>
           )}
           <DialogItem
             icon={<DescriptionIcon />}
-            title={"Descrição"}
+            title={'Descrição'}
             value={description || <i>Sem descrição</i>}
           />
         </List>
       </DialogContent>
+      {(type === 'services' || type === 'events') && (
+        <DialogActions>
+          <Typography style={{ margin: '0 auto' }}>
+            Reagendar evento para daqui{' '}
+            <TextField
+              type="number"
+              margin-="none"
+              size="small"
+              style={{ width: 40 }}
+              value={month}
+              onChange={(e) => setMonth(e.target.value)}
+            />{' '}
+            meses
+          </Typography>{' '}
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={handleReschedule}
+          >
+            Reagendar
+          </Button>
+        </DialogActions>
+      )}
     </Dialog>
-  );
+  )
 }

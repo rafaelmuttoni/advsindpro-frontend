@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import moment from "moment";
+import React, { useState } from 'react'
+import moment from 'moment'
 import {
   Avatar,
   Box,
@@ -8,60 +8,60 @@ import {
   Divider,
   Typography,
   makeStyles,
-} from "@material-ui/core";
+} from '@material-ui/core'
 
-import EditIcon from "@material-ui/icons/Edit";
+import EditIcon from '@material-ui/icons/Edit'
 
-import CalendarIcon from "@material-ui/icons/CalendarToday";
-import EnergyIcon from "@material-ui/icons/Power";
-import WaterIcon from "@material-ui/icons/Waves";
-import GasIcon from "@material-ui/icons/Whatshot";
+import CalendarIcon from '@material-ui/icons/CalendarToday'
+import EnergyIcon from '@material-ui/icons/Power'
+import WaterIcon from '@material-ui/icons/Waves'
+import GasIcon from '@material-ui/icons/Whatshot'
 
-import getInitials from "src/utils/getInitials";
+import getInitials from 'src/utils/getInitials'
 
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import Letter from "src/pdf/Letter";
+import { PDFDownloadLink } from '@react-pdf/renderer'
+import Letter from 'src/pdf/Letter'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    flexDirection: "column",
-    height: "100%",
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
   },
   avatar: {
     background: theme.palette.primary.main,
 
-    cursor: "pointer",
-    "&:hover": {
-      filter: "brightness(0.9)",
+    cursor: 'pointer',
+    '&:hover': {
+      filter: 'brightness(0.9)',
     },
   },
   name: {
-    textOverflow: "ellipsis",
-    maxWidth: "100%",
-    overflow: "hidden",
-    display: "-webkit-box",
-    "-webkit-line-clamp": "2",
-    "-webkit-box-orient": "vertical",
+    textOverflow: 'ellipsis',
+    maxWidth: '100%',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    '-webkit-line-clamp': '2',
+    '-webkit-box-orient': 'vertical',
   },
   divider: {
     marginBottom: theme.spacing(2),
   },
   statsItem: {
-    alignItems: "center",
-    justifyContent: "center",
-    display: "flex",
+    alignItems: 'center',
+    justifyContent: 'center',
+    display: 'flex',
     marginBottom: theme.spacing(2),
   },
   statsIcon: {
     marginRight: theme.spacing(1),
   },
-}));
+}))
 
 const CondoCard = ({ condo, editCondo }) => {
-  const classes = useStyles();
+  const classes = useStyles()
 
-  const [isEditVisible, setIsEditVisible] = useState(false);
+  const [isEditVisible, setIsEditVisible] = useState(false)
 
   return (
     <Card className={classes.root}>
@@ -104,7 +104,7 @@ const CondoCard = ({ condo, editCondo }) => {
         <Typography align="center" color="textPrimary" variant="body1">
           {condo.address}
         </Typography>
-        <PDFDownloadLink
+        {/* <PDFDownloadLink
           document={<Letter />}
           fileName="letter.pdf"
           style={{
@@ -112,14 +112,14 @@ const CondoCard = ({ condo, editCondo }) => {
           }}
         >
           Baixar PDF
-        </PDFDownloadLink>
+        </PDFDownloadLink> */}
       </CardContent>
       <Box flexGrow={1} />
       <Divider className={classes.divider} />
       <Box className={classes.statsItem}>
         <CalendarIcon className={classes.statsIcon} color="action" />
         <Typography color="textSecondary" display="inline" variant="body2">
-          Síndico desde: {moment(condo.initial_date).format("MM/YYYY")}
+          Síndico desde: {moment(condo.initial_date).format('MM/YYYY')}
         </Typography>
       </Box>
 
@@ -144,7 +144,7 @@ const CondoCard = ({ condo, editCondo }) => {
         </Typography>
       </Box>
     </Card>
-  );
-};
+  )
+}
 
-export default CondoCard;
+export default CondoCard
