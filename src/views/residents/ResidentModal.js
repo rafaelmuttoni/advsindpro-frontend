@@ -10,10 +10,11 @@ import {
   DialogActions,
   MenuItem,
 } from '@material-ui/core'
+import InputMask from 'react-input-mask'
 
 import { useAlert } from 'src/context/AlertContext'
 import { useData } from 'src/context/DataContext'
-import InputMask from 'react-input-mask'
+import { parseCondoAddress } from 'src/utils/parsers'
 
 const ResidentModal = ({ open, close, editingResident }) => {
   const theme = useTheme()
@@ -34,7 +35,14 @@ const ResidentModal = ({ open, close, editingResident }) => {
 
   const handleChange = (target) => {
     const { name, value } = target
-    setForm({ ...form, [name]: value })
+
+    if (name === 'condo_id') {
+      const condo = data.condos.find((c) => c.id === Number(value))
+      const condoAddress = parseCondoAddress(condo)
+      setForm({ ...form, address: condoAddress, [name]: value })
+    } else {
+      setForm({ ...form, [name]: value })
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -49,8 +57,6 @@ const ResidentModal = ({ open, close, editingResident }) => {
       closeAndClear()
     }
   }
-
-  console.log(form)
 
   return (
     <Dialog open={open} onClose={closeAndClear} fullScreen={fullScreen}>
@@ -111,9 +117,18 @@ const ResidentModal = ({ open, close, editingResident }) => {
             label="Endereço"
             margin="normal"
             name="address"
-            onChange={({ target }) => handleChange(target)}
             value={form.address || ''}
             variant="outlined"
+          />
+          <TextField
+            fullWidth
+            label="Apartamento"
+            margin="normal"
+            name="apartment"
+            onChange={({ target }) => handleChange(target)}
+            value={form.apartment || ''}
+            variant="outlined"
+            required
           />
           <TextField
             fullWidth
