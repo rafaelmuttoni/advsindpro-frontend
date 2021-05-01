@@ -15,7 +15,6 @@ import {
   Calendar as CalendarIcon,
   DollarSign as DollarIcon,
   Home as HomeIcon,
-  Settings as SettingsIcon,
   Tag as TagIcon,
   Users as UsersIcon,
 } from 'react-feather'
@@ -48,11 +47,6 @@ const items = [
     href: '/debts',
     icon: DollarIcon,
     title: 'Inadimplências',
-  },
-  {
-    href: '/settings',
-    icon: SettingsIcon,
-    title: 'Configurações',
   },
 ]
 
