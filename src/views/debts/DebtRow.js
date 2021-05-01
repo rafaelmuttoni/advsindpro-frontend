@@ -46,12 +46,29 @@ export default function DebtRow({
       <TableCell>{moment(event.due_date).format('DD/MM/YYYY')}</TableCell>
 
       <TableCell>
+        <DownloadPDF
+          title={event.tile}
+          resident={residentData(event.resident_id, 'name')}
+          address={residentData(event.resident_id, 'address')}
+          price={event.price.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          })}
+        >
+          <Button color="primary" variant="contained" size="small">
+            Gerar PDF
+          </Button>
+        </DownloadPDF>
+      </TableCell>
+
+      <TableCell>
         <Button
           aria-controls="simple-menu"
           aria-haspopup="true"
           onClick={(e) => openMenu(event.id, e)}
-          color="primary"
+          color="secondary"
           variant="contained"
+          size="small"
         >
           Opções
         </Button>
@@ -69,22 +86,6 @@ export default function DebtRow({
             </ListItemIcon>
             Lembrar-me
           </MenuItem>
-          <DownloadPDF
-            title={event.tile}
-            resident={residentData(event.resident_id, 'name')}
-            address={residentData(event.resident_id, 'address')}
-            price={event.price.toLocaleString('pt-BR', {
-              style: 'currency',
-              currency: 'BRL',
-            })}
-          >
-            <MenuItem style={{ color: 'black' }}>
-              <ListItemIcon style={{ minWidth: 0, marginRight: 8 }}>
-                <DownloadIcon fontSize="small" />
-              </ListItemIcon>
-              Gerar PDF
-            </MenuItem>
-          </DownloadPDF>
 
           <MenuItem onClick={() => editDebt(event)}>
             <ListItemIcon style={{ minWidth: 0, marginRight: 8 }}>

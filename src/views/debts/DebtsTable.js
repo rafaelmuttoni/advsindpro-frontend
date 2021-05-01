@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const DebtsTable = ({ debts, editDebt }) => {
+const DebtsTable = ({ debts, editDebt, reminder }) => {
   const classes = useStyles()
   const [anchorEls, setAnchorEls] = React.useState([])
 
@@ -111,6 +111,7 @@ const DebtsTable = ({ debts, editDebt }) => {
                     <TableCell>Título</TableCell>
                     <TableCell>Valor</TableCell>
                     <TableCell>Vencimento</TableCell>
+                    <TableCell>Gerar PDF</TableCell>
                     <TableCell>Opções</TableCell>
                   </TableRow>
                 </TableHead>
@@ -126,6 +127,7 @@ const DebtsTable = ({ debts, editDebt }) => {
                         key={index}
                         event={event}
                         editDebt={editDebt}
+                        reminder={reminder}
                         anchorEl={anchorEls[event.id]}
                         openMenu={handleActionClick}
                         closeMenu={handleActionClose}
@@ -165,6 +167,7 @@ const DebtsTable = ({ debts, editDebt }) => {
                     <TableCell>Título</TableCell>
                     <TableCell>Valor</TableCell>
                     <TableCell>Vencimento</TableCell>
+                    <TableCell>Gerar PDF</TableCell>
                     <TableCell>Opções</TableCell>
                   </TableRow>
                 </TableHead>
@@ -180,6 +183,7 @@ const DebtsTable = ({ debts, editDebt }) => {
                         key={index}
                         event={event}
                         editDebt={editDebt}
+                        reminder={reminder}
                         anchorEl={anchorEls[event.id]}
                         openMenu={handleActionClick}
                         closeMenu={handleActionClose}

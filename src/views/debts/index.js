@@ -7,6 +7,7 @@ import { useData } from 'src/context/DataContext'
 
 import DebtsTable from './DebtsTable'
 import DebtModal from './DebtModal'
+import ReminderDialog from './ReminderDialog'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +24,8 @@ const DebtsView = () => {
 
   const [editingDebt, setEditingDebt] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const [remindDebt, setRemindDebt] = useState(false)
 
   const [filter, setFilter] = useState('')
 
@@ -65,13 +68,22 @@ const DebtsView = () => {
           openModal={setIsModalOpen}
         />
         <Box mt={3}>
-          <DebtsTable debts={filteredDebts} editDebt={setEditingDebt} />
+          <DebtsTable
+            debts={filteredDebts}
+            editDebt={setEditingDebt}
+            reminder={(event) => setRemindDebt(event)}
+          />
         </Box>
       </Container>
       <DebtModal
         open={isModalOpen}
         close={closeModal}
         editingDebt={editingDebt}
+      />
+      <ReminderDialog
+        isOpen={Boolean(remindDebt)}
+        close={() => setRemindDebt(false)}
+        event={remindDebt}
       />
     </Page>
   )
