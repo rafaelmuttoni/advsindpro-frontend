@@ -34,6 +34,19 @@ const useStyles = makeStyles((theme) => ({
 
 const DebtsTable = ({ debts, editDebt }) => {
   const classes = useStyles()
+  const [anchorEls, setAnchorEls] = React.useState([])
+
+  const handleActionClick = (id, event) => {
+    let anchorElsCopy = [...anchorEls]
+    anchorElsCopy[id] = event.target
+    setAnchorEls(anchorElsCopy)
+  }
+
+  const handleActionClose = (id) => {
+    let anchorElsCopy = [...anchorEls]
+    anchorElsCopy[id] = null
+    setAnchorEls(anchorElsCopy)
+  }
 
   const [topPagination, setTopPagination] = useState({
     limit: 10,
@@ -98,8 +111,7 @@ const DebtsTable = ({ debts, editDebt }) => {
                     <TableCell>Título</TableCell>
                     <TableCell>Valor</TableCell>
                     <TableCell>Vencimento</TableCell>
-                    <TableCell>Gerar PDF</TableCell>
-                    <TableCell>Editar</TableCell>
+                    <TableCell>Opções</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -110,7 +122,14 @@ const DebtsTable = ({ debts, editDebt }) => {
                       topPagination.limit * (topPagination.page + 1)
                     )
                     .map((event, index) => (
-                      <DebtRow key={index} event={event} editDebt={editDebt} />
+                      <DebtRow
+                        key={index}
+                        event={event}
+                        editDebt={editDebt}
+                        anchorEl={anchorEls[event.id]}
+                        openMenu={handleActionClick}
+                        closeMenu={handleActionClose}
+                      />
                     ))}
                 </TableBody>
               </Table>
@@ -146,8 +165,7 @@ const DebtsTable = ({ debts, editDebt }) => {
                     <TableCell>Título</TableCell>
                     <TableCell>Valor</TableCell>
                     <TableCell>Vencimento</TableCell>
-                    <TableCell>Gerar PDF</TableCell>
-                    <TableCell>Editar</TableCell>
+                    <TableCell>Opções</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -158,7 +176,14 @@ const DebtsTable = ({ debts, editDebt }) => {
                       bottomPagination.limit * (bottomPagination.page + 1)
                     )
                     .map((event, index) => (
-                      <DebtRow key={index} event={event} editDebt={editDebt} />
+                      <DebtRow
+                        key={index}
+                        event={event}
+                        editDebt={editDebt}
+                        anchorEl={anchorEls[event.id]}
+                        openMenu={handleActionClick}
+                        closeMenu={handleActionClose}
+                      />
                     ))}
                 </TableBody>
               </Table>
