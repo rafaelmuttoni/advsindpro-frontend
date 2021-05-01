@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Box,
   Button,
@@ -7,10 +7,10 @@ import {
   TextField,
   InputAdornment,
   SvgIcon,
-} from "@material-ui/core";
-import { Search as SearchIcon } from "react-feather";
+} from '@material-ui/core'
+import { Search as SearchIcon } from 'react-feather'
 
-const Toolbar = ({ name, filter, setFilter, openModal }) => {
+const Toolbar = ({ name, search, filter, setFilter, openModal }) => {
   return (
     <>
       <Box display="flex" justifyContent="flex-start">
@@ -33,7 +33,7 @@ const Toolbar = ({ name, filter, setFilter, openModal }) => {
                     </InputAdornment>
                   ),
                 }}
-                placeholder={`Procurar ${name}`}
+                placeholder={`Procurar ${search ? search : name}`}
                 variant="outlined"
                 value={filter}
                 onChange={({ target }) => setFilter(target.value)}
@@ -43,7 +43,7 @@ const Toolbar = ({ name, filter, setFilter, openModal }) => {
         </Card>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default Toolbar;
+export default Toolbar

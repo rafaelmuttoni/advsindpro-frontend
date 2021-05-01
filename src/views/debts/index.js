@@ -63,6 +63,7 @@ const DebtsView = () => {
       <Container maxWidth={false}>
         <Toolbar
           name="Inadimplência"
+          search="Inadimplente"
           filter={filter}
           setFilter={setFilter}
           openModal={setIsModalOpen}
