@@ -88,16 +88,121 @@ const CondoModal = ({ open, close, editingCondo }) => {
             )}
           </InputMask>
 
+          <InputMask
+            name="zipcode"
+            onChange={({ target }) => handleChange(target)}
+            value={form.zipcode || ''}
+            mask="99999-999"
+            maskChar="_"
+          >
+            {(inputProps) => (
+              <TextField
+                {...inputProps}
+                fullWidth
+                label="CEP"
+                margin="normal"
+                variant="outlined"
+                required
+              />
+            )}
+          </InputMask>
+
           <TextField
             fullWidth
-            label="Endereço"
+            label="Rua/Av"
             margin="normal"
-            name="address"
+            name="street"
             onChange={({ target }) => handleChange(target)}
-            value={form.address || ''}
+            type="text"
+            value={form.street || ''}
             variant="outlined"
             required
           />
+
+          <div style={{ display: 'flex' }}>
+            <TextField
+              fullWidth
+              label="Prédio"
+              margin="normal"
+              name="building"
+              onChange={({ target }) => handleChange(target)}
+              type="text"
+              value={form.building || ''}
+              variant="outlined"
+              required
+            />
+
+            <TextField
+              fullWidth
+              label="Núcleo"
+              margin="normal"
+              name="core"
+              onChange={({ target }) => handleChange(target)}
+              type="text"
+              value={form.core || ''}
+              variant="outlined"
+              style={{ marginRight: 6, marginLeft: 6 }}
+            />
+
+            <TextField
+              fullWidth
+              label="Bloco"
+              margin="normal"
+              name="block"
+              onChange={({ target }) => handleChange(target)}
+              type="text"
+              value={form.block || ''}
+              variant="outlined"
+              required
+            />
+          </div>
+
+          <TextField
+            fullWidth
+            label="Bairro"
+            margin="normal"
+            name="neighborhood"
+            onChange={({ target }) => handleChange(target)}
+            type="text"
+            value={form.neighborhood || ''}
+            variant="outlined"
+            required
+          />
+          <TextField
+            fullWidth
+            label="Cidade"
+            margin="normal"
+            name="city"
+            onChange={({ target }) => handleChange(target)}
+            type="text"
+            value={form.city || ''}
+            variant="outlined"
+            required
+          />
+          <TextField
+            fullWidth
+            label="Estado"
+            margin="normal"
+            name="state"
+            onChange={({ target }) => handleChange(target)}
+            type="text"
+            value={form.state || ''}
+            variant="outlined"
+            required
+          />
+
+          <TextField
+            fullWidth
+            label="Síndico"
+            margin="normal"
+            name="manager"
+            onChange={({ target }) => handleChange(target)}
+            type="text"
+            value={form.manager || ''}
+            variant="outlined"
+            required
+          />
+
           <DatePicker
             fullWidth
             label="Data de Início"
