@@ -12,6 +12,7 @@ import {
 import InputMask from 'react-input-mask'
 import moment from 'moment'
 import { DatePicker } from '@material-ui/pickers'
+import axios from 'axios'
 
 import { useAlert } from 'src/context/AlertContext'
 import { useData } from 'src/context/DataContext'
@@ -23,6 +24,7 @@ const CondoModal = ({ open, close, editingCondo }) => {
   const { submit } = useData()
 
   const [form, setForm] = useState({ initial_date: moment().format() })
+  const [loading, setLoading] = useState(false)
   const [date, setDate] = useState(moment().format())
 
   const closeAndClear = () => {
@@ -34,8 +36,37 @@ const CondoModal = ({ open, close, editingCondo }) => {
     !!editingCondo && setForm(editingCondo)
   }, [editingCondo])
 
-  const handleChange = (target) => {
+  const handleChange = async (target) => {
     const { name, value } = target
+
+    if (name === 'zipcode') {
+      const withoutUnderline = value.split('_').join('')
+      if (withoutUnderline.length === 9) {
+        setLoading(true)
+        const withoutDash = value.split('-').join('')
+        const { data } = await axios.get(
+          `https://viacep.com.br/ws/${withoutDash}/json`
+        )
+        const {
+          bairro: neighborhood,
+          localidade: city,
+          logradouro: street,
+          uf: state,
+        } = data
+        setLoading(false)
+        return setForm({
+          ...form,
+          neighborhood,
+          city,
+          street,
+          state,
+          [name]: value,
+        })
+      } else {
+        return setForm({ ...form, [name]: value })
+      }
+    }
+
     setForm({ ...form, [name]: value })
   }
 
@@ -117,6 +148,7 @@ const CondoModal = ({ open, close, editingCondo }) => {
             value={form.street || ''}
             variant="outlined"
             required
+            disabled={loading}
           />
 
           <div style={{ display: 'flex' }}>
@@ -167,6 +199,7 @@ const CondoModal = ({ open, close, editingCondo }) => {
             value={form.neighborhood || ''}
             variant="outlined"
             required
+            disabled={loading}
           />
           <TextField
             fullWidth
@@ -178,6 +211,7 @@ const CondoModal = ({ open, close, editingCondo }) => {
             value={form.city || ''}
             variant="outlined"
             required
+            disabled={loading}
           />
           <TextField
             fullWidth
@@ -189,6 +223,7 @@ const CondoModal = ({ open, close, editingCondo }) => {
             value={form.state || ''}
             variant="outlined"
             required
+            disabled={loading}
           />
 
           <TextField
