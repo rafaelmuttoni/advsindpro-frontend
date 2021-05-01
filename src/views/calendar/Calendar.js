@@ -64,6 +64,12 @@ const Calendar = () => {
     //   className: ['bg-soft-primary']
     // }));
 
+    const colorParser = (priority) => {
+      if (priority === 1) return "grey";
+      if (priority === 2) return "orange";
+      if (priority === 3) return "red";
+    };
+
     const parsedEvents = events.map((e) => ({
       id: `event - ${e.id}`,
       type: "events",
@@ -71,6 +77,7 @@ const Calendar = () => {
       start: moment(e.date).format("YYYY-MM-DD HH:mm"),
       description: e.description,
       condo_id: e.condo_id,
+      color: colorParser(e.priority),
     }));
 
     const parsedServices = services.map((e) => ({
@@ -82,6 +89,7 @@ const Calendar = () => {
       price: e.price,
       condo_id: e.condo_id,
       provider_id: e.provider_id,
+      color: colorParser(e.priority),
     }));
 
     const birthdays = calculateNextBirthdays(condos);
