@@ -61,7 +61,7 @@ export default function EventDialog({ content, close }) {
   const { data, submit } = useData()
   const isOpen = Boolean(content)
 
-  const [month, setMonth] = useState(0)
+  const [month, setMonth] = useState('1')
 
   const {
     type,
@@ -77,10 +77,6 @@ export default function EventDialog({ content, close }) {
   const condo = data && data.condos.find((p) => p.id === condo_id)
 
   const handleReschedule = async () => {
-    if (month < 1) {
-      return alert('O mês mínimo para reagendar é 1', 'info')
-    }
-
     const { type, title, description, start, ...rest } = content
 
     const err = await submit(type, {
@@ -95,7 +91,7 @@ export default function EventDialog({ content, close }) {
       alert(
         `Reagendado para ${moment(start)
           .add(month, 'month')
-          .format('DD/MM/YYYY')} com sucesso.`,
+          .format('DD/MM/YYYY')} com sucesso.`
       )
     }
   }
@@ -116,7 +112,7 @@ export default function EventDialog({ content, close }) {
             icon={<CalendarIcon />}
             title={'Data'}
             value={moment(start).format(
-              type === 'services' || type === 'events' ? 'LLL' : 'LL',
+              type === 'services' || type === 'events' ? 'LLL' : 'LL'
             )}
           />
           {type === 'services' && (
@@ -147,6 +143,11 @@ export default function EventDialog({ content, close }) {
             Reagendar evento para daqui{' '}
             <TextField
               type="number"
+              InputProps={{
+                inputProps: {
+                  min: 1,
+                },
+              }}
               margin-="none"
               size="small"
               style={{ width: 40 }}
