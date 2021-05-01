@@ -25,11 +25,11 @@ const DebtModal = ({ open, close, editingDebt }) => {
   const { alert } = useAlert()
   const { data, submit } = useData()
 
-  const [form, setForm] = useState({ date: moment().format() })
+  const [form, setForm] = useState({ due_date: moment().format() })
   const [date, setDate] = useState(moment().format())
 
   const closeAndClear = () => {
-    setForm({ date: moment().format() })
+    setForm({ due_date: moment().format() })
     close()
   }
 
@@ -64,7 +64,7 @@ const DebtModal = ({ open, close, editingDebt }) => {
         <DialogContent>
           <TextField
             fullWidth
-            label="Cobrança (ex.: Mar/2021)"
+            label="Nome da cobrança"
             margin="normal"
             name="title"
             onChange={({ target }) => handleChange(target)}
@@ -97,12 +97,12 @@ const DebtModal = ({ open, close, editingDebt }) => {
             label="Data de vencimento"
             format="LL"
             margin="normal"
-            name="date"
+            name="due_date"
             onChange={(dateTime) => {
               setDate(dateTime)
               let date = {}
               date.value = dateTime.format()
-              date.name = 'date'
+              date.name = 'due_date'
               handleChange(date)
             }}
             value={date}
