@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import PerfectScrollbar from "react-perfect-scrollbar";
+import React, { useState } from 'react'
+import moment from 'moment'
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 import {
   Button,
@@ -15,7 +16,8 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-} from "@material-ui/core";
+} from '@material-ui/core'
+import { useData } from 'src/context/DataContext'
 
 const useStyles = makeStyles((theme) => ({
   topCard: {
@@ -23,77 +25,69 @@ const useStyles = makeStyles((theme) => ({
   },
   head: {
     background: theme.palette.secondary.main,
-    color: "#fff",
+    color: '#fff',
   },
   paper: {
     height: 50,
     padding: 15,
     fontWeight: 400,
   },
-  income: {
-    fontWeight: 600,
-    background: "#c8e6c9",
-    padding: "10px 20px",
-    borderRadius: "20px",
-  },
-  expense: {
-    fontWeight: 600,
-    background: "#ffcdd2",
-    padding: "10px 20px",
-    borderRadius: "20px",
-  },
-}));
+}))
 
 const DebtsTable = ({ debts, togglePayment }) => {
-  const classes = useStyles();
+  const classes = useStyles()
+  const { data } = useData()
 
   const [topPagination, setTopPagination] = useState({
     limit: 10,
     page: 0,
-  });
+  })
 
   const [bottomPagination, setBottomPagination] = useState({
     limit: 10,
     page: 0,
-  });
+  })
 
   const handleLimitChange = (event, table) => {
-    if (table === "top") {
+    if (table === 'top') {
       setTopPagination({
         ...topPagination,
         limit: event.target.value,
-      });
+      })
     }
 
-    if (table === "bottom") {
+    if (table === 'bottom') {
       setBottomPagination({
         ...bottomPagination,
         limit: event.target.value,
-      });
+      })
     }
-  };
+  }
 
   const handlePageChange = (event, newPage, table) => {
-    if (table === "top") {
+    if (table === 'top') {
       setTopPagination({
         ...topPagination,
         page: newPage,
-      });
+      })
     }
 
-    if (table === "bottom") {
+    if (table === 'bottom') {
       setBottomPagination({
         ...bottomPagination,
         page: newPage,
-      });
+      })
     }
-  };
+  }
 
-  const openPayments = debts.filter(({ payment_status }) => !payment_status);
+  const openPayments = debts.filter(({ payment_status }) => !payment_status)
 
-  const confirmedPayments = debts.filter(
-    ({ payment_status }) => payment_status
-  );
+  const confirmedPayments = debts.filter(({ payment_status }) => payment_status)
+
+  const residentName = (id) => {
+    const { name } = data.residents.find((r) => r.id === id)
+    return name
+  }
 
   return (
     <>
@@ -108,12 +102,11 @@ const DebtsTable = ({ debts, togglePayment }) => {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Tipo</TableCell>
-                    <TableCell>Data</TableCell>
+                    <TableCell>Condômino</TableCell>
                     <TableCell>Título</TableCell>
                     <TableCell>Valor</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Editar</TableCell>
+                    <TableCell>Vencimento</TableCell>
+                    <TableCell>Gerar PDF</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -125,37 +118,20 @@ const DebtsTable = ({ debts, togglePayment }) => {
                     )
                     .map((event, index) => (
                       <TableRow key={index}>
+                        <TableCell>{residentName(event.resident_id)}</TableCell>
+                        <TableCell>{event.title}</TableCell>
                         <TableCell>
-                          <span
-                            className={
-                              event.client_id ? classes.income : classes.expense
-                            }
-                          >
-                            {event.client_id ? "Receita" : "Despesa"}
-                          </span>
-                        </TableCell>
-                        <TableCell>{event.date}</TableCell>
-                        <TableCell>
-                          {event.name ||
-                            (event.client_id ? "Consulta" : "Despesa")}
-                        </TableCell>
-                        <TableCell>
-                          {event.price.toLocaleString("pt-BR", {
-                            style: "currency",
-                            currency: "BRL",
+                          {event.price.toLocaleString('pt-BR', {
+                            style: 'currency',
+                            currency: 'BRL',
                           })}
                         </TableCell>
                         <TableCell>
-                          <Chip
-                            label="Aguardando Pagamento"
-                            onClick={() =>
-                              togglePayment(event, event.client_id)
-                            }
-                          />
+                          {moment(event.due_date).format('DD/MM/YYYY')}
                         </TableCell>
                         <TableCell>
                           <Button color="secondary" variant="contained">
-                            Editar
+                            Gerar PDF
                           </Button>
                         </TableCell>
                       </TableRow>
@@ -166,8 +142,8 @@ const DebtsTable = ({ debts, togglePayment }) => {
             <TablePagination
               component="div"
               count={openPayments.length}
-              onChangeRowsPerPage={(e) => handleLimitChange(e, "top")}
-              onChangePage={(e, newPage) => handlePageChange(e, newPage, "top")}
+              onChangeRowsPerPage={(e) => handleLimitChange(e, 'top')}
+              onChangePage={(e, newPage) => handlePageChange(e, newPage, 'top')}
               page={topPagination.page}
               rowsPerPage={topPagination.limit}
               rowsPerPageOptions={[5, 10, 25]}
@@ -190,12 +166,11 @@ const DebtsTable = ({ debts, togglePayment }) => {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Tipo</TableCell>
-                    <TableCell>Data</TableCell>
+                    <TableCell>Condômino</TableCell>
                     <TableCell>Título</TableCell>
                     <TableCell>Valor</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Editar</TableCell>
+                    <TableCell>Vencimento</TableCell>
+                    <TableCell>Gerar PDF</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -207,38 +182,20 @@ const DebtsTable = ({ debts, togglePayment }) => {
                     )
                     .map((event, index) => (
                       <TableRow key={index}>
+                        <TableCell>{residentName(event.resident_id)}</TableCell>
+                        <TableCell>{event.title}</TableCell>
                         <TableCell>
-                          <span
-                            className={
-                              event.client_id ? classes.income : classes.expense
-                            }
-                          >
-                            {event.client_id ? "Receita" : "Despesa"}
-                          </span>
-                        </TableCell>
-                        <TableCell>{event.date}</TableCell>
-                        <TableCell>
-                          {event.name ||
-                            (event.client_id ? "Consulta" : "Despesa")}
-                        </TableCell>
-                        <TableCell>
-                          {event.price.toLocaleString("pt-BR", {
-                            style: "currency",
-                            currency: "BRL",
+                          {event.price.toLocaleString('pt-BR', {
+                            style: 'currency',
+                            currency: 'BRL',
                           })}
                         </TableCell>
                         <TableCell>
-                          <Chip
-                            label="Pagamento confirmado"
-                            color="secondary"
-                            onClick={() =>
-                              togglePayment(event, event.client_id)
-                            }
-                          />
+                          {moment(event.due_date).format('DD/MM/YYYY')}
                         </TableCell>
                         <TableCell>
                           <Button color="secondary" variant="contained">
-                            Editar
+                            Gerar PDF
                           </Button>
                         </TableCell>
                       </TableRow>
@@ -249,9 +206,9 @@ const DebtsTable = ({ debts, togglePayment }) => {
             <TablePagination
               component="div"
               count={confirmedPayments.length}
-              onChangeRowsPerPage={(e) => handleLimitChange(e, "bottom")}
+              onChangeRowsPerPage={(e) => handleLimitChange(e, 'bottom')}
               onChangePage={(e, newPage) =>
-                handlePageChange(e, newPage, "bottom")
+                handlePageChange(e, newPage, 'bottom')
               }
               page={bottomPagination.page}
               rowsPerPage={bottomPagination.limit}
@@ -265,7 +222,7 @@ const DebtsTable = ({ debts, togglePayment }) => {
         )}
       </Card>
     </>
-  );
-};
+  )
+}
 
-export default DebtsTable;
+export default DebtsTable
