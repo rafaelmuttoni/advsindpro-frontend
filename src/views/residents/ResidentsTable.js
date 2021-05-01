@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import PerfectScrollbar from "react-perfect-scrollbar";
+import React, { useState } from 'react'
+import PerfectScrollbar from 'react-perfect-scrollbar'
 import {
   Box,
   Card,
@@ -9,21 +9,21 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-} from "@material-ui/core";
+} from '@material-ui/core'
 
-import ResidentRow from "./ResidentRow";
+import ResidentRow from './ResidentRow'
 
 const ResidentsTable = ({ residents, editResident }) => {
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(0);
+  const [limit, setLimit] = useState(10)
+  const [page, setPage] = useState(0)
 
   const handleLimitChange = (event) => {
-    setLimit(event.target.value);
-  };
+    setLimit(event.target.value)
+  }
 
   const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
+    setPage(newPage)
+  }
 
   return (
     <Card>
@@ -35,7 +35,7 @@ const ResidentsTable = ({ residents, editResident }) => {
                 <TableCell>Nome</TableCell>
                 <TableCell>CPF</TableCell>
                 <TableCell>Condomínio</TableCell>
-                <TableCell>Endereço</TableCell>
+                <TableCell>Apartamento</TableCell>
                 <TableCell>Telefone</TableCell>
                 <TableCell>Email</TableCell>
                 <TableCell>Editar</TableCell>
@@ -70,7 +70,7 @@ const ResidentsTable = ({ residents, editResident }) => {
         }
       />
     </Card>
-  );
-};
+  )
+}
 
-export default ResidentsTable;
+export default ResidentsTable

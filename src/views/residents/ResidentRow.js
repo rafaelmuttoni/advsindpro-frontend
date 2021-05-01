@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Avatar,
   Box,
@@ -7,24 +7,24 @@ import {
   TableCell,
   TableRow,
   Typography,
-} from "@material-ui/core";
+} from '@material-ui/core'
 
-import getInitials from "src/utils/getInitials";
-import { useData } from "src/context/DataContext";
+import getInitials from 'src/utils/getInitials'
+import { useData } from 'src/context/DataContext'
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
     marginRight: theme.spacing(2),
   },
-}));
+}))
 
 const ResidentRow = ({ resident, editResident }) => {
-  const classes = useStyles();
-  const { data } = useData();
+  const classes = useStyles()
+  const { data } = useData()
 
   const { name: condoName } = data.condos.find(
     (condo) => condo.id === resident.condo_id
-  );
+  )
 
   return (
     <TableRow hover key={resident.id}>
@@ -43,7 +43,7 @@ const ResidentRow = ({ resident, editResident }) => {
       </TableCell>
       <TableCell>{condoName}</TableCell>
       <TableCell>
-        {resident.address ? resident.address : <i>Não informado</i>}
+        {resident.apartment ? resident.apartment : <i>Não informado</i>}
       </TableCell>
       <TableCell>
         {resident.phone ? resident.phone : <i>Não informado</i>}
@@ -61,7 +61,7 @@ const ResidentRow = ({ resident, editResident }) => {
         </Button>
       </TableCell>
     </TableRow>
-  );
-};
+  )
+}
 
-export default ResidentRow;
+export default ResidentRow
