@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
-import moment from 'moment'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
 import {
-  Button,
   Card,
   CardHeader,
-  Chip,
   Divider,
   makeStyles,
   Paper,
@@ -18,10 +15,7 @@ import {
   TableRow,
 } from '@material-ui/core'
 
-import { useData } from 'src/context/DataContext'
-
-import { PDFDownloadLink } from '@react-pdf/renderer'
-import Letter from 'src/pdf/Letter'
+import DebtRow from './DebtRow'
 
 const useStyles = makeStyles((theme) => ({
   topCard: {
@@ -38,9 +32,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const DebtsTable = ({ debts, togglePayment }) => {
+const DebtsTable = ({ debts, editDebt }) => {
   const classes = useStyles()
-  const { data } = useData()
 
   const [topPagination, setTopPagination] = useState({
     limit: 10,
@@ -88,11 +81,6 @@ const DebtsTable = ({ debts, togglePayment }) => {
 
   const confirmedPayments = debts.filter(({ payment_status }) => payment_status)
 
-  const residentData = (id, key) => {
-    const resident = data.residents.find((r) => r.id === id)
-    return resident[key]
-  }
-
   return (
     <>
       <Card className={classes.topCard}>
@@ -111,6 +99,7 @@ const DebtsTable = ({ debts, togglePayment }) => {
                     <TableCell>Valor</TableCell>
                     <TableCell>Vencimento</TableCell>
                     <TableCell>Gerar PDF</TableCell>
+                    <TableCell>Editar</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -121,47 +110,7 @@ const DebtsTable = ({ debts, togglePayment }) => {
                       topPagination.limit * (topPagination.page + 1)
                     )
                     .map((event, index) => (
-                      <TableRow key={index}>
-                        <TableCell>
-                          {residentData(event.resident_id, 'name')}
-                        </TableCell>
-                        <TableCell>{event.title}</TableCell>
-                        <TableCell>
-                          {event.price.toLocaleString('pt-BR', {
-                            style: 'currency',
-                            currency: 'BRL',
-                          })}
-                        </TableCell>
-                        <TableCell>
-                          {moment(event.due_date).format('DD/MM/YYYY')}
-                        </TableCell>
-                        <TableCell>
-                          <PDFDownloadLink
-                            document={
-                              <Letter
-                                title={event.tile}
-                                resident={residentData(
-                                  event.resident_id,
-                                  'name'
-                                )}
-                                address={residentData(
-                                  event.resident_id,
-                                  'address'
-                                )}
-                                price={event.price.toLocaleString('pt-BR', {
-                                  style: 'currency',
-                                  currency: 'BRL',
-                                })}
-                              />
-                            }
-                            fileName="letter.pdf"
-                          >
-                            <Button color="secondary" variant="contained">
-                              Gerar PDF
-                            </Button>
-                          </PDFDownloadLink>
-                        </TableCell>
-                      </TableRow>
+                      <DebtRow key={index} event={event} editDebt={editDebt} />
                     ))}
                 </TableBody>
               </Table>
@@ -198,6 +147,7 @@ const DebtsTable = ({ debts, togglePayment }) => {
                     <TableCell>Valor</TableCell>
                     <TableCell>Vencimento</TableCell>
                     <TableCell>Gerar PDF</TableCell>
+                    <TableCell>Editar</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -208,26 +158,7 @@ const DebtsTable = ({ debts, togglePayment }) => {
                       bottomPagination.limit * (bottomPagination.page + 1)
                     )
                     .map((event, index) => (
-                      <TableRow key={index}>
-                        <TableCell>
-                          {residentData(event.resident_id, 'name')}
-                        </TableCell>
-                        <TableCell>{event.title}</TableCell>
-                        <TableCell>
-                          {event.price.toLocaleString('pt-BR', {
-                            style: 'currency',
-                            currency: 'BRL',
-                          })}
-                        </TableCell>
-                        <TableCell>
-                          {moment(event.due_date).format('DD/MM/YYYY')}
-                        </TableCell>
-                        <TableCell>
-                          <Button color="secondary" variant="contained">
-                            Gerar PDF
-                          </Button>
-                        </TableCell>
-                      </TableRow>
+                      <DebtRow key={index} event={event} editDebt={editDebt} />
                     ))}
                 </TableBody>
               </Table>
