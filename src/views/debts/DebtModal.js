@@ -23,7 +23,7 @@ const DebtModal = ({ open, close, editingDebt }) => {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const { alert } = useAlert()
-  const { data, submit } = useData()
+  const { data, submit, condo } = useData()
 
   const [form, setForm] = useState({ due_date: moment().format() })
   const [date, setDate] = useState(moment().format())
@@ -85,11 +85,16 @@ const DebtModal = ({ open, close, editingDebt }) => {
             required
           >
             {data &&
-              data.residents.map((resident) => (
-                <MenuItem key={resident.id} value={resident.id}>
-                  {resident.name}
-                </MenuItem>
-              ))}
+              data.residents
+                .filter((r) => {
+                  if (condo) return r.condo_id === condo.id
+                  return r
+                })
+                .map((resident) => (
+                  <MenuItem key={resident.id} value={resident.id}>
+                    {resident.name}
+                  </MenuItem>
+                ))}
           </TextField>
 
           <DatePicker
