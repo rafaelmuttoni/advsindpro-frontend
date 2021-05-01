@@ -89,7 +89,7 @@ const ServiceModal = ({ creatingEvent, close, editingService }) => {
             variant="outlined"
             margin="normal"
             name="provider_id"
-            label="Provedor"
+            label="Prestador"
             type="text"
             fullWidth
             value={form.provider_id || ""}

@@ -122,7 +122,7 @@ const EventModal = ({ creatingEvent, close, editingEvent }) => {
             multiline
             rows={4}
           />
-          <FormControl variant="outlined" fullWidth margin="normal">
+          <FormControl variant="outlined" fullWidth margin="normal" required>
             <InputLabel id="priority-label">Prioridade</InputLabel>
             <Select
               labelId="priority-label"
