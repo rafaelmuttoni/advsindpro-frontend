@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 const DebtsView = () => {
   const classes = useStyles()
-  const { data } = useData()
+  const { data, condo } = useData()
 
   const [editingDebt, setEditingDebt] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -27,13 +27,23 @@ const DebtsView = () => {
   const [filter, setFilter] = useState('')
 
   const filteredDebts = data
-    ? data.debts.filter((debt) => {
-        const { name: residentName } = data.residents.find(
-          (r) => r.id === debt.resident_id,
-        )
-        const name = residentName.toLowerCase()
-        return name.includes(filter.toLowerCase())
-      })
+    ? data.debts
+        .filter((d) => {
+          if (condo) {
+            const { condo_id: condoId } = data.residents.find(
+              (r) => r.id === d.resident_id
+            )
+            return condoId === condo.id
+          }
+          return d
+        })
+        .filter((debt) => {
+          const { name: residentName } = data.residents.find(
+            (r) => r.id === debt.resident_id
+          )
+          const name = residentName.toLowerCase()
+          return name.includes(filter.toLowerCase())
+        })
     : []
 
   useEffect(() => {
