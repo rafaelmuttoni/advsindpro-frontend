@@ -1,19 +1,17 @@
-import React from "react";
-import { Page, Text, Document, StyleSheet } from "@react-pdf/renderer";
+import React from 'react'
+import { Page, Text, Document, StyleSheet } from '@react-pdf/renderer'
 
-const Letter = () => (
+const Letter = ({ title, resident, address, price }) => (
   <Document>
     <Page style={styles.body}>
       <Text style={styles.header} fixed>
         Porto Alegre, 25 de Janeiro de 2020
       </Text>
-      <Text style={styles.person}>Ilmo(a). Sr.(a) Rafael Muttoni Costa </Text>
-      <Text style={styles.person}>
-        Residente no Endereço Travessa Jaguarão 77
-      </Text>
+      <Text style={styles.person}>Ilmo(a). Sr.(a) {resident}</Text>
+      <Text style={styles.person}>Residente no Endereço {address}</Text>
       <Text style={styles.debt}>Ref. Débito do Condomínio XYZ</Text>
       <Text style={styles.debt}>Período em atraso: 5 meses</Text>
-      <Text style={styles.debt}>Valor: R$1000,00</Text>
+      <Text style={styles.debt}>Valor: {price}</Text>
 
       <Text style={styles.text}>Prezado(a) Senhor(a):</Text>
       <Text style={styles.text}>
@@ -49,7 +47,7 @@ const Letter = () => (
       />
     </Page>
   </Document>
-);
+)
 
 const styles = StyleSheet.create({
   body: {
@@ -60,32 +58,32 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 12,
     marginBottom: 20,
-    textAlign: "right",
-    color: "grey",
+    textAlign: 'right',
+    color: 'grey',
   },
   person: {
     fontSize: 12,
-    textAlign: "left",
+    textAlign: 'left',
   },
   debt: {
     fontSize: 12,
-    textAlign: "right",
+    textAlign: 'right',
   },
   text: {
     margin: 12,
     fontSize: 14,
-    textAlign: "justify",
+    textAlign: 'justify',
   },
 
   pageNumber: {
-    position: "absolute",
+    position: 'absolute',
     fontSize: 10,
     bottom: 20,
     left: 0,
     right: 0,
-    textAlign: "center",
-    color: "grey",
+    textAlign: 'center',
+    color: 'grey',
   },
-});
+})
 
-export default Letter;
+export default Letter

@@ -17,7 +17,11 @@ import {
   TablePagination,
   TableRow,
 } from '@material-ui/core'
+
 import { useData } from 'src/context/DataContext'
+
+import { PDFDownloadLink } from '@react-pdf/renderer'
+import Letter from 'src/pdf/Letter'
 
 const useStyles = makeStyles((theme) => ({
   topCard: {
@@ -84,9 +88,9 @@ const DebtsTable = ({ debts, togglePayment }) => {
 
   const confirmedPayments = debts.filter(({ payment_status }) => payment_status)
 
-  const residentName = (id) => {
-    const { name } = data.residents.find((r) => r.id === id)
-    return name
+  const residentData = (id, key) => {
+    const resident = data.residents.find((r) => r.id === id)
+    return resident[key]
   }
 
   return (
@@ -118,7 +122,9 @@ const DebtsTable = ({ debts, togglePayment }) => {
                     )
                     .map((event, index) => (
                       <TableRow key={index}>
-                        <TableCell>{residentName(event.resident_id)}</TableCell>
+                        <TableCell>
+                          {residentData(event.resident_id, 'name')}
+                        </TableCell>
                         <TableCell>{event.title}</TableCell>
                         <TableCell>
                           {event.price.toLocaleString('pt-BR', {
@@ -130,9 +136,30 @@ const DebtsTable = ({ debts, togglePayment }) => {
                           {moment(event.due_date).format('DD/MM/YYYY')}
                         </TableCell>
                         <TableCell>
-                          <Button color="secondary" variant="contained">
-                            Gerar PDF
-                          </Button>
+                          <PDFDownloadLink
+                            document={
+                              <Letter
+                                title={event.tile}
+                                resident={residentData(
+                                  event.resident_id,
+                                  'name'
+                                )}
+                                address={residentData(
+                                  event.resident_id,
+                                  'address'
+                                )}
+                                price={event.price.toLocaleString('pt-BR', {
+                                  style: 'currency',
+                                  currency: 'BRL',
+                                })}
+                              />
+                            }
+                            fileName="letter.pdf"
+                          >
+                            <Button color="secondary" variant="contained">
+                              Gerar PDF
+                            </Button>
+                          </PDFDownloadLink>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -182,7 +209,9 @@ const DebtsTable = ({ debts, togglePayment }) => {
                     )
                     .map((event, index) => (
                       <TableRow key={index}>
-                        <TableCell>{residentName(event.resident_id)}</TableCell>
+                        <TableCell>
+                          {residentData(event.resident_id, 'name')}
+                        </TableCell>
                         <TableCell>{event.title}</TableCell>
                         <TableCell>
                           {event.price.toLocaleString('pt-BR', {
