@@ -10,6 +10,9 @@ import {
   DialogActions,
   InputAdornment,
   MenuItem,
+  FormControl,
+  InputLabel,
+  Select,
 } from "@material-ui/core";
 import moment from "moment";
 import { DateTimePicker } from "@material-ui/pickers";
@@ -144,6 +147,7 @@ const ServiceModal = ({ creatingEvent, close, editingService }) => {
                 <InputAdornment position="start">R$</InputAdornment>
               ),
             }}
+            required
           />
 
           <TextField
@@ -157,6 +161,21 @@ const ServiceModal = ({ creatingEvent, close, editingService }) => {
             multiline
             rows={4}
           />
+
+          <FormControl variant="outlined" fullWidth margin="normal" required>
+            <InputLabel id="priority-label">Prioridade</InputLabel>
+            <Select
+              labelId="priority-label"
+              name="priority"
+              onChange={({ target }) => handleChange(target)}
+              value={form.priority || ""}
+              label="Prioridade"
+            >
+              <MenuItem value={1}>1</MenuItem>
+              <MenuItem value={2}>2</MenuItem>
+              <MenuItem value={3}>3</MenuItem>
+            </Select>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={closeAndClear} color="primary">

@@ -9,6 +9,9 @@ import {
   DialogContent,
   DialogActions,
   MenuItem,
+  FormControl,
+  Select,
+  InputLabel,
 } from "@material-ui/core";
 import moment from "moment";
 import { DateTimePicker } from "@material-ui/pickers";
@@ -119,6 +122,20 @@ const EventModal = ({ creatingEvent, close, editingEvent }) => {
             multiline
             rows={4}
           />
+          <FormControl variant="outlined" fullWidth margin="normal">
+            <InputLabel id="priority-label">Prioridade</InputLabel>
+            <Select
+              labelId="priority-label"
+              name="priority"
+              onChange={({ target }) => handleChange(target)}
+              value={form.priority || ""}
+              label="Prioridade"
+            >
+              <MenuItem value={1}>1</MenuItem>
+              <MenuItem value={2}>2</MenuItem>
+              <MenuItem value={3}>3</MenuItem>
+            </Select>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={closeAndClear} color="primary">
