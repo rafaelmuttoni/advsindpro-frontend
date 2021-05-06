@@ -16,7 +16,8 @@ import DownloadIcon from '@material-ui/icons/GetApp'
 
 import { useData } from 'src/context/DataContext'
 
-import DownloadPDF from 'src/components/DownloadPDF'
+import DownloadFirstPDF from 'src/components/DownloadPDF/first'
+import DownloadSecondPDF from 'src/components/DownloadPDF/second'
 
 export default function DebtRow({
   event,
@@ -46,7 +47,7 @@ export default function DebtRow({
       <TableCell>{moment(event.due_date).format('DD/MM/YYYY')}</TableCell>
 
       <TableCell>
-        <DownloadPDF
+        <DownloadFirstPDF
           title={event.tile}
           resident={residentData(event.resident_id, 'name')}
           address={residentData(event.resident_id, 'address')}
@@ -56,9 +57,25 @@ export default function DebtRow({
           })}
         >
           <Button color="primary" variant="contained" size="small">
-            Gerar PDF
+            Procedimento
           </Button>
-        </DownloadPDF>
+        </DownloadFirstPDF>
+      </TableCell>
+
+      <TableCell>
+        <DownloadSecondPDF
+          title={event.tile}
+          resident={residentData(event.resident_id, 'name')}
+          address={residentData(event.resident_id, 'address')}
+          price={event.price.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          })}
+        >
+          <Button color="primary" variant="contained" size="small">
+            Acordo
+          </Button>
+        </DownloadSecondPDF>
       </TableCell>
 
       <TableCell>

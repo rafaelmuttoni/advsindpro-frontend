@@ -1,11 +1,11 @@
 import React from 'react'
 import { Page, Text, Document, StyleSheet } from '@react-pdf/renderer'
 
-const Letter = ({ title, resident, address, price }) => (
+const Letter = ({ today, title, resident, address, price }) => (
   <Document>
     <Page style={styles.body}>
       <Text style={styles.header} fixed>
-        Porto Alegre, 25 de Janeiro de 2020
+        Porto Alegre, {today}
       </Text>
       <Text style={styles.person}>Ilmo(a). Sr.(a) {resident}</Text>
       <Text style={styles.person}>Residente no Endereço {address}</Text>

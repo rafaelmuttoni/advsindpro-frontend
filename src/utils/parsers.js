@@ -21,3 +21,9 @@ export const parseCondoAddress = (condo) => {
     core ? ` | N${core}` : ''
   } - ${neighborhood} - ${city}/${state}`
 }
+
+export const parseToSlug = (Text) => {
+  return Text.toLowerCase()
+    .replace(/ /g, '-')
+    .replace(/[^\w-]+/g, '')
+}

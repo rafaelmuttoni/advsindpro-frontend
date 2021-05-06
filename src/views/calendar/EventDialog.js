@@ -119,7 +119,7 @@ export default function EventDialog({ content, close }) {
             <>
               <DialogItem
                 icon={<ProviderIcon />}
-                title={'Provedor'}
+                title={'Prestador'}
                 value={provider.name}
               />
 

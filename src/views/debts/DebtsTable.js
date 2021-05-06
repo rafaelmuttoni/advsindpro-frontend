@@ -112,6 +112,7 @@ const DebtsTable = ({ debts, editDebt, reminder }) => {
                     <TableCell>Valor</TableCell>
                     <TableCell>Vencimento</TableCell>
                     <TableCell>Gerar PDF</TableCell>
+                    <TableCell>Gerar PDF</TableCell>
                     <TableCell>Opções</TableCell>
                   </TableRow>
                 </TableHead>
@@ -167,6 +168,7 @@ const DebtsTable = ({ debts, editDebt, reminder }) => {
                     <TableCell>Título</TableCell>
                     <TableCell>Valor</TableCell>
                     <TableCell>Vencimento</TableCell>
+                    <TableCell>Gerar PDF</TableCell>
                     <TableCell>Gerar PDF</TableCell>
                     <TableCell>Opções</TableCell>
                   </TableRow>
