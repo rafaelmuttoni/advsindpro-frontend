@@ -12,7 +12,6 @@ import {
 
 import ReminderIcon from '@material-ui/icons/NotificationsActive'
 import EditIcon from '@material-ui/icons/Create'
-import DownloadIcon from '@material-ui/icons/GetApp'
 
 import { useData } from 'src/context/DataContext'
 
@@ -32,6 +31,11 @@ export default function DebtRow({
   const residentData = (id, key) => {
     const resident = data.residents.find((r) => r.id === id)
     return resident[key]
+  }
+
+  const getCondoName = (id) => {
+    const { name: condoName } = data.condos.find((c) => c.id === id)
+    return condoName
   }
 
   return (
@@ -65,12 +69,14 @@ export default function DebtRow({
       <TableCell>
         <DownloadSecondPDF
           title={event.tile}
+          condo={getCondoName(residentData(event.resident_id, 'condo_id'))}
           resident={residentData(event.resident_id, 'name')}
           address={residentData(event.resident_id, 'address')}
           price={event.price.toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL',
           })}
+          dueDate={moment(event.due_date).format('MMMM')}
         >
           <Button color="primary" variant="contained" size="small">
             Acordo

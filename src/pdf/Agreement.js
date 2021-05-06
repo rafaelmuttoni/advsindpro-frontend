@@ -1,43 +1,64 @@
 import React from 'react'
 import { Page, Text, Document, StyleSheet } from '@react-pdf/renderer'
 
-const Letter = ({ today, title, resident, address, price }) => (
+const Letter = ({ today, title, condo, resident, address, price, dueDate }) => (
   <Document>
     <Page style={styles.body}>
-      <Text style={styles.header} fixed>
-        Porto Alegre, {today}
-      </Text>
-      <Text style={styles.person}>Ilmo(a). Sr.(a) {resident}</Text>
-      <Text style={styles.person}>Residente no Endereço {address}</Text>
-      <Text style={styles.debt}>Ref. Débito do Condomínio XYZ</Text>
-      <Text style={styles.debt}>Período em atraso: 5 meses</Text>
-      <Text style={styles.debt}>Valor: {price}</Text>
-
-      <Text style={styles.text}>Prezado(a) Senhor(a):</Text>
-      <Text style={styles.text}>
-        Na qualidade de advogado e procurador de MILCOR ASSESSORIA IMOBILIÁRIA,
-        venho através da presente, para informar a V. Sa., que se encontra em
-        nosso escritório, o procedimento de cobrança relativo ao débito indicado
-        acima.
+      <Text style={styles.title} fixed>
+        ACORDO EXTRAJUDICIAL
       </Text>
       <Text style={styles.text}>
-        Outrossim, esclareço que o referido pagamento deverá ser feito
-        diretamente em nosso escritório, sito à Av Assis Brasil, 418, sala 305,
-        Santa Maria Goretti Porto Alegre, RS, no prazo improrrogável de 24
-        (vinte e quatro) horas, a contar do recebimento desta, para o pagamento
-        do débito referido, vencido e não pago até a presente data, de sua
-        responsabilidade.
+        As partes, de um lado, como credor, {condo}, representado por seu
+        advogado, Dr. Alexandre Marcelo de Castro, OAB/RS 69.632, e de outro,
+        como condômino, o sr. {resident} , acordam o que segue referente às
+        cotas condominiais em atraso do imóvel situado na {address}:
       </Text>
       <Text style={styles.text}>
-        Lembro a V. Sa., que o não pagamento do débito em questão no prazo acima
-        implicará na propositura das medidas judiciais cabíveis.
+        1. O condômino reconhece o débito, no valor de {price}, calculados até o
+        dia {title}, que se refere às cotas condominiais vencidas entre os meses
+        de {dueDate}, do imóvel supra, que foram acrescidas de correção
+        monetária pelo IGP-M/FGV, juros de mora, além da multa e honorários
+        advocatícios.
       </Text>
       <Text style={styles.text}>
-        Contando com sua compreensão e providência no sentido de evitar maiores
-        transtornos, ao ensejo, subscrevo-me, sendo que, em caso de V. Sa. já
-        ter efetuado o pagamento supra, pedimos o favor de desconsiderar a
-        presente correspondência.
+        2. As partes acordam, em caráter excepcional, que o pagamento será
+        efetuado em {2} prestações mensais, fixas e consecutivas, cada uma no
+        valor de {price}, vencendo a primeira no dia {2}, e as demais,
+        sucessivamente nos mesmos dias dos meses subsequentes, todas realizadas
+        através de transferência bancária ao Itaú, ag. 6319, conta 25.310-7, de
+        titularidade de Alemcastro Assessoria Imobiliária, CNPJ
+        31.023.469/0001-70, servindo os comprovantes de depósito/transferência
+        como recibos de pagamento.
       </Text>
+      <Text style={styles.text}>
+        3. Estabelecem as partes que o atraso no pagamento de quaisquer das
+        parcelas, seja por qual motivo for, acarretará no vencimento antecipado
+        da dívida, que será recalculada, acrescida de multa, correção monetária
+        pelo IGP-M/FGV, juros legais e honorários advocatícios, desde a data do
+        vencimento até o efetivo pagamento, bem como na tomada das medidas
+        judiciais cabíveis, inclusive com o pedido imediato de execução dos
+        valores aqui reconhecidos, acrescidos ainda dos meses vincendos não
+        pagos.
+      </Text>
+      <Text style={styles.text}>
+        4. O condômino declara estar ciente de que o presente débito compreende
+        a quitação das cotas condominiais até o mês de {2}, comprometendo-se
+        pois, em pagar concomitantemente as cotas condominiais que vencerão a
+        partir de {2}, nas datas de seus vencimentos, sob pena de rescisão do
+        presente acordo, com o consequente ingresso de ação noticiada acima.
+      </Text>
+      <Text style={styles.text}>
+        5. No caso do credor precisar recorrer à Justiça para cobrar seus
+        direitos, ficará o condômino devedor também das custas judiciais e
+        honorários sucumbenciais.
+      </Text>
+      <Text style={styles.text}>
+        6. Elegem as partes o Foro de Porto Alegre para dirimir quaisquer
+        dúvidas oriundas da presente transação.
+      </Text>
+      <Text style={styles.date}>Porto Alegre, {today}</Text>
+      <Text style={styles.signature}>_______________________</Text>
+      <Text style={styles.signature}>_______________________</Text>
       <Text
         style={styles.pageNumber}
         render={({ pageNumber, totalPages }) =>
@@ -55,24 +76,25 @@ const styles = StyleSheet.create({
     paddingBottom: 65,
     paddingHorizontal: 45,
   },
-  header: {
-    fontSize: 12,
+  title: {
+    fontSize: 14,
     marginBottom: 20,
-    textAlign: 'right',
-    color: 'grey',
-  },
-  person: {
-    fontSize: 12,
-    textAlign: 'left',
-  },
-  debt: {
-    fontSize: 12,
-    textAlign: 'right',
+    textAlign: 'center',
   },
   text: {
     margin: 12,
-    fontSize: 14,
+    fontSize: 12,
     textAlign: 'justify',
+  },
+  date: {
+    textAlign: 'left',
+    fontSize: 12,
+    margin: 12,
+  },
+  signature: {
+    textAlign: 'left',
+    fontSize: 12,
+    marginLeft: 12,
   },
 
   pageNumber: {
