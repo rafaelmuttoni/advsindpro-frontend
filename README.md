@@ -30,7 +30,7 @@ Some cool features for improved User Experience:
 1️⃣ The application has a Context with a State that stores a information about which condo is selected (the default is All Condos), so the user can select a specific condo and all the dashboard information will be related to the selected condo.
 2️⃣ When the user is creating a condo, after inputing the zip code the application makes a GET request to [Via Cep's Api](https://viacep.com.br/) to get address information and automatically fills some of the inputs.
 
-You cal also check the [API's repository](https://github.com/rafaelmuttoni/advsindpro-backend/).
+You can also check the [API's repository](https://github.com/rafaelmuttoni/advsindpro-backend/).
 
 ## :information_source: How To Use
 
