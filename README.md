@@ -30,11 +30,11 @@ Some cool features for improved User Experience:
 1️⃣ The application has a Context with a State that stores a information about which condo is selected (the default is All Condos), so the user can select a specific condo and all the dashboard information will be related to the selected condo.
 2️⃣ When the user is creating a condo, after inputing the zip code the application makes a GET request to [Via Cep's Api](https://viacep.com.br/) to get address information and automatically fills some of the inputs.
 
-Check the [API's repository](https://github.com/rafaelmuttoni/advsindpro-backend/).
+You cal also check the [API's repository](https://github.com/rafaelmuttoni/advsindpro-backend/).
 
 ## :information_source: How To Use
 
-To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js](https://nodejs.org/) or [Yarn](https://yarnpkg.com/) on your computer. From your command line:
+If you use [Yarn](https://yarnpkg.com/):
 
 ```bash
 # Clone this repository
@@ -46,8 +46,24 @@ $ cd advsindpro-frontend
 # Install dependencies
 $ yarn
 
-# Run gatsby server
+# Start the React App
 $ yarn dev
+```
+
+If you use [Node.js](https://nodejs.org/):
+
+```bash
+# Clone this repository
+$ git clone https://github.com/rafaelmuttoni/advsindpro-frontend
+
+# Go into the repository
+$ cd advsindpro-frontend
+
+# Install dependencies
+$ npm install
+
+# Start the React App
+$ npm run dev
 ```
 
 ---
