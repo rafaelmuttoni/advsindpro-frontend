@@ -1,112 +1,55 @@
-## [Devias Kit - Admin Dashboard](https://react-material-dashboard.devias.io/) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?text=%F0%9F%9A%A8Devias%20Freebie%20Alert%20-%20An%20awesome%20ready-to-use%20register%20page%20made%20with%20%23material%20%23react%0D%0Ahttps%3A%2F%2Fdevias.io%20%23createreactapp%20%23devias%20%23material%20%23freebie%20%40devias-io)
+![Netlify Status](https://api.netlify.com/api/v1/badges/6ec35d25-adc1-40e7-be1e-4d73e816d5fa/deploy-status)
 
-![license](https://img.shields.io/badge/license-MIT-blue.svg)
+<p>
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/rafaelmuttoni/advsindpro-frontend.svg">
 
-[![React Material Dashboard](https://s3.eu-west-2.amazonaws.com/devias/products/react-material-dashboard/react-material-free-xl.jpg)](https://react-material-dashboard.devias.io/)
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/rafaelmuttoni/advsindpro-frontend.svg">
 
-> Free React Dashboard made with [Material UI's](https://material-ui.com/?ref=devias-io) components, [React](https://reactjs.org/?ref=devias-io) and of course [create-react-app](https://facebook.github.io/create-react-app/?ref=devias-io) to boost your app development process! We'll launch a pro version soon, so if you are interested subscribe to our personal emailing list on [https://devias.io/](https://devias.io/)
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/rafaelmuttoni/advsindpro-frontend.svg">
 
-## Upgrade to PRO Version
+  <a href="https://github.com/rafaelmuttoni/advsindpro-frontend/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/rafaelmuttoni/advsindpro-frontend.svg">
+  </a>
 
-We also have a pro version of this product which bundles even more pages and components if you want to save more time and design efforts :)
+  <a href="https://github.com/rafaelmuttoni/advsindpro-frontend/issues">
+    <img alt="Repository issues" src="https://img.shields.io/github/issues/rafaelmuttoni/advsindpro-frontend.svg">
+  </a>
+</p>
 
+<h1>
+    AdvSind Pro
+</h1>
 
-| Free Version (this one)              | [Devias Kit PRO](https://material-ui.com/store/items/devias-kit-pro/) |
-| ------------------------ | :----------------------------------------------------------- |
-| **7** Demo Pages         | **32** demo pages
-| -                        | ✔ Dark & light mode
-| -                        | ✔ Authentication with **Auth0** & **Firebase**  
-| -                        | ✔ TypeScript version                                                                                   
-| -                        | ✔ Design files (sketch & figma) - for extended license       
-| -                        | ✔ Complete users flows                                       
+<p>A Web App built for a Condo Manager who also works as a Lawyer.</p>
 
-## Demo
+## :rocket: Technologies
 
-- [Dashboard Page](https://react-material-dashboard.devias.io/app/dashboard)
-- [Users Page](https://react-material-dashboard.devias.io/app/customers)
-- [Products Page](https://react-material-dashboard.devias.io/app/products)
-- [Register Page](https://react-material-dashboard.devias.io/register)
-- [Login Page](https://react-material-dashboard.devias.io/login)
-- [Account Page](https://react-material-dashboard.devias.io/app/account)
-- [Settings Page](https://react-material-dashboard.devias.io/app/settings)
+This project was built with React and Material UI (using Material Kit's boilerplate). It's using Axios to communicate with the API, FullCalendar (with Moment) for an awesome Calendar/Schedule and React-pdf for automating PDF creation.
 
+Some cool features for improved User Experience:
+1️⃣ The application has a Context with a State that stores a information about which condo is selected (the default is All Condos), so the user can select a specific condo and all the dashboard information will be related to the selected condo.
+2️⃣ When the user is creating a condo, after inputing the zip code the application makes a GET request to [Via Cep's Api](https://viacep.com.br/) to get address information and automatically fills some of the inputs.
 
-## Quick start
+Check the [API's repository](https://github.com/rafaelmuttoni/advsindpro-backend/).
 
-- [Download from Github](https://github.com/devias-io/react-material-dashboard/archive/master.zip) or [Download from Devias](https://devias.io/products/material-react-dashboard) or clone the repo: `git clone https://github.com/devias-io/react-material-dashboard.git`
+## :information_source: How To Use
 
-- Make sure your NodeJS and npm versions are up to date for `React 16.8.6`
+To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js](https://nodejs.org/) or [Yarn](https://yarnpkg.com/) on your computer. From your command line:
 
-- Install dependencies: `npm install` or `yarn`
+```bash
+# Clone this repository
+$ git clone https://github.com/rafaelmuttoni/advsindpro-frontend
 
-- Start the server: `npm run start` or `yarn start`
+# Go into the repository
+$ cd advsindpro-frontend
 
-- Views are on: `localhost:3000`
+# Install dependencies
+$ yarn
 
-## Documentation
-
-The documentation for the React Material Kit is can be found [here](https://material-ui.com?ref=devias-io).
-
-## 🖌 Design Files
-
-👉[Download Sketch file](https://s3.eu-west-2.amazonaws.com/devias/products/react-material-dashboard/react-material-dashboard-free.sketch)
-
-👉[Download Figma file](https://devias.s3.eu-west-2.amazonaws.com/products/react-material-dashboard/react-material-dashboard-free.fig)
-
-## File Structure
-
-Within the download you'll find the following directories and files:
-
-```
-material-react-dashboard
-
-├── .eslintrc
-├── .gitignore
-├── .prettierrc
-├── CHANGELOG.md
-├── jsconfig.json
-├── LICENSE.md
-├── package.json
-├── README.md
-├── public
-├── docs
-└── src
-	├── assets
-	├── common
-	├── components
-	├── helpers
-	├── icons
-	├── layouts
-	├── theme
-	├── views
-	│	├── Account
-	│	├── Dashboard
-	│	├── Icons
-	│	├── NotFound
-	│	├── ProductList
-	│	├── Settings
-	│	├── SignIn
-	│	├── SignUp
-	│	├── Typography
-	│	└── UserList
-	├── App.jsx
-	├── index.jsx
-	└── Routes.jsx
+# Run gatsby server
+$ yarn dev
 ```
 
-## Resources
+---
 
-- More freebies like this one: <https://devias.io>
-
-## Reporting Issues:
-
-- [Github Issues Page](https://github.com/devias-io/react-material-dashboard/issues?ref=devias-io)
-
-## License
-
-- Licensed under MIT (https://github.com/devias-io/react-material-dashboard/blob/master/LICENSE.md)
-
-## Contact Us
-
-- Email Us: contact@devias.io
-- [Follow us on Instagram](https://www.instagram.com/deviasio/)
+:wave: [Get in touch!](https://www.linkedin.com/in/rafaelmuttoni/)
