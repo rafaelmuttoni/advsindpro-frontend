@@ -8,6 +8,7 @@ import { useData } from 'src/context/DataContext'
 import DebtsTable from './DebtsTable'
 import DebtModal from './DebtModal'
 import ReminderDialog from './ReminderDialog'
+import DealModal from './DealModal'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +27,7 @@ const DebtsView = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const [remindDebt, setRemindDebt] = useState(false)
+  const [dealModal, setDealModal] = useState(false)
 
   const [filter, setFilter] = useState('')
 
@@ -58,6 +60,10 @@ const DebtsView = () => {
     setIsModalOpen(false)
   }
 
+  const openDealModal = (dealData) => {
+    setDealModal(dealData)
+  }
+
   return (
     <Page className={classes.root} title="Inadimplências">
       <Container maxWidth={false}>
@@ -73,6 +79,7 @@ const DebtsView = () => {
             debts={filteredDebts}
             editDebt={setEditingDebt}
             reminder={(event) => setRemindDebt(event)}
+            openDealModal={openDealModal}
           />
         </Box>
       </Container>
@@ -80,6 +87,11 @@ const DebtsView = () => {
         open={isModalOpen}
         close={closeModal}
         editingDebt={editingDebt}
+      />
+      <DealModal
+        open={Boolean(dealModal)}
+        close={() => setDealModal(false)}
+        dealData={dealModal}
       />
       <ReminderDialog
         isOpen={Boolean(remindDebt)}

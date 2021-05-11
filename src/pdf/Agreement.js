@@ -1,7 +1,18 @@
 import React from 'react'
 import { Page, Text, Document, StyleSheet } from '@react-pdf/renderer'
 
-const Letter = ({ today, title, condo, resident, address, price, dueDate }) => (
+const Letter = ({
+  today,
+  title,
+  condo,
+  resident,
+  address,
+  price,
+  dueDate,
+  dueDay,
+  times,
+  month,
+}) => (
   <Document>
     <Page style={styles.body}>
       <Text style={styles.title} fixed>
@@ -22,8 +33,8 @@ const Letter = ({ today, title, condo, resident, address, price, dueDate }) => (
       </Text>
       <Text style={styles.text}>
         2. As partes acordam, em caráter excepcional, que o pagamento será
-        efetuado em {2} prestações mensais, fixas e consecutivas, cada uma no
-        valor de {price}, vencendo a primeira no dia {2}, e as demais,
+        efetuado em {times} prestações mensais, fixas e consecutivas, cada uma
+        no valor de {price}, vencendo a primeira no dia {dueDay}, e as demais,
         sucessivamente nos mesmos dias dos meses subsequentes, todas realizadas
         através de transferência bancária ao Itaú, ag. 6319, conta 25.310-7, de
         titularidade de Alemcastro Assessoria Imobiliária, CNPJ
@@ -42,7 +53,7 @@ const Letter = ({ today, title, condo, resident, address, price, dueDate }) => (
       </Text>
       <Text style={styles.text}>
         4. O condômino declara estar ciente de que o presente débito compreende
-        a quitação das cotas condominiais até o mês de {2}, comprometendo-se
+        a quitação das cotas condominiais até o mês de {month}, comprometendo-se
         pois, em pagar concomitantemente as cotas condominiais que vencerão a
         partir de {2}, nas datas de seus vencimentos, sob pena de rescisão do
         presente acordo, com o consequente ingresso de ação noticiada acima.

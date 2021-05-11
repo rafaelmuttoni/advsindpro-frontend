@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const DebtsTable = ({ debts, editDebt, reminder }) => {
+const DebtsTable = ({ debts, editDebt, reminder, openDealModal }) => {
   const classes = useStyles()
   const [anchorEls, setAnchorEls] = React.useState([])
 
@@ -132,6 +132,7 @@ const DebtsTable = ({ debts, editDebt, reminder }) => {
                         anchorEl={anchorEls[event.id]}
                         openMenu={handleActionClick}
                         closeMenu={handleActionClose}
+                        openDealModal={openDealModal}
                       />
                     ))}
                 </TableBody>
@@ -189,6 +190,7 @@ const DebtsTable = ({ debts, editDebt, reminder }) => {
                         anchorEl={anchorEls[event.id]}
                         openMenu={handleActionClick}
                         closeMenu={handleActionClose}
+                        openDealModal={openDealModal}
                       />
                     ))}
                 </TableBody>

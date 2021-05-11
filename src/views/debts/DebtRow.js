@@ -13,10 +13,10 @@ import {
 import ReminderIcon from '@material-ui/icons/NotificationsActive'
 import EditIcon from '@material-ui/icons/Create'
 
+import { parseToReal } from 'src/utils/parsers'
 import { useData } from 'src/context/DataContext'
 
 import DownloadFirstPDF from 'src/components/DownloadPDF/first'
-import DownloadSecondPDF from 'src/components/DownloadPDF/second'
 
 export default function DebtRow({
   event,
@@ -25,6 +25,7 @@ export default function DebtRow({
   anchorEl,
   openMenu,
   closeMenu,
+  openDealModal,
 }) {
   const { data } = useData()
 
@@ -52,7 +53,7 @@ export default function DebtRow({
 
       <TableCell>
         <DownloadFirstPDF
-          title={event.tile}
+          title={event.title}
           resident={residentData(event.resident_id, 'name')}
           address={residentData(event.resident_id, 'address')}
           price={event.price.toLocaleString('pt-BR', {
@@ -67,21 +68,23 @@ export default function DebtRow({
       </TableCell>
 
       <TableCell>
-        <DownloadSecondPDF
-          title={event.tile}
-          condo={getCondoName(residentData(event.resident_id, 'condo_id'))}
-          resident={residentData(event.resident_id, 'name')}
-          address={residentData(event.resident_id, 'address')}
-          price={event.price.toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          })}
-          dueDate={moment(event.due_date).format('MMMM')}
+        <Button
+          color="primary"
+          variant="contained"
+          size="small"
+          onClick={() =>
+            openDealModal({
+              title: event.title,
+              condo: getCondoName(residentData(event.resident_id, 'condo_id')),
+              resident: residentData(event.resident_id, 'name'),
+              address: residentData(event.resident_id, 'address'),
+              price: parseToReal(event.price),
+              dueDate: moment(event.due_date).format('MMMM'),
+            })
+          }
         >
-          <Button color="primary" variant="contained" size="small">
-            Acordo
-          </Button>
-        </DownloadSecondPDF>
+          Acordo
+        </Button>
       </TableCell>
 
       <TableCell>
