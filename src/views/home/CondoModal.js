@@ -14,21 +14,26 @@ import moment from 'moment'
 import { DatePicker } from '@material-ui/pickers'
 import axios from 'axios'
 
+import { useAuth } from 'src/context/AuthContext'
 import { useAlert } from 'src/context/AlertContext'
 import { useData } from 'src/context/DataContext'
 
 const CondoModal = ({ open, close, editingCondo }) => {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const { user } = useAuth()
   const { alert } = useAlert()
   const { submit } = useData()
 
-  const [form, setForm] = useState({ initial_date: moment().format() })
+  const [form, setForm] = useState({
+    initial_date: moment().format(),
+    manager: user.name,
+  })
   const [loading, setLoading] = useState(false)
   const [date, setDate] = useState(moment().format())
 
   const closeAndClear = () => {
-    setForm({ initial_date: moment().format() })
+    setForm({ initial_date: moment().format(), manager: user.name })
     close()
   }
 
