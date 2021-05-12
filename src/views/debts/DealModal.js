@@ -11,15 +11,16 @@ import {
   MenuItem,
 } from '@material-ui/core'
 
+import { useAuth } from 'src/context/AuthContext'
+
 import DownloadSecondPDF from 'src/components/DownloadPDF/second'
 
 export default function DealModal({ open, close, dealData }) {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const { user } = useAuth()
 
   const [form, setForm] = useState({})
-
-  console.log(form)
 
   const closeAndClear = () => {
     setForm(dealData)
@@ -28,7 +29,7 @@ export default function DealModal({ open, close, dealData }) {
 
   useEffect(() => {
     setForm(dealData)
-  }, [])
+  }, [dealData])
 
   const handleChange = (target) => {
     const { name, value } = target
@@ -106,11 +107,13 @@ export default function DealModal({ open, close, dealData }) {
         </Button>
         {form.times && form.dueDay && form.month ? (
           <DownloadSecondPDF
+            user={user}
             title={form.title || ''}
             condo={form.condo || ''}
             resident={form.resident || ''}
             address={form.address || ''}
             price={form.price || ''}
+            priceInFull={form.priceInFull || ''}
             dueDate={form.dueDate || ''}
             dueDay={form.dueDay || ''}
             times={form.times || ''}

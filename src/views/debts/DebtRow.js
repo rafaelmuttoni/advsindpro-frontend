@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import extenso from 'extenso'
 
 import {
   Button,
@@ -80,6 +81,10 @@ export default function DebtRow({
               resident: residentData(event.resident_id, 'name'),
               address: residentData(event.resident_id, 'address'),
               price: parseToReal(event.price),
+              priceInFull: extenso(event.price, {
+                mode: 'currency',
+                currency: { type: 'BRL' },
+              }),
               dueDate: moment(event.due_date).format('MMMM'),
             })
           }

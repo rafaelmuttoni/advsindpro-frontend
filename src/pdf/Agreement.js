@@ -2,12 +2,14 @@ import React from 'react'
 import { Page, Text, Document, StyleSheet } from '@react-pdf/renderer'
 
 const Letter = ({
+  user,
   today,
   title,
   condo,
   resident,
   address,
   price,
+  priceInFull,
   dueDate,
   dueDay,
   times,
@@ -20,14 +22,14 @@ const Letter = ({
       </Text>
       <Text style={styles.text}>
         As partes, de um lado, como credor, {condo}, representado por seu
-        advogado, Dr. Alexandre Marcelo de Castro, OAB/RS 69.632, e de outro,
-        como condômino, o sr. {resident} , acordam o que segue referente às
-        cotas condominiais em atraso do imóvel situado na {address}:
+        advogado, Dr. {user.name}, OAB/RS {user.oab}, e de outro, como
+        condômino, o sr. {resident} , acordam o que segue referente às cotas
+        condominiais em atraso do imóvel situado na {address}:
       </Text>
       <Text style={styles.text}>
-        1. O condômino reconhece o débito, no valor de {price}, calculados até o
-        dia {title}, que se refere às cotas condominiais vencidas entre os meses
-        de {dueDate}, do imóvel supra, que foram acrescidas de correção
+        1. O condômino reconhece o débito, no valor de {priceInFull}, calculados
+        até o dia {title}, que se refere às cotas condominiais vencidas entre os
+        meses de {dueDate}, do imóvel supra, que foram acrescidas de correção
         monetária pelo IGP-M/FGV, juros de mora, além da multa e honorários
         advocatícios.
       </Text>
