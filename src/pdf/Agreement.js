@@ -57,8 +57,8 @@ const Letter = ({
         4. O condômino declara estar ciente de que o presente débito compreende
         a quitação das cotas condominiais até o mês de {month}, comprometendo-se
         pois, em pagar concomitantemente as cotas condominiais que vencerão a
-        partir de {2}, nas datas de seus vencimentos, sob pena de rescisão do
-        presente acordo, com o consequente ingresso de ação noticiada acima.
+        partir de {month}, nas datas de seus vencimentos, sob pena de rescisão
+        do presente acordo, com o consequente ingresso de ação noticiada acima.
       </Text>
       <Text style={styles.text}>
         5. No caso do credor precisar recorrer à Justiça para cobrar seus
