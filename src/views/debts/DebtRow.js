@@ -54,6 +54,7 @@ export default function DebtRow({
       <TableCell>
         <DownloadFirstPDF
           title={event.title}
+          condo={getCondoName(residentData(event.resident_id, 'condo_id'))}
           resident={residentData(event.resident_id, 'name')}
           address={residentData(event.resident_id, 'address')}
           price={event.price.toLocaleString('pt-BR', {

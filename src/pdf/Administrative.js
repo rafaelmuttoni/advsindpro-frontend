@@ -1,18 +1,21 @@
 import React from 'react'
-import { Page, Text, Document, StyleSheet } from '@react-pdf/renderer'
+import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer'
 
-const Letter = ({ today, title, resident, address, price }) => (
+const Letter = ({ today, title, condo, resident, address, price }) => (
   <Document>
     <Page style={styles.body}>
       <Text style={styles.header} fixed>
         Porto Alegre, {today}
       </Text>
-      <Text style={styles.person}>Ilmo(a). Sr.(a) {resident}</Text>
-      <Text style={styles.person}>Residente no Endereço {address}</Text>
-      <Text style={styles.debt}>Ref. Débito do Condomínio XYZ</Text>
-      <Text style={styles.debt}>Período em atraso: 5 meses</Text>
-      <Text style={styles.debt}>Valor: {price}</Text>
-
+      <View style={styles.person}>
+        <Text>Ilmo(a). Sr.(a) {resident}</Text>
+        <Text>Residente no Endereço {address}</Text>
+      </View>
+      <View style={styles.debt}>
+        <Text>Ref. Débito do {condo}</Text>
+        <Text>Período em atraso: {title}</Text>
+        <Text>Valor: {price}</Text>
+      </View>
       <Text style={styles.text}>Prezado(a) Senhor(a):</Text>
       <Text style={styles.text}>
         Na qualidade de advogado e procurador de MILCOR ASSESSORIA IMOBILIÁRIA,
@@ -38,6 +41,9 @@ const Letter = ({ today, title, resident, address, price }) => (
         ter efetuado o pagamento supra, pedimos o favor de desconsiderar a
         presente correspondência.
       </Text>
+      <Text style={styles.text}>Atenciosamente,</Text>
+      <Text style={styles.signature}>_______________________</Text>
+      <Text style={styles.signature}>Dptº Jurídico</Text>
       <Text
         style={styles.pageNumber}
         render={({ pageNumber, totalPages }) =>
@@ -62,19 +68,28 @@ const styles = StyleSheet.create({
     color: 'grey',
   },
   person: {
-    fontSize: 12,
+    width: '100%',
+    margin: 12,
+    fontSize: 10,
     textAlign: 'left',
   },
   debt: {
+    width: '100%',
+    margin: 12,
     fontSize: 12,
     textAlign: 'right',
   },
   text: {
     margin: 12,
-    fontSize: 14,
+    fontSize: 12,
     textAlign: 'justify',
   },
-
+  signature: {
+    marginLeft: 12,
+    marginTop: 4,
+    fontSize: 12,
+    textAlign: 'left',
+  },
   pageNumber: {
     position: 'absolute',
     fontSize: 10,
