@@ -9,7 +9,9 @@ const Letter = ({ today, title, condo, resident, address, price }) => (
       </Text>
       <View style={styles.person}>
         <Text>Ilmo(a). Sr.(a) {resident}</Text>
-        <Text>Residente no Endereço {address}</Text>
+        {address.map((el) => (
+          <Text>{el}</Text>
+        ))}
       </View>
       <View style={styles.debt}>
         <Text>Ref. Débito do {condo}</Text>
@@ -26,10 +28,10 @@ const Letter = ({ today, title, condo, resident, address, price }) => (
       <Text style={styles.text}>
         Outrossim, esclareço que o referido pagamento deverá ser feito
         diretamente em nosso escritório, sito à Av Assis Brasil, 418, sala 305,
-        Santa Maria Goretti Porto Alegre, RS, no prazo improrrogável de 24
-        (vinte e quatro) horas, a contar do recebimento desta, para o pagamento
-        do débito referido, vencido e não pago até a presente data, de sua
-        responsabilidade.
+        Santa Maria Goretti Porto Alegre, RS, PIX 31.023.469/0001-70, no prazo
+        improrrogável de 24 (vinte e quatro) horas, a contar do recebimento
+        desta, para o pagamento do débito referido, vencido e não pago até a
+        presente data, de sua responsabilidade.
       </Text>
       <Text style={styles.text}>
         Lembro a V. Sa., que o não pagamento do débito em questão no prazo acima
@@ -59,33 +61,32 @@ const styles = StyleSheet.create({
   body: {
     paddingTop: 35,
     paddingBottom: 65,
-    paddingHorizontal: 45,
+    paddingHorizontal: 65,
   },
   header: {
     fontSize: 12,
-    marginBottom: 20,
+    marginBottom: 40,
     textAlign: 'right',
     color: 'grey',
   },
   person: {
     width: '100%',
-    margin: 12,
-    fontSize: 10,
+    marginBottom: 30,
+    fontSize: 12,
     textAlign: 'left',
   },
   debt: {
     width: '100%',
-    margin: 12,
+    marginBottom: 30,
     fontSize: 12,
     textAlign: 'right',
   },
   text: {
-    margin: 12,
+    marginBottom: 20,
     fontSize: 12,
     textAlign: 'justify',
   },
   signature: {
-    marginLeft: 12,
     marginTop: 4,
     fontSize: 12,
     textAlign: 'left',

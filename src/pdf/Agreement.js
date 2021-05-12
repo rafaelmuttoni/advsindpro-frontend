@@ -23,25 +23,25 @@ const Letter = ({
       <Text style={styles.text}>
         As partes, de um lado, como credor, {condo}, representado por seu
         advogado, Dr. {user.name}, OAB/RS {user.oab}, e de outro, como
-        condômino, o sr. {resident} , acordam o que segue referente às cotas
+        condômino, o sr. {resident}, acordam o que segue referente às cotas
         condominiais em atraso do imóvel situado na {address}:
       </Text>
       <Text style={styles.text}>
-        1. O condômino reconhece o débito, no valor de {priceInFull}, calculados
-        até o dia {title}, que se refere às cotas condominiais vencidas entre os
-        meses de {dueDate}, do imóvel supra, que foram acrescidas de correção
-        monetária pelo IGP-M/FGV, juros de mora, além da multa e honorários
-        advocatícios.
+        1. O condômino reconhece o débito, no valor de {price} ({priceInFull}),
+        calculados até o dia {title}, que se refere às cotas condominiais
+        vencidas entre os meses de {dueDate}, do imóvel supra, que foram
+        acrescidas de correção monetária pelo IGP-M/FGV, juros de mora, além da
+        multa e honorários advocatícios.
       </Text>
       <Text style={styles.text}>
         2. As partes acordam, em caráter excepcional, que o pagamento será
         efetuado em {times} prestações mensais, fixas e consecutivas, cada uma
         no valor de {price}, vencendo a primeira no dia {dueDay}, e as demais,
         sucessivamente nos mesmos dias dos meses subsequentes, todas realizadas
-        através de transferência bancária ao Itaú, ag. 6319, conta 25.310-7, de
-        titularidade de Alemcastro Assessoria Imobiliária, CNPJ
-        31.023.469/0001-70, servindo os comprovantes de depósito/transferência
-        como recibos de pagamento.
+        através do PIX 31.023.469/0001-70 ou transferência bancária ao Itaú, ag.
+        6319, conta 25.310-7, de titularidade de Alemcastro Assessoria
+        Imobiliária, CNPJ 31.023.469/0001-70, servindo os comprovantes de
+        depósito/transferência como recibos de pagamento.
       </Text>
       <Text style={styles.text}>
         3. Estabelecem as partes que o atraso no pagamento de quaisquer das
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   body: {
     paddingTop: 35,
     paddingBottom: 65,
-    paddingHorizontal: 45,
+    paddingHorizontal: 65,
   },
   title: {
     fontSize: 14,
@@ -95,19 +95,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   text: {
-    margin: 12,
+    marginBottom: 20,
     fontSize: 12,
     textAlign: 'justify',
   },
   date: {
     textAlign: 'left',
     fontSize: 12,
-    margin: 12,
+    marginBottom: 12,
   },
   signature: {
     textAlign: 'left',
     fontSize: 12,
-    marginLeft: 12,
   },
 
   pageNumber: {

@@ -5,7 +5,7 @@ export const parseToReal = (price) => {
   })
 }
 
-export const parseCondoAddress = (condo) => {
+export const parseCondoAddress = (condo, apartment) => {
   const {
     zipcode,
     street,
@@ -16,6 +16,15 @@ export const parseCondoAddress = (condo) => {
     city,
     state,
   } = condo
+
+  if (apartment) {
+    return [
+      `Residente no Endereço ${street}, ${building} - Apto ${apartment} - Bloco ${block}${
+        core ? ` | N${core}` : ''
+      }`,
+      `${neighborhood} - ${city}/${state} - ${zipcode}`,
+    ]
+  }
 
   return `${street}, ${building} - Bloco ${block}${
     core ? ` | N${core}` : ''

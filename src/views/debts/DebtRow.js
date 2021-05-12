@@ -14,7 +14,7 @@ import {
 import ReminderIcon from '@material-ui/icons/NotificationsActive'
 import EditIcon from '@material-ui/icons/Create'
 
-import { parseToReal } from 'src/utils/parsers'
+import { parseCondoAddress, parseToReal } from 'src/utils/parsers'
 import { useData } from 'src/context/DataContext'
 
 import DownloadFirstPDF from 'src/components/DownloadPDF/first'
@@ -35,9 +35,12 @@ export default function DebtRow({
     return resident[key]
   }
 
-  const getCondoName = (id) => {
-    const { name: condoName } = data.condos.find((c) => c.id === id)
-    return condoName
+  const getCondoData = (id, key) => {
+    const condo = data.condos.find((c) => c.id === id)
+    if (key) {
+      return condo[key]
+    }
+    return condo
   }
 
   return (
@@ -55,9 +58,15 @@ export default function DebtRow({
       <TableCell>
         <DownloadFirstPDF
           title={event.title}
-          condo={getCondoName(residentData(event.resident_id, 'condo_id'))}
+          condo={getCondoData(
+            residentData(event.resident_id, 'condo_id'),
+            'name'
+          )}
           resident={residentData(event.resident_id, 'name')}
-          address={residentData(event.resident_id, 'address')}
+          address={parseCondoAddress(
+            getCondoData(residentData(event.resident_id, 'condo_id')),
+            residentData(event.resident_id, 'apartment')
+          )}
           price={event.price.toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL',
@@ -77,7 +86,10 @@ export default function DebtRow({
           onClick={() =>
             openDealModal({
               title: event.title,
-              condo: getCondoName(residentData(event.resident_id, 'condo_id')),
+              condo: getCondoData(
+                residentData(event.resident_id, 'condo_id'),
+                'name'
+              ),
               resident: residentData(event.resident_id, 'name'),
               address: residentData(event.resident_id, 'address'),
               price: parseToReal(event.price),
