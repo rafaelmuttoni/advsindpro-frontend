@@ -1,5 +1,12 @@
 import React from 'react'
-import { Document, Image, Page, StyleSheet, Text } from '@react-pdf/renderer'
+import {
+  Document,
+  Image,
+  Page,
+  StyleSheet,
+  Text,
+  View,
+} from '@react-pdf/renderer'
 
 const Letter = ({
   user,
@@ -71,8 +78,18 @@ const Letter = ({
         dúvidas oriundas da presente transação.
       </Text>
       <Text style={styles.date}>Porto Alegre, {today}</Text>
-      <Text style={styles.signature}>_______________________</Text>
-      <Text style={styles.signature}>_______________________</Text>
+      <View style={styles.signatureContainer}>
+        <View style={styles.firstSignature}>
+          <Text>_______________________</Text>
+          <Text>{condo}</Text>
+        </View>
+
+        <View style={styles.secondSignature}>
+          <Text>_______________________</Text>
+          <Text>{resident}</Text>
+        </View>
+      </View>
+
       <Image style={styles.address} src="/images/address.png" fixed />
     </Page>
   </Document>
@@ -102,11 +119,21 @@ const styles = StyleSheet.create({
   date: {
     textAlign: 'left',
     fontSize: 12,
-    marginBottom: 12,
+    marginBottom: 20,
   },
-  signature: {
-    textAlign: 'left',
+  signatureContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    textAlign: 'center',
+  },
+
+  firstSignature: {
     fontSize: 12,
+    width: '50%',
+  },
+  secondSignature: {
+    fontSize: 12,
+    width: '50%',
   },
 
   address: {
