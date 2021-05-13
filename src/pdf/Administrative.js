@@ -1,9 +1,17 @@
 import React from 'react'
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer'
+import {
+  Document,
+  Image,
+  Page,
+  StyleSheet,
+  Text,
+  View,
+} from '@react-pdf/renderer'
 
 const Letter = ({ today, title, condo, resident, address, price }) => (
   <Document>
     <Page style={styles.body}>
+      <Image src="/images/logo.png" style={styles.logo} />
       <Text style={styles.header} fixed>
         Porto Alegre, {today}
       </Text>
@@ -46,13 +54,7 @@ const Letter = ({ today, title, condo, resident, address, price }) => (
       <Text style={styles.text}>Atenciosamente,</Text>
       <Text style={styles.signature}>_______________________</Text>
       <Text style={styles.signature}>Dptº Jurídico</Text>
-      <Text
-        style={styles.pageNumber}
-        render={({ pageNumber, totalPages }) =>
-          `Página ${pageNumber} de ${totalPages}`
-        }
-        fixed
-      />
+      <Image style={styles.address} src="/images/address.png" fixed />
     </Page>
   </Document>
 )
@@ -63,8 +65,13 @@ const styles = StyleSheet.create({
     paddingBottom: 65,
     paddingHorizontal: 65,
   },
+  logo: {
+    width: '50%',
+    marginHorizontal: 'auto',
+  },
   header: {
     fontSize: 12,
+    marginTop: 30,
     marginBottom: 40,
     textAlign: 'right',
     color: 'grey',
@@ -91,14 +98,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: 'left',
   },
-  pageNumber: {
-    position: 'absolute',
-    fontSize: 10,
-    bottom: 20,
-    left: 0,
-    right: 0,
-    textAlign: 'center',
-    color: 'grey',
+  address: {
+    width: '95%',
+    marginHorizontal: 'auto',
+    marginTop: 'auto',
   },
 })
 

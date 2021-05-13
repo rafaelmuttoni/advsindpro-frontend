@@ -1,31 +1,31 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 import {
   Box,
   Container,
   Typography,
   makeStyles,
   Button,
-} from "@material-ui/core";
-import Page from "src/components/Page";
+} from '@material-ui/core'
+import Page from 'src/components/Page'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
-    height: "100%",
+    height: '100%',
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3),
   },
   image: {
     marginTop: 50,
-    display: "inline-block",
-    maxWidth: "100%",
+    display: 'inline-block',
+    maxWidth: '100%',
     width: 560,
   },
-}));
+}))
 
 const NotFoundView = () => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <Page className={classes.root} title="404">
@@ -35,7 +35,7 @@ const NotFoundView = () => {
         height="100%"
         justifyContent="center"
       >
-        <Container maxWidth="md" style={{ textAlign: "center" }}>
+        <Container maxWidth="md" style={{ textAlign: 'center' }}>
           <Typography
             align="center"
             color="textPrimary"
@@ -54,13 +54,13 @@ const NotFoundView = () => {
             <img
               alt="Under development"
               className={classes.image}
-              src="/static/images/undraw_page_not_found_su7k.svg"
+              src="/images/undraw_page_not_found_su7k.svg"
             />
           </Box>
         </Container>
       </Box>
     </Page>
-  );
-};
+  )
+}
 
-export default NotFoundView;
+export default NotFoundView
