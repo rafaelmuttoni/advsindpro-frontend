@@ -1,13 +1,18 @@
-import React from 'react';
+import React from 'react'
 
 const Logo = (props) => {
   return (
-    <img
-      alt="Logo"
-      src="/static/logo.svg"
-      {...props}
-    />
-  );
-};
+    <div
+      style={{
+        fontWeight: 700,
+        color: '#fff',
+        textDecoration: 'none',
+        fontFamily: 'Roboto, Helvetica, sans-serif',
+      }}
+    >
+      ADVSINDPRO
+    </div>
+  )
+}
 
-export default Logo;
+export default Logo
