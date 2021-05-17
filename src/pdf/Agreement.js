@@ -30,8 +30,8 @@ const Letter = ({
       </Text>
       <Text style={styles.text}>
         As partes, de um lado, como credor, {condo}, representado por seu
-        advogado, Dr. {user.name}, OAB/RS {user.oab}, e de outro, como
-        condômino, o sr. {resident}, acordam o que segue referente às cotas
+        advogado, {user.name}, OAB/RS {user.oab}, e de outro, como condômino,
+        o(a) Sr.(Sra.) {resident}, acordam o que segue referente às cotas
         condominiais em atraso do imóvel situado na {address}:
       </Text>
       <Text style={styles.text}>
