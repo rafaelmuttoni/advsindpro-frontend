@@ -288,6 +288,24 @@ const CondoModal = ({ open, close, editingCondo }) => {
             value={form.gas || ''}
             variant="outlined"
           />
+          <TextField
+            fullWidth
+            label="Nome Distribuidora Gás"
+            margin="normal"
+            name="gas_name"
+            onChange={({ target }) => handleChange(target)}
+            value={form.gas_name || ''}
+            variant="outlined"
+          />
+          <TextField
+            fullWidth
+            label="Telefone Distribuidora Gás"
+            margin="normal"
+            name="gas_phone"
+            onChange={({ target }) => handleChange(target)}
+            value={form.gas_phone || ''}
+            variant="outlined"
+          />
         </DialogContent>
         <DialogActions>
           {!!editingCondo && (
