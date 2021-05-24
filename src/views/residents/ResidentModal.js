@@ -15,6 +15,7 @@ import InputMask from 'react-input-mask'
 import { useAlert } from 'src/context/AlertContext'
 import { useData } from 'src/context/DataContext'
 import { parseCondoAddress } from 'src/utils/parsers'
+import DeleteButton from 'src/components/DeleteButton'
 
 const ResidentModal = ({ open, close, editingResident }) => {
   const theme = useTheme()
@@ -172,6 +173,13 @@ const ResidentModal = ({ open, close, editingResident }) => {
           />
         </DialogContent>
         <DialogActions>
+          {!!editingResident && (
+            <DeleteButton
+              category="residents"
+              id={editingResident.id}
+              closeAndClear={closeAndClear}
+            />
+          )}
           <Button onClick={closeAndClear} color="primary">
             Cancelar
           </Button>

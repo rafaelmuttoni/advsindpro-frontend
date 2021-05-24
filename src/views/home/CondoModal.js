@@ -18,6 +18,8 @@ import { useAuth } from 'src/context/AuthContext'
 import { useAlert } from 'src/context/AlertContext'
 import { useData } from 'src/context/DataContext'
 
+import DeleteButton from 'src/components/DeleteButton'
+
 const CondoModal = ({ open, close, editingCondo }) => {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
@@ -289,6 +291,13 @@ const CondoModal = ({ open, close, editingCondo }) => {
           />
         </DialogContent>
         <DialogActions>
+          {!!editingCondo && (
+            <DeleteButton
+              category="condos"
+              id={editingCondo.id}
+              closeAndClear={closeAndClear}
+            />
+          )}
           <Button onClick={closeAndClear} color="primary">
             Cancelar
           </Button>
