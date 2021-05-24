@@ -128,6 +128,7 @@ const DebtModal = ({ open, close, editingDebt }) => {
                 <InputAdornment position="start">R$</InputAdornment>
               ),
             }}
+            required
           />
           <FormControlLabel
             control={

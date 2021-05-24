@@ -91,7 +91,10 @@ export default function DebtRow({
                 'name'
               ),
               resident: residentData(event.resident_id, 'name'),
-              address: residentData(event.resident_id, 'address'),
+              address: parseCondoAddress(
+                getCondoData(residentData(event.resident_id, 'condo_id')),
+                residentData(event.resident_id, 'apartment')
+              ),
               price: parseToReal(event.price),
               priceInFull: extenso(event.price, {
                 mode: 'currency',
