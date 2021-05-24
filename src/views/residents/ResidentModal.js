@@ -31,7 +31,13 @@ const ResidentModal = ({ open, close, editingResident }) => {
   }
 
   useEffect(() => {
-    !!editingResident && setForm(editingResident)
+    !!editingResident &&
+      setForm({
+        ...editingResident,
+        address: parseCondoAddress(
+          data.condos.find((c) => c.id === Number(editingResident.condo_id))
+        ),
+      })
   }, [editingResident])
 
   const handleChange = (target) => {
