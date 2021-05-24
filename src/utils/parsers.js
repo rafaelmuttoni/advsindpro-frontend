@@ -19,14 +19,14 @@ export const parseCondoAddress = (condo, apartment) => {
 
   if (apartment) {
     return [
-      `Residente no Endereço ${street}, ${building} - Apto ${apartment} - Bloco ${block}${
-        core ? ` | N${core}` : ''
-      }`,
+      `Residente no Endereço ${street}, ${building} - Apto ${apartment}${
+        block ? ` - Bloco ${block}` : ''
+      }${core ? ` | N${core}` : ''}`,
       `${neighborhood} - ${city}/${state} - ${zipcode}`,
     ]
   }
 
-  return `${street}, ${building} - Bloco ${block}${
+  return `${street}, ${building}${block ? ` - Bloco ${block}` : ''}${
     core ? ` | N${core}` : ''
   } - ${neighborhood} - ${city}/${state}`
 }
