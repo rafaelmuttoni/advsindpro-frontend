@@ -192,7 +192,6 @@ const CondoModal = ({ open, close, editingCondo }) => {
               type="text"
               value={form.block || ''}
               variant="outlined"
-              required
             />
           </div>
 
