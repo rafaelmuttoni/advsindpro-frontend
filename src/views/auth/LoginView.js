@@ -30,7 +30,7 @@ const LoginView = () => {
   const alert = useAlert()
 
   if (!loading && signed) {
-    return <Redirect to={state ? state.from : '/dashboard'} />
+    return <Redirect to={state ? state.from : '/'} />
   }
 
   return (
