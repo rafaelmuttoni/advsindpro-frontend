@@ -40,7 +40,11 @@ const CondoModal = ({ open, close, editingCondo }) => {
   }
 
   useEffect(() => {
-    !!editingCondo && setForm(editingCondo)
+    !!editingCondo &&
+      setForm({
+        ...editingCondo,
+        initial_date: moment(editingCondo.initial_date, 'YYYY-MM-DD').format(),
+      })
   }, [editingCondo])
 
   const handleChange = async (target) => {

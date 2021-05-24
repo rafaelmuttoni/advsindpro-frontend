@@ -12,7 +12,9 @@ export const calculateNextBirthdays = (condos) => {
         id: `birthday C${id}-Y${i}`,
         type: 'birthdays',
         title: `Eleição de Síndico`,
-        start: moment(initial_date).add(i, 'y').format('YYYY-MM-DD'),
+        start: moment(initial_date, 'YYYY-MM-DD')
+          .add(i, 'y')
+          .format('YYYY-MM-DD'),
         description: `Eleição de ${i} anos no ${name}`,
         condo_id: id,
       }
@@ -23,7 +25,7 @@ export const calculateNextBirthdays = (condos) => {
         id: `prebirthday C${id}-Y${i}`,
         type: 'birthdays',
         title: `Pré Eleição de Síndico`,
-        start: moment(initial_date)
+        start: moment(initial_date, 'YYYY-MM-DD')
           .add(i, 'y')
           .subtract(1, 'month')
           .format('YYYY-MM-DD'),
