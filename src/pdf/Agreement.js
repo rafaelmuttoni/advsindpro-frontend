@@ -18,7 +18,7 @@ const Letter = ({
   price,
   priceInFull,
   dueDate,
-  dueDay,
+  quotaDate,
   times,
   month,
 }) => (
@@ -44,12 +44,12 @@ const Letter = ({
       <Text style={styles.text}>
         2. As partes acordam, em caráter excepcional, que o pagamento será
         efetuado em {times} prestações mensais, fixas e consecutivas, cada uma
-        no valor de {price}, vencendo a primeira no dia {dueDay}, e as demais,
-        sucessivamente nos mesmos dias dos meses subsequentes, todas realizadas
-        através do PIX 31.023.469/0001-70 ou transferência bancária ao Itaú, ag.
-        6319, conta 25.310-7, de titularidade de Alemcastro Assessoria
-        Imobiliária, CNPJ 31.023.469/0001-70, servindo os comprovantes de
-        depósito/transferência como recibos de pagamento.
+        no valor de {price}, vencendo a primeira no dia {quotaDate}, e as
+        demais, sucessivamente nos mesmos dias dos meses subsequentes, todas
+        realizadas através do PIX 31.023.469/0001-70 ou transferência bancária
+        ao Itaú, ag. 6319, conta 25.310-7, de titularidade de Alemcastro
+        Assessoria Imobiliária, CNPJ 31.023.469/0001-70, servindo os
+        comprovantes de depósito/transferência como recibos de pagamento.
       </Text>
       <Text style={styles.text}>
         3. Estabelecem as partes que o atraso no pagamento de quaisquer das

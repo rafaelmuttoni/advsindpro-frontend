@@ -14,21 +14,24 @@ import {
 import { useAuth } from 'src/context/AuthContext'
 
 import DownloadSecondPDF from 'src/components/DownloadPDF/second'
+import moment from 'moment'
+import { DatePicker } from '@material-ui/pickers'
 
 export default function DealModal({ open, close, dealData }) {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const { user } = useAuth()
 
+  const [date, setDate] = useState(moment().format())
   const [form, setForm] = useState({})
 
   const closeAndClear = () => {
-    setForm(dealData)
+    setForm({ ...dealData, quotaDate: moment().format('DD/MM/YYYY') })
     close()
   }
 
   useEffect(() => {
-    setForm(dealData)
+    setForm({ ...dealData, quotaDate: moment().format('DD/MM/YYYY') })
   }, [dealData])
 
   const handleChange = (target) => {
@@ -57,21 +60,21 @@ export default function DealModal({ open, close, dealData }) {
           required
         />
 
-        <TextField
+        <DatePicker
           fullWidth
           label="Dia Vencimento Parcela"
+          format="DD/MM/YYYY"
           margin="normal"
-          name="dueDay"
-          type="number"
-          onChange={({ target }) => handleChange(target)}
-          value={form.dueDay || ''}
-          variant="outlined"
-          InputProps={{
-            inputProps: {
-              min: 1,
-              max: 31,
-            },
+          name="quotaDate"
+          onChange={(dateTime) => {
+            setDate(dateTime)
+            let date = {}
+            date.value = dateTime.format('DD/MM/YYYY')
+            date.name = 'quotaDate'
+            handleChange(date)
           }}
+          value={date}
+          inputVariant="outlined"
           required
         />
 
@@ -105,7 +108,7 @@ export default function DealModal({ open, close, dealData }) {
         <Button onClick={closeAndClear} color="primary">
           Cancelar
         </Button>
-        {form.times && form.dueDay && form.month ? (
+        {form.times && form.quotaDate && form.month ? (
           <DownloadSecondPDF
             user={user}
             title={form.title || ''}
@@ -115,7 +118,7 @@ export default function DealModal({ open, close, dealData }) {
             price={form.price || ''}
             priceInFull={form.priceInFull || ''}
             dueDate={form.dueDate || ''}
-            dueDay={form.dueDay || ''}
+            quotaDate={form.quotaDate || ''}
             times={form.times || ''}
             month={form.month || ''}
           >
