@@ -51,7 +51,7 @@ const CondoModal = ({ open, close, editingCondo }) => {
     const { name, value } = target
 
     if (name === 'zipcode') {
-      const withoutUnderline = value.split('_').join('')
+      const withoutUnderline = value.replace(/_/g, '')
       if (withoutUnderline.length === 9) {
         setLoading(true)
         const withoutDash = value.split('-').join('')
@@ -84,7 +84,12 @@ const CondoModal = ({ open, close, editingCondo }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const err = await submit('condos', form, Boolean(editingCondo))
+    const formToSubmit = {
+      ...form,
+      gas_phone: form.gas_phone.replace(/_|-/g, ''),
+    }
+
+    const err = await submit('condos', formToSubmit, Boolean(editingCondo))
 
     if (err) {
       alert('Ocorreu um erro na sua solicitação', 'error')
@@ -301,15 +306,25 @@ const CondoModal = ({ open, close, editingCondo }) => {
             value={form.gas_name || ''}
             variant="outlined"
           />
-          <TextField
-            fullWidth
-            label="Telefone Distribuidora Gás"
-            margin="normal"
+
+          <InputMask
+            type="phone"
             name="gas_phone"
             onChange={({ target }) => handleChange(target)}
             value={form.gas_phone || ''}
-            variant="outlined"
-          />
+            mask={'(99)99999-9999'}
+            maskChar="_"
+          >
+            {(inputProps) => (
+              <TextField
+                {...inputProps}
+                fullWidth
+                label="Telefone Distribuidora Gás"
+                margin="normal"
+                variant="outlined"
+              />
+            )}
+          </InputMask>
         </DialogContent>
         <DialogActions>
           {!!editingCondo && (
