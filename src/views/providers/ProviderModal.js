@@ -71,7 +71,7 @@ const ProviderModal = ({ open, close, editingProvider }) => {
             required
           >
             <MenuItem value={'cpf'}>Pessoa física (CPF)</MenuItem>
-            <MenuItem value={'cnpj'}>Pessoa física (CNPJ)</MenuItem>
+            <MenuItem value={'cnpj'}>Pessoa jurídica (CNPJ)</MenuItem>
           </TextField>
           <InputMask
             name="code"
