@@ -64,7 +64,7 @@ const DebtModal = ({ open, close, editingDebt }) => {
         <DialogContent>
           <TextField
             fullWidth
-            label="Nome da cobrança"
+            label="Período de inadimplência"
             margin="normal"
             name="title"
             onChange={({ target }) => handleChange(target)}
