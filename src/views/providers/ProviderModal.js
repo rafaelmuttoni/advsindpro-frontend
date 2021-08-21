@@ -41,7 +41,16 @@ const ProviderModal = ({ open, close, editingProvider }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const err = await submit('providers', form, Boolean(editingProvider))
+    const formToSubmit = {
+      ...form,
+      phone: form.phone.replace(/_|-/g, ''),
+    }
+
+    const err = await submit(
+      'providers',
+      formToSubmit,
+      Boolean(editingProvider)
+    )
 
     if (err) {
       alert('Ocorreu um erro na sua solicitação', 'error')

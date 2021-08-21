@@ -55,7 +55,16 @@ const ResidentModal = ({ open, close, editingResident }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const err = await submit('residents', form, Boolean(editingResident))
+    const formToSubmit = {
+      ...form,
+      phone: form.phone.replace(/_|-/g, ''),
+    }
+
+    const err = await submit(
+      'residents',
+      formToSubmit,
+      Boolean(editingResident)
+    )
 
     if (err) {
       alert('Ocorreu um erro na sua solicitação', 'error')
