@@ -11,6 +11,7 @@ import {
 const Letter = ({
   user,
   today,
+  todayFormatted,
   title,
   condo,
   resident,
@@ -18,9 +19,12 @@ const Letter = ({
   price,
   priceInFull,
   dueDate,
-  quotaDate,
   times,
-  month,
+  firstQuota,
+  restQuota,
+  quotaDate,
+  dischargeMonth,
+  maturingMonth,
 }) => (
   <Document>
     <Page style={styles.body}>
@@ -36,20 +40,21 @@ const Letter = ({
       </Text>
       <Text style={styles.text}>
         1. O condômino reconhece o débito, no valor de {price} ({priceInFull}),
-        calculados até o dia {title}, que se refere às cotas condominiais
-        vencidas entre os meses de {dueDate}, do imóvel supra, que foram
-        acrescidas de correção monetária pelo IGP-M/FGV, juros de mora, além da
-        multa e honorários advocatícios.
+        calculados até o dia {todayFormatted}, que se refere às cotas
+        condominiais vencidas entre os meses de {title}, do imóvel supra, que
+        foram acrescidas de correção monetária pelo IGP-M/FGV, juros de mora,
+        além da multa e honorários advocatícios.
       </Text>
       <Text style={styles.text}>
         2. As partes acordam, em caráter excepcional, que o pagamento será
-        efetuado em {times} prestações mensais, fixas e consecutivas, cada uma
-        no valor de {price}, vencendo a primeira no dia {quotaDate}, e as
-        demais, sucessivamente nos mesmos dias dos meses subsequentes, todas
-        realizadas através do PIX 31.023.469/0001-70 ou transferência bancária
-        ao Itaú, ag. 6319, conta 25.310-7, de titularidade de Alemcastro
-        Assessoria Imobiliária, CNPJ 31.023.469/0001-70, servindo os
-        comprovantes de depósito/transferência como recibos de pagamento.
+        efetuado em {times} prestações mensais e consecutivas, a primeira no
+        valor de {firstQuota} vencendo no dia {quotaDate}, e as demais,
+        sucessivamente nos mesmos dias dos meses subsequentes no valor de{' '}
+        {restQuota}, todas realizadas através do PIX 31.023.469/0001-70 ou
+        transferência bancária ao Itaú (341), ag. 6319, conta 25.310-7, de
+        titularidade de Alemcastro Assessoria Imobiliária, CNPJ
+        31.023.469/0001-70, servindo os comprovantes de depósito/transferência
+        como recibos de pagamento.
       </Text>
       <Text style={styles.text}>
         3. Estabelecem as partes que o atraso no pagamento de quaisquer das
@@ -63,10 +68,11 @@ const Letter = ({
       </Text>
       <Text style={styles.text}>
         4. O condômino declara estar ciente de que o presente débito compreende
-        a quitação das cotas condominiais até o mês de {month}, comprometendo-se
-        pois, em pagar concomitantemente as cotas condominiais que vencerão a
-        partir de {month}, nas datas de seus vencimentos, sob pena de rescisão
-        do presente acordo, com o consequente ingresso de ação noticiada acima.
+        as cotas condominiais até o mês de {dischargeMonth}, com recalculo ao
+        final do parcelamento, comprometendo-se pois, em pagar concomitantemente
+        as cotas condominiais que vencerão a partir de {maturingMonth}, nas
+        datas de seus vencimentos, sob pena de rescisão do presente acordo, com
+        o consequente ingresso de ação noticiada acima.
       </Text>
       <Text style={styles.text}>
         5. No caso do credor precisar recorrer à Justiça para cobrar seus
@@ -99,7 +105,7 @@ const styles = StyleSheet.create({
   body: {
     paddingTop: 35,
     paddingBottom: 65,
-    paddingHorizontal: 65,
+    paddingHorizontal: 45,
   },
   logo: {
     width: '50%',

@@ -9,6 +9,7 @@ import {
   DialogContent,
   DialogActions,
   MenuItem,
+  InputAdornment,
 } from '@material-ui/core'
 
 import { useAuth } from 'src/context/AuthContext'
@@ -60,9 +61,43 @@ export default function DealModal({ open, close, dealData }) {
           required
         />
 
+        <TextField
+          fullWidth
+          label="Primeira parcela"
+          margin="normal"
+          name="firstQuota"
+          type="number"
+          onChange={({ target }) => handleChange(target)}
+          value={form.firstQuota || ''}
+          variant="outlined"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">R$</InputAdornment>
+            ),
+          }}
+          required
+        />
+
+        <TextField
+          fullWidth
+          label="Parcelas seguintes"
+          margin="normal"
+          name="restQuota"
+          type="number"
+          onChange={({ target }) => handleChange(target)}
+          value={form.restQuota || ''}
+          variant="outlined"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">R$</InputAdornment>
+            ),
+          }}
+          required
+        />
+
         <DatePicker
           fullWidth
-          label="Dia Vencimento Parcela"
+          label="Dia Vencimento Primeira Parcela"
           format="DD/MM/YYYY"
           margin="normal"
           name="quotaDate"
@@ -79,36 +114,37 @@ export default function DealModal({ open, close, dealData }) {
         />
 
         <TextField
-          select
           variant="outlined"
-          label="Mês de quitação"
+          label="Mês final de quitação"
           margin="normal"
-          name="month"
-          type="text"
+          name="dischargeMonth"
           fullWidth
-          value={form.month || ''}
+          value={form.dischargeMonth || ''}
           onChange={({ target }) => handleChange(target)}
           required
-        >
-          <MenuItem value="Janeiro">Janeiro</MenuItem>
-          <MenuItem value="Fevereiro">Fevereiro</MenuItem>
-          <MenuItem value="Março">Março</MenuItem>
-          <MenuItem value="Abril">Abril</MenuItem>
-          <MenuItem value="Maio">Maio</MenuItem>
-          <MenuItem value="Junho">Junho</MenuItem>
-          <MenuItem value="Julho">Julho</MenuItem>
-          <MenuItem value="Agosto">Agosto</MenuItem>
-          <MenuItem value="Setembro">Setembro</MenuItem>
-          <MenuItem value="Outubro">Outubro</MenuItem>
-          <MenuItem value="Novembro">Novembro</MenuItem>
-          <MenuItem value="Dezembro">Dezembro</MenuItem>
-        </TextField>
+        />
+
+        <TextField
+          variant="outlined"
+          label="Mês vincendo"
+          margin="normal"
+          name="maturingMonth"
+          fullWidth
+          value={form.maturingMonth || ''}
+          onChange={({ target }) => handleChange(target)}
+          required
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={closeAndClear} color="primary">
           Cancelar
         </Button>
-        {form.times && form.quotaDate && form.month ? (
+        {form.times &&
+        form.firstQuota &&
+        form.restQuota &&
+        form.quotaDate &&
+        form.dischargeMonth &&
+        form.maturingMonth ? (
           <DownloadSecondPDF
             user={user}
             title={form.title || ''}
@@ -118,9 +154,26 @@ export default function DealModal({ open, close, dealData }) {
             price={form.price || ''}
             priceInFull={form.priceInFull || ''}
             dueDate={form.dueDate || ''}
-            quotaDate={form.quotaDate || ''}
             times={form.times || ''}
-            month={form.month || ''}
+            firstQuota={
+              form.firstQuota
+                ? Number(form.firstQuota).toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  })
+                : ''
+            }
+            restQuota={
+              form.restQuota
+                ? Number(form.restQuota).toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  })
+                : ''
+            }
+            quotaDate={form.quotaDate || ''}
+            dischargeMonth={form.dischargeMonth || ''}
+            maturingMonth={form.maturingMonth || ''}
           >
             <Button type="submit" color="primary" variant="contained">
               Salvar

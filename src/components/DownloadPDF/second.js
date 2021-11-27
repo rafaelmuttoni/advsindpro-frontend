@@ -9,7 +9,13 @@ import { parseToSlug } from 'src/utils/parsers'
 export default function DownloadPDF({ children, ...rest }) {
   return (
     <PDFDownloadLink
-      document={<Agreement today={moment().format('LL')} {...rest} />}
+      document={
+        <Agreement
+          today={moment().format('LL')}
+          todayFormatted={moment().format('DD/MM/YYYY')}
+          {...rest}
+        />
+      }
       fileName={`${moment().format('YYYY-MM-DD')}-acordo-${parseToSlug(
         rest.resident
       )}.pdf`}

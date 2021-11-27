@@ -108,7 +108,7 @@ const DebtsTable = ({ debts, editDebt, reminder, openDealModal }) => {
                 <TableHead>
                   <TableRow>
                     <TableCell>Condômino</TableCell>
-                    <TableCell>Título</TableCell>
+                    <TableCell>Período</TableCell>
                     <TableCell>Valor</TableCell>
                     <TableCell>Vencimento</TableCell>
                     <TableCell>Gerar PDF</TableCell>
@@ -166,7 +166,7 @@ const DebtsTable = ({ debts, editDebt, reminder, openDealModal }) => {
                 <TableHead>
                   <TableRow>
                     <TableCell>Condômino</TableCell>
-                    <TableCell>Título</TableCell>
+                    <TableCell>Período</TableCell>
                     <TableCell>Valor</TableCell>
                     <TableCell>Vencimento</TableCell>
                     <TableCell>Gerar PDF</TableCell>
